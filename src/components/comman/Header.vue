@@ -1,10 +1,10 @@
 <template>
-    <el-container id="container">
-        <el-col :span="2">
-            <img src="../../assets/oil.png">
+    <el-container id="container" style="background: #008080">
+        <el-col :span="2" >
+            <img src="../../assets/icon/logo-meeting.png" style="margin-left: 32%">
         </el-col>
         <el-col :span="18" id="col-18">
-            <h3 style="font-size: 1.7em;margin-top: 12px">中国石油大学<small>&nbsp;&nbsp;<small>会议室管理系统</small></small></h3>
+            <h3 style="font-size: 1.7em;margin-top: 1.4%">会议室管理系统</h3>
         </el-col>
         <el-col :span="1">
             <br/>
@@ -85,7 +85,6 @@
 
 <style scoped>
     #container {
-        background: #008080;
         height: 100%;
         color: aliceblue;
     }

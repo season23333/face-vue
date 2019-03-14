@@ -1,7 +1,7 @@
 <template>
-    <el-container>
-        <el-tabs type="border-card">
-            <el-tab-pane label="按时间找会议室">
+    <el-container style="height: 100%">
+        <el-tabs type="card" style="height: 100%">
+            <el-tab-pane label="按时间预定">
                 <el-row type="flex"
                         justify="start">
                     <el-col :span="6">
@@ -40,23 +40,7 @@
 
                                     </el-form-item>
                                 </el-row>
-                                <el-form-item label="即时配送" prop="delivery">
-                                    <el-switch v-model="form.delivery"></el-switch>
-                                </el-form-item>
-                                <el-form-item label="活动性质" prop="type">
-                                    <el-checkbox-group v-model="form.type">
-                                        <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                                        <el-checkbox label="地推活动" name="type"></el-checkbox>
-                                        <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                                        <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                                    </el-checkbox-group>
-                                </el-form-item>
-                                <el-form-item label="特殊资源" prop="resource">
-                                    <el-radio-group v-model="form.resource">
-                                        <el-radio label="线上品牌商赞助"></el-radio>
-                                        <el-radio label="线下场地免费"></el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
+
                                 <el-form-item label="活动形式" prop="desc">
                                     <el-input type="textarea" v-model="form.desc"></el-input>
                                 </el-form-item>
@@ -82,7 +66,15 @@
                 </el-row>
                 <Table></Table>
             </el-tab-pane>
-            <el-tab-pane label="按会议室找时间">按会议室找时间</el-tab-pane>
+                <el-tab-pane label="按会议室预定">
+
+
+                    <Room>
+
+                    </Room>
+
+                </el-tab-pane>
+
         </el-tabs>
     </el-container>
 </template>
@@ -91,13 +83,15 @@
     import Time from "@/components/order/Time";
     import Multi from "@/components/order/Multi";
     import Table from "@/components/order/Table";
+    import Room from "@/components/order/Room";
 
     export default {
         name: "Main.vue",
         components: {
             Time,
             Multi,
-            Table
+            Table,
+            Room
         },
         data() {
             return {

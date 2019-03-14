@@ -1,14 +1,14 @@
 <template>
-    <div id="service">
-        <el-container>
+    <div id="service" style="height: 100%">
+        <el-container style="height: 100%">
             <el-header id="header">
                 <Header></Header>
             </el-header>
-            <el-container>
+            <el-container style="height: 100%">
                 <el-aside width="16%">
                     <Aside></Aside>
                 </el-aside>
-                <el-main>
+                <el-main style="background: #F6F7FA;height: 100%">
                     <router-view></router-view>
                 </el-main>
             </el-container>
@@ -29,6 +29,11 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        height: 100%;
+    }
 </style>

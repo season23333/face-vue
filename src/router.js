@@ -5,6 +5,8 @@ import Service from './views/Service.vue'
 import Index from './views/Index'
 import Check from './views/Check'
 import Test from './views/Test'
+import Guide from './views/Guides'
+import Mocktest from './views/Mocktest'
 
 
 Vue.use(Router)
@@ -17,6 +19,12 @@ export default new Router({
             path: '/test',
             name: 'test',
             component: Test,
+        },
+        {
+            path: '/mocktest',
+            name: 'mocktest',
+            component: Mocktest,
+
         },
         {
             path: '/service',
@@ -37,6 +45,11 @@ export default new Router({
                     path: '/check',
                     name: 'check',
                     component: Check
+                },
+                {
+                    path: '/guide',
+                    name: 'guide',
+                    component: Guide
                 }
             ]
         }

@@ -2,10 +2,13 @@
     <el-table
             :data="tableData"
             style="width: 100%"
-            max-height="250"
+            height="400"
             border
             id="table"
-            :cell-class-name="cellClassName">
+            :cell-class-name="cellClassName"
+            :header-cell-style="{background:'#E6F2F2'}">
+
+
         <el-table-column
                 label="详情"
                 fixed
@@ -31,11 +34,19 @@
                     prop="time0800"
                     label="00"
                     width="40">
+                <template scope="scope">
+                    <div :class="scope.row.time0800 === 1 ? 'used':''"></div>
+                    <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
+                </template>
             </el-table-column>
             <el-table-column
                     prop="time0815"
                     label="15"
                     width="40">
+                <template scope="scope">
+                    <div :class="scope.row.time0815 === 1 ? 'used':''"></div>
+                    <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
+                </template>
             </el-table-column>
             <el-table-column
                     prop="time0830"
@@ -273,41 +284,33 @@
 
 <script>
     /* eslint-disable no-unused-vars */
+    import '@/util/mock'
+    import axios from 'axios';
 
     export default {
         name: "Table",
         methods: {
             cellClassName({row, column, rowIndex, columnIndex}) {
-                if ((columnIndex === 4 || columnIndex === 2 || columnIndex === 3) && (rowIndex === 2)) {
-                    return 'used'
+                if (columnIndex > 1) {
+                    return 'test'
+                } else {
+                    return 'xiaowangshixiaoshazi'
                 }
-            },
+            }
         },
         data() {
             return {
-                tableData: [{
-                    id: '100',
-                    time: '无'
-                }, {
-                    id: '101',
-                    time: '无'
-                }, {
-                    id: '102',
-                    time: '08:00-08:45'
-                }, {
-                    id: '103',
-                    time: '无'
-                }, {
-                    id: '104',
-                    time: '无'
-                }, {
-                    id: '105',
-                    time: '无'
-                }, {
-                    id: '106',
-                    time: '无'
-                }]
+                tableData: []
             }
+        },
+        mounted() {
+            // axios.get('/list').then(res => {
+            //     this.text = res.data.tableData;
+            //     console.log(res);
+            // })
+            axios.get('/list').then(res => {
+                this.tableData = res.data.tableData;
+            })
         }
     }
 </script>
@@ -318,6 +321,30 @@
     }
 
     .el-table .used {
-        background: #008080;
+        background: #FAEECC;
+        width: 100%;
+        height: 100%;
+        /*width: 9px;*/
+        /*height: 18px;*/
+        /*border-right:2px solid #EA7669;*/
+        /*border-bottom:2px solid #EA7669;*/
+        /*transform: rotate(40deg);*/
+        /*margin-left: 30%;*/
+
+    }
+
+    .el-table .test {
+        padding: 0;
+    }
+
+    .el-table .test .cell {
+        padding: 0;
+        width: 100%;
+        height: 40px;
+    }
+
+    .el-table .xiaowangshixiaoshazi {
+        padding: 8px;
+        background: #E6F2F2;
     }
 </style>

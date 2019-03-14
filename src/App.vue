@@ -1,15 +1,15 @@
 <template>
-    <div id="app">
+    <div id="app" style="position:absolute; left:0; top:0; width:100%;height:100%;">
         <router-view></router-view>
-        <!--<el-container>-->
-            <!--<el-header id="header">-->
+        <!--<el-container style="background: red;height: 100%">-->
+            <!--<el-header id="header" style="background: white">-->
                 <!--<Header></Header>-->
             <!--</el-header>-->
             <!--<el-container>-->
-                <!--<el-aside width="16%">-->
+                <!--<el-aside width="16%" style="background: yellow">-->
                     <!--<Aside></Aside>-->
                 <!--</el-aside>-->
-                <!--<el-main>-->
+                <!--<el-main style="background: green">-->
                     <!--<router-view></router-view>-->
                 <!--</el-main>-->
             <!--</el-container>-->
@@ -18,14 +18,11 @@
 </template>
 
 <script>
-    import Header from './components/comman/Header'
-    import Aside from './components/comman/Aside'
 
     export default {
         name: 'app',
         components: {
-            Header,
-            Aside
+
         }
     }
 </script>
@@ -39,8 +36,13 @@
         color: #2c3e50;
     }
 
+    html {
+        height: 100%;
+    }
+
     body {
         margin: 0;
+        height: 100%;
     }
 
     #header {

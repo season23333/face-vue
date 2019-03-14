@@ -1,6 +1,6 @@
 <template>
-    <div id="order">
-        <el-container>
+    <div id="order" style="height: 100%">
+        <el-container style="height: 100%">
             <el-header>
                 <Header></Header>
             </el-header>

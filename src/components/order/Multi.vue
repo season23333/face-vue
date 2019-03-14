@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    const cityOptions = ['白板', '投影仪', '电话', '视频会议'];
+    const cityOptions = ['白板', '投影仪', '空调'];
     export default {
         name: "Multi",
         data() {

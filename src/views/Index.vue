@@ -1,5 +1,5 @@
 <template>
-    <div id="index">
+    <div id="index" style="height: 100%">
         <Card></Card>
     </div>
 </template>
@@ -16,6 +16,12 @@
     }
 </script>
 
-<style scoped>
+<style>
+    html{
+        height: 100%;
+    }
 
+    body{
+        height: 100%;
+    }
 </style>

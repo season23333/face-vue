@@ -1,19 +1,23 @@
 <template>
-    <div>
+    <div style="height: 100%                                                                                                                                                                                                                                                                                                                                                    ">
         <el-row :gutter="20">
             <el-col :span="6">
                 <el-container>
                     <section class="panel">
                         <el-container>
-                            <div class="symbol terques" >
-                                <el-container >
-                                    <img src="../../assets/icon/user.png" class="icon-user" style="height: 50% ; width: 50%">
-                                </el-container>
+                            <div>
+                                <div class="symbol" style="background: #6CCAC9">
+                                    <el-container>
+                                        <img src="../../assets/icon/user.png" class="icon-user"
+                                             style="height: 50% ; width: 50%">
+                                    </el-container>
+                                </div>
+                                <div class="value" style="padding-top: 10px">
+                                    <h3 style="font-size: 45px ">{{num}}</h3>
+                                    <p style="margin-top: 2px">空闲会议室</p>
+                                </div>
                             </div>
-                            <div class="value" style="padding-top: 10px">
-                                <h3 style="font-size: 45px ">5</h3>
-                                <p style="margin-top: 2px">空闲会议室</p>
-                            </div>
+
                         </el-container>
                     </section>
                 </el-container>
@@ -22,13 +26,14 @@
                 <el-container>
                     <section class="panel">
                         <el-container>
-                            <div class="symbol red">
+                            <div class="symbol" style="background: #FF6C60">
                                 <el-container>
-                                    <img src="../../assets/icon/meeting.png" class="icon-meeting" style="height: 70% ; width:70%">
+                                    <img src="../../assets/icon/meeting.png" class="icon-meeting"
+                                         style="height: 70% ; width:70%">
                                 </el-container>
                             </div>
                             <div class="value" style="padding-top: 10px">
-                                <h3 style="font-size: 45px ">1</h3>
+                                <h3 style="font-size: 45px ">{{ num }}</h3>
                                 <p style="margin-top: 2px">正在召开会议</p>
                             </div>
                         </el-container>
@@ -39,9 +44,10 @@
                 <el-container>
                     <section class="panel">
                         <el-container>
-                            <div class="symbol yellow">
+                            <div class="symbol" style="background: #F8D347">
                                 <el-container>
-                                    <img src="../../assets/icon/telephone.png" class="icon-telephone" style="height: 55% ; width:55%">
+                                    <img src="../../assets/icon/telephone.png" class="icon-telephone"
+                                         style="height: 57% ; width:57%">
                                 </el-container>
                             </div>
                             <div class="value" style="padding-top: 10px">
@@ -56,9 +62,10 @@
                 <el-container>
                     <section class="panel">
                         <el-container>
-                            <div class="symbol blue">
+                            <div class="symbol" style="background: #57C8F2">
                                 <el-container>
-                                    <i class="iconfont icon-user" style="font-size: 60px"></i>
+                                    <img src="../../assets/icon/label.png" class="icon-telephone"
+                                         style="height: 55% ; width:55%">
                                 </el-container>
                             </div>
                             <div class="value" style="padding-top: 10px">
@@ -71,50 +78,15 @@
             </el-col>
 
         </el-row>
-        <el-row :gutter="35">
-            <el-col :span="10">
-                <el-row :gutter="0">
-                    <el-col :span="2">
-                        <i class="el-icon-tickets" style="margin-top: 20px"></i>
-                    </el-col>
-                    <el-col :span="21">
-                        <h3 style="text-align: left">最新公告</h3>
-                    </el-col>
-                </el-row>
-
-                <el-card class="box-card" style="width: 100%">
-                    <div v-for="o in 4" :key="o" class="text item">
-                        {{'列表内容 ' + o }}
-                    </div>
-                </el-card>
-            </el-col>
-
-            <el-col :span="14">
-                <el-row :gutter="0">
-                    <el-col :span="2">
-                        <i class="el-icon-tickets" style="margin-top: 20px"></i>
-                    </el-col>
-                    <el-col :span="21">
-                        <h3 style="text-align: left">待审核预约</h3>
-                    </el-col>
-                </el-row>
-
-                <el-card class="box-card" style="width: 100%">
-                    <div v-for="o in 4" :key="o" class="text item">
-                        {{'列表内容 ' + o }}
-                    </div>
-                </el-card>
-            </el-col>
-        </el-row>
         <br>
         <br>
         <el-row :gutter="40">
             <el-col :span="10">
                 <div class="grid-content">
-                    <el-card class="box-card" style="width: 100% ; height: 455px">
+                    <el-card class="box-card" style="width: 100% ; height: 455px " shadow="always">
                         <div slot="header" class="clearfix" style="text-align: left">
-                            <i class="el-icon-edit-outline" ></i>&nbsp;
-                            <span style="font-size: 1.2em ; font-weight: bold ">会议安排</span>
+                            <i class="el-icon-tickets"></i>&nbsp;
+                            <span style="font-size: 1.2em ; font-weight: bold ">最新公告</span>
                         </div>
                         <div v-for="o in 4" :key="o" class="text item">
                             {{'列表内容 ' + o }}
@@ -123,10 +95,16 @@
                 </div>
             </el-col>
             <el-col :span="14">
-                <div >
-
-
-
+                <div class="grid-content">
+                    <el-card class="box-card" style="width: 100% ; height: 455px" shadow="always">
+                        <div slot="header" class="clearfix" style="text-align: left">
+                            <i class="el-icon-edit-outline"></i>&nbsp;
+                            <span style="font-size: 1.2em ; font-weight: bold ">我的会议</span>
+                        </div>
+                        <div v-for="o in 4" :key="o" class="text item">
+                            {{'列表内容 ' + o }}
+                        </div>
+                    </el-card>
                 </div>
 
             </el-col>
@@ -135,36 +113,66 @@
 </template>
 
 <script>
+    import {text} from '../../api/table'
+
     export default {
         name: "Card",
+        data() {
+            return {
+                num: 0,
+            }
+        },
+        created() {
+            this.getList();
+            console.log(text);
+        },
+        methods:{
+            getList(){
+                text().then(response=>{
+                    this.num = response.data;
+                    console.log(response.data);
+
+                })
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .icon-user{
+
+    .shadow {
+        -webkit-box-shadow: #666 0px 0px 10px;
+        -moz-box-shadow: #666 0px 0px 10px;
+        box-shadow: #666 0px 0px 10px;
+    }
+
+    .icon-user {
 
         margin-top: 20%;
         margin-left: 25%;
     }
-    .icon-meeting{
+
+    .icon-meeting {
 
         margin-top: 10%;
         margin-left: 16%;
     }
-    .icon-telephone{
 
-        margin-top: 19%;
-        margin-left: 24%;
+    .icon-telephone {
+
+        margin-top: 16%;
+        margin-left: 23%;
     }
-    .panel{
-        background-color: #FFFFFF;
+
+    .panel {
+        background-color: white;
         margin-bottom: 0;
         border-radius: 4px;
         height: 100%;
         width: 100%;
     }
 
-    .symbol{
+    .symbol {
         width: 40%;
         padding: 2px 1px;
         border-radius: 4px 0px 0px 4px;
@@ -173,22 +181,23 @@
         height: 100px;
     }
 
-    .terques{
-        background: #6ccac9;
+    .terques {
+        background: #6CCAC9;
     }
 
-    .red{
-        background: #ff6c60;
+    .red {
+        background: #FE8D84;
     }
 
-    .yellow{
-        background: #f8d347;
+    .yellow {
+        background: #6CCAC9;
     }
 
-    .blue{
-        background: #57c8f2;
+    .blue {
+        background: #6CCAC9;
     }
-    .value{
+
+    .value {
         width: 58%;;
         padding-top: 0;
         float: right;

@@ -10,12 +10,16 @@
                 router>
             <el-menu-item index="/index">
                 <i class="el-icon-menu"></i>
-                <span slot="title">主页</span>
+                <span slot="title">主页 &nbsp; &nbsp; &nbsp;</span>
             </el-menu-item>
-            <el-menu-item index="/order">
-                <i class="el-icon-document"></i>
-                <span slot="title">预定会议</span>
-            </el-menu-item>
+            <el-submenu index="1">
+                <template slot="title">
+                    <i class="el-icon-location"></i>
+                    <span>会议预定</span>
+                </template>
+                <el-menu-item index="/order">快速预定</el-menu-item>
+                <el-menu-item index="/guide">向导预定</el-menu-item>
+            </el-submenu>
             <el-menu-item index="/check">
                 <i class="el-icon-setting"></i>
                 <span slot="title">查看会议</span>
