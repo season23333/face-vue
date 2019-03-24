@@ -10,6 +10,7 @@ import './util/mock'
 import 'vuetify/dist/vuetify.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
+import echarts from 'echarts'
 
 Vue.config.productionTip = false
 Vue.prototype.$http=axios

@@ -18,6 +18,8 @@
                                 v-model="date"
                                 type="date"
                                 placeholder="选择日期"
+                                format="yyyy-MM-dd "
+                                value-format="yyyy-MM-dd"
                                 @change="getSelectData(date)">
                         </el-date-picker>
                     </div>
@@ -137,7 +139,7 @@
                     width="60"
                     type="expand">
                 <template scope="scope">
-                    <span>位置：{{ scope.row.location }}容量：{{scope.row.size}}设备：{{scope.row.equipment}}</span>
+                    <span>位置：{{ scope.row.location}}容量：{{scope.row.size}}设备：{{scope.row.equipment}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -717,12 +719,13 @@
     import axios from 'axios';
 
 
+
     export default {
         name: "guide",
 
         data() {
             return {
-                date: '',
+                date: new Date(),
                 startTime: '',
                 endTime: '',
                 tableData: [{
@@ -851,6 +854,22 @@
             };
         },
         methods: {
+            getSelectData(date) {
+                // this.date1 = date;
+                // console.log(this.date1);
+                // console.log(typeof this.date1);
+                getMeetingList(date).then(response=>{
+                    this.tableData = response.data;
+                    console.log(this.tableData);
+                })
+            },
+
+            getSelectStartTime(startTime, endTime) {
+                for(let item of this.tableData){
+                    console.log(item);
+                }
+            },
+
             prev() {
                 --this.active;
                 if (this.active < 0) this.active = 0;
@@ -859,19 +878,14 @@
                 if (this.active++ > 2) this.active = 0;
             },
 
+
+
+
             onSubmit() {
                 console.log('submit!');
             },
-            getSelectStartTime(startTime, endTime) {
-                getMeetingList(startTime, endTime).then(response => {
-                    this.Data = response.data;
-                    console.log(this.Data);
-                })
-            },
-            getSelectData(date) {
-                this.date1 = date
-                console.log(typeof this.date1);
-            },
+
+
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -895,14 +909,17 @@
 
         },
         mounted() {
-            // axios.get('/list').then(res => {
-            //     this.text = res.data.tableData;
-            //     console.log(res);
-            // })
             axios.get('/list').then(res => {
                 this.tableData = res.data.tableData;
-                console.log(this.tableData.length);
+                console.log(res);
             })
+            // axios.get('/list').then(res => {
+            //     this.tableData = res.data.tableData;
+            //     console.log(this.tableData.length);
+            // })
+            // getMeetingList(this.date).then(response=>{
+            //     this.tableData = response.data.tableData;
+            // })
         }
     }
 </script>

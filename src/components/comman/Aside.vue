@@ -20,9 +20,17 @@
                 <el-menu-item index="/order">快速预定</el-menu-item>
                 <el-menu-item index="/guide">向导预定</el-menu-item>
             </el-submenu>
-            <el-menu-item index="/check">
-                <i class="el-icon-setting"></i>
-                <span slot="title">查看会议</span>
+            <el-submenu index="2">
+                <template slot="title">
+                    <i class="el-icon-setting"></i>
+                    <span>查看会议</span>
+                </template>
+                <el-menu-item index="/order">所有会议</el-menu-item>
+                <el-menu-item index="/mymeeting">我的会议</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="/Form">
+                <i class="el-icon-menu"></i>
+                <span slot="title">数据统计</span>
             </el-menu-item>
         </el-menu>
     </el-col>

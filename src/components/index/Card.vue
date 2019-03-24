@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 100%                                                                                                                                                                                                                                                                                                                                                    ">
-        <el-row :gutter="20">
+    <div style="height: 100%                                                                                                                                                                                                                                                                                                                                               ">
+        <el-row :gutter="20" style="height: 15%;margin-bottom: 3.2%">
             <el-col :span="6">
                 <el-container>
                     <section class="panel">
@@ -78,37 +78,86 @@
             </el-col>
 
         </el-row>
-        <br>
-        <br>
-        <el-row :gutter="40">
+
+
+        <el-row :gutter="40" style="margin-top: 0.8%;height: 45%">
             <el-col :span="10">
                 <div class="grid-content">
-                    <el-card class="box-card" style="width: 100% ; height: 455px " shadow="always">
+                    <el-card class="box-card" style="width: 100% ; height: 295px " shadow="always">
                         <div slot="header" class="clearfix" style="text-align: left">
                             <i class="el-icon-tickets"></i>&nbsp;
-                            <span style="font-size: 1.2em ; font-weight: bold ">最新公告</span>
+                            <span style="font-size: 1.5em ; font-weight: bold ">最新公告</span>
                         </div>
-                        <div v-for="o in 4" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <!--<div v-for="o in 4" :key="o" class="text item">-->
+                            <!--{{'列表内容 ' + o }}-->
+                        <!--</div>-->
+                        <div style="text-align: left">
+                            <span  style="font-size: 18px">我们要隆重召开第一次会议了! <small style="margin-left: 30%">2019.3.1</small></span><br><br>
+                            <span  style="font-size: 18px">我们要隆重召开第一次会议了! <small style="margin-left: 30%">2019.3.1</small></span><br><br>
+                            <span  style="font-size: 18px">我们要隆重召开第一次会议了! <small style="margin-left: 30%">2019.3.1</small></span><br><br>
+                            <span  style="font-size: 18px">我们要隆重召开第一次会议了! <small style="margin-left: 30%">2019.3.1</small></span><br><br>
+                            <span  style="font-size: 18px">我们要隆重召开第一次会议了! <small style="margin-left: 30%">2019.3.1</small></span><br><br>
+
                         </div>
+
                     </el-card>
                 </div>
             </el-col>
             <el-col :span="14">
                 <div class="grid-content">
-                    <el-card class="box-card" style="width: 100% ; height: 455px" shadow="always">
+                    <el-card class="box-card" style="width: 100% ; height: 295px" shadow="always">
                         <div slot="header" class="clearfix" style="text-align: left">
                             <i class="el-icon-edit-outline"></i>&nbsp;
-                            <span style="font-size: 1.2em ; font-weight: bold ">我的会议</span>
+                            <span style="font-size: 1.5em ; font-weight: bold ">常见问题</span>
                         </div>
-                        <div v-for="o in 4" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div style="text-align: left">
+                            <el-tag size="small" >Q</el-tag>
+                            <span style="font-size: 16px" >
+                                会议室预约管理系统能干什么?
+                            </span>
+                            <br>
+                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
+                            <span style="font-size: 16px ; color: darkgrey">
+                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
+                            </span>
+                            <br><br>
+                            <el-tag size="small" >Q</el-tag>
+                            <span style="font-size: 16px" >
+                                会议室预约管理系统能干什么?
+                            </span>
+                            <br>
+                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
+                            <span style="font-size: 16px ; color: darkgrey">
+                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
+                            </span>
+                            <br><br>
+                            <el-tag size="small" >Q</el-tag>
+                            <span style="font-size: 16px" >
+                                会议室预约管理系统能干什么?
+                            </span>
+                            <br>
+                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
+                            <span style="font-size: 16px ; color: darkgrey">
+                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
+                            </span>
+                            <br><br>
                         </div>
                     </el-card>
                 </div>
 
             </el-col>
         </el-row>
+
+        <div style="width: 80%;margin-left: 10%;margin-top: 2.8%">
+            <blockquote style="font-size: 1.83em ; text-align: left ">
+                <span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">
+                    字典里最重要的三个词，就是意志、工作、等待。<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将要在这三块基石上建立我成功的金字塔。——巴斯德
+
+                </span>
+            </blockquote>
+        </div>
+
     </div>
 </template>
 
@@ -230,6 +279,39 @@
 
     .box-card {
         width: 480px;
+    }
+
+    span:hover{
+        color: darkcyan;
+    }
+    @import url(https://fonts.googleapis.com/css?family=Roboto);
+    blockquote {
+        color: darkgrey;
+        /*background-color: #eae6f3;*/
+        /*border-left: 1em solid #5236a0;*/
+        padding: 1em 1.5em 1em 1.5em;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        line-height: 150%;
+        text-indent: 35px;
+    }
+    blockquote:before {
+        color: lightgrey;
+        content: "\201C";
+        font-size: 5em;
+        position:absolute;
+        left:-15px;
+        top: 40px;
+        line-height: 0.1em;
+    }
+    blockquote:after {
+        color: lightgray;
+        content: "\201D";
+        font-size: 5em;
+        position:absolute;
+        right:15px;
+        bottom: 0em;
+        line-height: 0.1em;
     }
 </style>
 

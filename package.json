@@ -11,6 +11,7 @@
     "babel-loader": "^7.1.5",
     "dayspan": "^0.12.2",
     "dayspan-vuetify": "^0.4.0",
+    "echarts": "^4.2.1",
     "element-ui": "^2.5.4",
     "material-design-icons-iconfont": "^3.0.3",
     "mockjs": "^1.0.1-beta3",
