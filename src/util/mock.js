@@ -15,9 +15,8 @@ Mock.mock('/list', 'get', {
         // startTime: '',
         // endTime:'',
         // time0000: 1,
-        time0000: 1,
-        time0800: 1,
-        time0830: 1,
+
+
         // time2330:1,
 
     }, {

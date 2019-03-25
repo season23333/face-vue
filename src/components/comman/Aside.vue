@@ -25,7 +25,7 @@
                     <i class="el-icon-setting"></i>
                     <span>查看会议</span>
                 </template>
-                <el-menu-item index="/order">所有会议</el-menu-item>
+                <el-menu-item index="/">所有会议</el-menu-item>
                 <el-menu-item index="/mymeeting">我的会议</el-menu-item>
             </el-submenu>
             <el-menu-item index="/Form">
