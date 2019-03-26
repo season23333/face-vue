@@ -13,7 +13,7 @@
                                     </el-container>
                                 </div>
                                 <div class="value" style="padding-top: 10px">
-                                    <h3 style="font-size: 45px ">{{num}}</h3>
+                                    <h3 style="font-size: 45px ">{{free_num}}</h3>
                                     <p style="margin-top: 2px">空闲会议室</p>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 </el-container>
                             </div>
                             <div class="value" style="padding-top: 10px">
-                                <h3 style="font-size: 45px ">{{ num }}</h3>
+                                <h3 style="font-size: 45px ">0</h3>
                                 <p style="margin-top: 2px">正在召开会议</p>
                             </div>
                         </el-container>
@@ -78,8 +78,6 @@
             </el-col>
 
         </el-row>
-
-
         <el-row :gutter="40" style="margin-top: 0.8%;height: 45%">
             <el-col :span="10">
                 <div class="grid-content">
@@ -151,7 +149,6 @@
 
             </el-col>
         </el-row>
-
         <div style="width: 80%;margin-left: 10%;margin-top: 2.8%">
             <blockquote style="font-size: 1.83em ; text-align: left ">
                 <span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">
@@ -161,30 +158,28 @@
                 </span>
             </blockquote>
         </div>
-
     </div>
 </template>
 
 <script>
-    import {text} from '../api/table'
+    import {getFreeRoom} from '../api/room'
 
     export default {
         name: "Card",
         data() {
             return {
-                num: 0,
+                free_num: 0,
             }
         },
         created() {
             this.getList();
-            console.log(text);
+            // console.log(text);
         },
         methods: {
             getList() {
-                text().then(response => {
-                    this.num = response.data;
+                getFreeRoom().then(response => {
+                    this.free_num = response.data;
                     console.log(response.data);
-
                 })
             }
         }

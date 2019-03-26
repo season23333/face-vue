@@ -17,8 +17,8 @@
                                 v-model="date"
                                 type="date"
                                 placeholder="选择日期"
-                                format="yyyy-MM-dd "
-                                value-format="yyyy-MM-dd"
+                                format="yyyy-MM-dd"
+                                value-format="yyyy-MM-dd HH:mm:ss"
                                 @change="getSelectData(date)">
                         </el-date-picker>
                     </div>
@@ -753,6 +753,7 @@
 
 <script>
     import {getMeetingList} from '../api/table';
+    import { formatDate } from '../util/formatDate'
     import '@/util/mock';
     import axios from 'axios';
 
@@ -887,14 +888,22 @@
             };
         },
 
+        created() {
+            this.getTableData(this.date);
+            console.log(formatDate(this.date, 'yyyy-MM-dd'));
+        },
+
         methods: {
+            //选择查询日期后请求当天所有的会议数据
             getSelectData(date) {
-                // this.date1 = date;
-                // console.log(this.date1);
-                // console.log(typeof this.date1);
+                console.log(date);
                 getMeetingList(date).then(response => {
                     this.tableData = response.data;
-                    console.log(this.tableData);
+                    // var list = response.data;
+                    // for(var i = 0; i < list.length; i++){
+                    //     this.tableData[i] = list[i];
+                    // }
+                    console.log(this.tableData[0]);
                 })
             },
             getSelectStartTime(startTime, endTime) {
@@ -933,21 +942,27 @@
                     return 'xiaowangshixiaoshazi'
                 }
             },
+            //第一次进入页面请求当天所有会议的数据
+            getTableData(date){
+                getMeetingList(date).then(response => {
+                    console.log(response.data);
+                })
+            }
 
         },
-        mounted() {
-            axios.get('/list').then(res => {
-                this.tableData = res.data.tableData;
-                console.log(res);
-            })
-            // axios.get('/list').then(res => {
-            //     this.tableData = res.data.tableData;
-            //     console.log(this.tableData.length);
-            // })
-            // getMeetingList(this.date).then(response=>{
-            //     this.tableData = response.data.tableData;
-            // })
-        }
+        // mounted() {
+        //     axios.get('/list').then(res => {
+        //         this.tableData = res.data.tableData;
+        //         console.log(res);
+        //     })
+        //     // axios.get('/list').then(res => {
+        //     //     this.tableData = res.data.tableData;
+        //     //     console.log(this.tableData.length);
+        //     // })
+        //     // getMeetingList(this.date).then(response=>{
+        //     //     this.tableData = response.data.tableData;
+        //     // })
+        // }
     }
 </script>
 
