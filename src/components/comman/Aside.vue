@@ -23,14 +23,26 @@
             <el-submenu index="2">
                 <template slot="title">
                     <i class="el-icon-setting"></i>
-                    <span>查看会议</span>
+                    <span>会议管理</span>
                 </template>
-                <el-menu-item index="/">所有会议</el-menu-item>
                 <el-menu-item index="/mymeeting">我的会议</el-menu-item>
+                <el-menu-item index="/">管理会议</el-menu-item>
             </el-submenu>
             <el-menu-item index="/Form">
                 <i class="el-icon-menu"></i>
                 <span slot="title">数据统计</span>
+            </el-menu-item>
+            <el-submenu index="3">
+                <template slot="title">
+                    <i class="el-icon-view"></i>
+                    <span>系统管理</span>
+                </template>
+                <el-menu-item index="">会议室管理</el-menu-item>
+                <el-menu-item index="">用户管理</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="4">
+                <i class="el-icon-edit"></i>
+                <span slot="title">个人中心</span>
             </el-menu-item>
         </el-menu>
     </el-col>

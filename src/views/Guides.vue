@@ -5,7 +5,6 @@
             <el-step title="会议室"></el-step>
             <el-step title="会议详情"></el-step>
         </el-steps>
-
         <div v-if="active===0">
             <el-row :gutter="0">
                 <!--<el-form ref="form" :inline="true" :model="form" class="demo-form-inline" label-width="80px"-->
@@ -41,7 +40,6 @@
                         >
                         </el-time-select>
                         <!--</el-form-item>-->
-
                         <span class="demonstration" style="">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
                         <!--<el-form-item label="结束时间" prop="endTime">-->
                         <el-time-select
@@ -63,64 +61,91 @@
                         </el-button>
                         <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
                         <!--</el-form-item>-->
-
                     </div>
                 </el-col>
                 <!--</el-form>-->
             </el-row>
         </div>
-        <div v-if="active===1">
+        <div v-if="active===1" style="margin-top: 2%">
             <el-row :gutter="0">
-                <el-form ref="form" :inline="true" :model="form" class="demo-form-inline" label-width="80px"
-                         style="margin-top: 2% ">
-                    <el-form-item label="位置" prop="date">
-                        <!--<el-col :span="10">-->
-                        <!--<div class="block" style="margin-top: 5% ; margin-left: 28%">-->
-                        <!--<span class="demonstration" style="margin-right: 2% ;font-size: 16px ">日期：</span>-->
-                        <el-date-picker
-                                v-model="date"
-                                type="date"
-                                placeholder="选择日期"
-                                @change="getSelectData(date)">
-                        </el-date-picker>
-                        <!--</div>-->
-                        <!--</el-col>-->
-                    </el-form-item>
-                    <el-form-item label="容量" prop="endTime">
-                        <el-time-select
-                                placeholder="结束时间"
-                                v-model="endTime"
-                                :picker-options="{
-                            start: '08:30',
-                            step: '00:15',
-                            end: '18:30',
-                            minTime: startTime
-                            }">
-                        </el-time-select>
-                    </el-form-item>
-                    <el-form-item label="设备">
-                        <el-checkbox-group v-model="form.type">
+                <!--<el-form ref="form" :inline="true" :model="form" class="demo-form-inline" label-width="80px"-->
+                <!--style="margin-top: 2% ">-->
+                <!--<el-form-item label="位置" prop="date">-->
+                <!--&lt;!&ndash;<el-col :span="10">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="block" style="margin-top: 5% ; margin-left: 28%">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="demonstration" style="margin-right: 2% ;font-size: 16px ">日期：</span>&ndash;&gt;-->
+                <!--<el-date-picker-->
+                <!--v-model="date"-->
+                <!--type="date"-->
+                <!--placeholder="选择日期"-->
+                <!--@change="getSelectData(date)">-->
+                <!--</el-date-picker>-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="容量" prop="endTime">-->
+                <!--<el-time-select-->
+                <!--placeholder="结束时间"-->
+                <!--v-model="endTime"-->
+                <!--:picker-options="{-->
+                <!--start: '08:30',-->
+                <!--step: '00:15',-->
+                <!--end: '18:30',-->
+                <!--minTime: startTime-->
+                <!--}">-->
+                <!--</el-time-select>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="设备">-->
+                <el-col :span="8">
+                    <span style="margin-left: 30%">
+                        会议地点:
+                    </span>
+                    <el-select v-model="tableData.location" clearable placeholder="请选择会议地点">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="8">
+                    <span>
+                        会议容量:
+                    </span>
+                    <el-select v-model="size" placeholder="请选择会议容量">
+                        <el-option label="20人以下" value="shanghai"></el-option>
+                        <el-option label="20-100人" value="beijing"></el-option>
+                        <el-option label="100人以上" value="beijing"></el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="8">
+                    <div style="margin-top: 2% ; margin-right: 40%">
+                        <el-checkbox-group v-model="equipment">
                             <el-checkbox label="投影仪" name="type" style="margin-right: 10px"></el-checkbox>
                             <el-checkbox label="白板" name="type" style="margin-right: 10px"></el-checkbox>
                             <el-checkbox label="空调" name="type" style="margin-right: 10px"></el-checkbox>
                         </el-checkbox-group>
-                    </el-form-item>
-                    <el-row>
-                        <el-form-item>
-                            <el-col :span="10" style="text-align: left ">
-                                <el-button style="margin-top: 12px" @click="prev" v-if="active==1||active==2">上一步
-                                </el-button>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-col :span="10" style="text-align: right">
-                                <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
-                                </el-button>
-                                <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-form>
+                    </div>
+                </el-col>
+
+                <!--</el-form-item>-->
+                <el-row>
+                    <!--<el-form-item>-->
+                    <el-col :span="12" style="text-align: center ">
+                        <el-button style="margin-top: 12px" @click="prev" v-if="active==1||active==2">上一步
+                        </el-button>
+                    </el-col>
+                    <!--</el-form-item>-->
+                    <!--<el-form-item>-->
+                    <el-col :span="12" style="text-align: center">
+                        <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
+                        </el-button>
+                        <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
+                    </el-col>
+                    <!--</el-form-item>-->
+                </el-row>
+                <!--</el-form>-->
             </el-row>
         </div>
         <el-table
@@ -131,6 +156,7 @@
                 v-if="active===1||active===0"
                 id="table"
                 :cell-class-name="cellClassName"
+                @cell-click="next"
                 :header-cell-style="{background:'#E6F2F2'}">
 
             <el-table-column
@@ -139,7 +165,7 @@
                     width="60"
                     type="expand">
                 <template scope="scope">
-                    <span>位置：{{ scope.row.location}}容量：{{scope.row.size}}设备：{{scope.row.equipment}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容量：{{scope.row.size}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设备：{{scope.row.equipment}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -314,7 +340,8 @@
                 <el-table-column
                         prop="time0800"
                         label="00"
-                        width="40">
+                        width="40"
+                >
                     <template scope="scope">
                         <div :class="scope.row.time0800 === 1 ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
@@ -648,10 +675,10 @@
                                 <el-input v-model="ruleForm.name" style="width: 80%"></el-input>
                             </el-form-item>
                             <el-form-item label="申请人">
-                                <el-input v-model="formInline.user" placeholder="" style="width: 80%;"></el-input>
+                                <el-input v-model="ruleForm.user" style="width: 80%;"></el-input>
                             </el-form-item>
                             <el-form-item label="参与者">
-                                <el-input v-model="formInline.user" placeholder="" style="width: 80%"></el-input>
+                                <el-input v-model="ruleForm.users" style="width: 80%"></el-input>
                             </el-form-item>
                             <el-form-item label="会议内容" prop="desc">
                                 <el-input type="textarea" v-model="ruleForm.desc" style="width: 80%"></el-input>
@@ -666,7 +693,20 @@
                                 </el-button>
                                 <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
                                 </el-button>
-                                <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
+                                <el-button style="margin-top: 12px" v-if="active==2"
+                                           @click="centerDialogVisible = true">提交
+                                </el-button>
+                                <el-dialog
+                                        title="提示"
+                                        :visible.sync="centerDialogVisible"
+                                        width="30%"
+                                        center
+                                >
+                                    <div style="text-align: center ; padding: 0">
+                                        <h3 >会议预定成功</h3>
+                                    </div>
+
+                                </el-dialog>
 
                             </el-form-item>
                         </el-form>
@@ -679,14 +719,14 @@
                             <el-row>
                                 <el-col :span="12">
                                     <div style="text-align: left ; margin-top: 12%">
-                                        <p style="font-size: 14px; color: #606266">会议室名：</p>
-                                        <p style="font-size: 14px; color: #606266">所在位置：</p>
+                                        <p style="font-size: 14px; color: #606266">会议室名：综合楼A417</p>
+                                        <p style="font-size: 14px; color: #606266">所在位置：综合楼A</p>
                                     </div>
                                 </el-col>
                                 <el-col :span="12">
                                     <div style="text-align: left ; margin-top: 12%">
-                                        <p style="font-size: 14px; color: #606266">容量：</p>
-                                        <p style="font-size: 14px; color: #606266">设备：</p>
+                                        <p style="font-size: 14px; color: #606266">容量：20~100人</p>
+                                        <p style="font-size: 14px; color: #606266">设备：投影仪,白板</p>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -694,8 +734,8 @@
                                 会议时间
                             </h3>
                             <div style="text-align: left ; margin-top: 7%">
-                                <p style="font-size: 14px; color: #606266">日期：</p>
-                                <p style="font-size: 14px; color: #606266">时间：</p>
+                                <p style="font-size: 14px; color: #606266">日期：2019年3月26日</p>
+                                <p style="font-size: 14px; color: #606266">时间：11:00--12:00</p>
                             </div>
 
                         </div>
@@ -712,7 +752,6 @@
 </template>
 
 <script>
-
     import {getMeetingList} from '../api/table';
     import '@/util/mock';
     import axios from 'axios';
@@ -780,53 +819,50 @@
                         time2300: '',
                         time2330: '',
                     }
-
                 }
                 ],
 
+                options: [{
+                    value: '选项1',
+                    label: '黄金糕'
+                }, {
+                    value: '选项2',
+                    label: '双皮奶'
+                }, {
+                    value: '选项3',
+                    label: '蚵仔煎'
+                }, {
+                    value: '选项4',
+                    label: '龙须面'
+                }, {
+                    value: '选项5',
+                    label: '北京烤鸭'
+                }],
+
+                location: '',
+                size: '',
+                equipment: '',
+
                 labelPosition: 'right',
                 active: 0,
+                centerDialogVisible: false,
 
-                date1: '',
-                Data: [],
-                form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
-                },
-                sizeForm: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
-                },
-                formInline: {
-                    user: '',
-                    region: ''
-                },
                 ruleForm: {
                     name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
+                    user: '',
+                    users: '',
                     desc: ''
                 },
                 rules: {
                     name: [
-                        {required: true, message: '请输入活动名称', trigger: 'blur'},
+                        {required: true, message: '请输入会议名称', trigger: 'blur'},
                         {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                    ],
+                    user: [
+                        {required: true, message: '请填写活动形式', trigger: 'blur'},
+                    ],
+                    users: [
+                        {required: true, message: '请填写活动形式', trigger: 'blur'},
                     ],
                     region: [
                         {required: true, message: '请选择活动区域', trigger: 'change'}
@@ -850,6 +886,7 @@
 
             };
         },
+
         methods: {
             getSelectData(date) {
                 // this.date1 = date;
@@ -860,13 +897,12 @@
                     console.log(this.tableData);
                 })
             },
-
             getSelectStartTime(startTime, endTime) {
-                for (let item of this.tableData) {
-                    console.log(item);
-                }
+                axios.get('/list1').then(res => {
+                    this.tableData = res.data.tableData;
+                    console.log(res);
+                })
             },
-
             prev() {
                 --this.active;
                 if (this.active < 0) this.active = 0;
@@ -874,13 +910,9 @@
             next() {
                 if (this.active++ > 2) this.active = 0;
             },
-
-
             onSubmit() {
                 console.log('submit!');
             },
-
-
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -900,7 +932,7 @@
                 } else {
                     return 'xiaowangshixiaoshazi'
                 }
-            }
+            },
 
         },
         mounted() {

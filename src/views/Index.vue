@@ -91,18 +91,17 @@
                         <!--<div v-for="o in 4" :key="o" class="text item">-->
                         <!--{{'列表内容 ' + o }}-->
                         <!--</div>-->
-                        <div style="text-align: left">
-                            <span style="font-size: 18px">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 30%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 18px">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 30%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 18px">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 30%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 18px">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 30%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 18px">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 30%">2019.3.1</small></span><br><br>
-
+                        <div style="text-align: left ; padding-top: 2%">
+                            <span style="font-size: 17px ; color: grey ">我们要隆重召开第一次会议了! <small
+                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
+                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
+                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
+                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
+                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
+                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
+                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
+                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
+                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
                         </div>
 
                     </el-card>

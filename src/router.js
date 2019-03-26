@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Order from './views/Order.vue'
 import Service from './views/Service.vue'
 import Index from './views/Index'
-import Check from './views/Check'
+
 import Test from './views/Test'
 import Guide from './views/Guides'
 import Mocktest from './views/Mocktest'
@@ -42,11 +42,6 @@ export default new Router({
                     path: '/index',
                     name: 'index',
                     component: Index
-                },
-                {
-                    path: '/check',
-                    name: 'check',
-                    component: Check
                 },
                 {
                     path: '/guide',

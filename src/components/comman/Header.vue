@@ -16,14 +16,14 @@
                 <el-dropdown-menu slot="dropdown">
                     <a href="">
                         <el-dropdown-item>
-                            黄金糕(1)
+                            未读消息(1)
                         </el-dropdown-item>
                     </a>
-                    <a href="">
-                        <el-dropdown-item>
-                            狮子头(2)
-                        </el-dropdown-item>
-                    </a>
+                    <!--<a href="">-->
+                        <!--<el-dropdown-item>-->
+                            <!--狮子头(2)-->
+                        <!--</el-dropdown-item>-->
+                    <!--</a>-->
                 </el-dropdown-menu>
             </el-dropdown>
         </el-col>
@@ -37,14 +37,14 @@
                 <el-dropdown-menu slot="dropdown">
                     <a href="">
                         <el-dropdown-item>
-                            黄金糕(1)
+                            系统通知(1)
                         </el-dropdown-item>
                     </a>
-                    <a href="">
-                        <el-dropdown-item>
-                            狮子头(2)
-                        </el-dropdown-item>
-                    </a>
+                    <!--<a href="">-->
+                        <!--<el-dropdown-item>-->
+                            <!--狮子头(2)-->
+                        <!--</el-dropdown-item>-->
+                    <!--</a>-->
                 </el-dropdown-menu>
             </el-dropdown>
         </el-col>
@@ -58,12 +58,12 @@
                 <el-dropdown-menu slot="dropdown">
                     <a href="">
                         <el-dropdown-item>
-                            黄金糕(1)
+                            个人照片更新
                         </el-dropdown-item>
                     </a>
                     <a href="">
                         <el-dropdown-item>
-                            狮子头(2)
+                            安全升级
                         </el-dropdown-item>
                     </a>
                 </el-dropdown-menu>
