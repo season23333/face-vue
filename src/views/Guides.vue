@@ -165,494 +165,493 @@
                     width="60"
                     type="expand">
                 <template scope="scope">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容量：{{scope.row.size}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设备：{{scope.row.equipment}}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容量：{{scope.row.capacity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设备：{{scope.row.catalogue}}</span>
                 </template>
             </el-table-column>
             <el-table-column
                     fixed
-                    prop="id"
-                    label="会议室编号"
+                    prop="name"
+                    label="会议室名称"
                     width="150"
                     align="center">
             </el-table-column>
             <el-table-column label="00:00" align="center">
                 <el-table-column
-                        prop="time0000"
+                        prop="zeroFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0000 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.zeroFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0030"
+                        prop="zeroHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0030 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.zeroHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="01:00" align="center">
                 <el-table-column
-                        prop="time0100"
+                        prop="oneFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0100 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.oneFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0130"
+                        prop="oneHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0130 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.oneHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="02:00" align="center">
                 <el-table-column
-                        prop="time0200"
+                        prop="twoFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0200 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twoFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0230"
+                        prop="twoHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0230 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twoHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="03:00" align="center">
                 <el-table-column
-                        prop="time0300"
+                        prop="threeFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0300 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.threeFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0330"
+                        prop="threeHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0330 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.threeHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="04:00" align="center">
                 <el-table-column
-                        prop="time0400"
+                        prop="fourFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0400 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fourFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0430"
+                        prop="fourHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0430 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fourHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="05:00" align="center">
                 <el-table-column
-                        prop="time0500"
+                        prop="fiveFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0500 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fiveFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0530"
+                        prop="fiveHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0530 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fiveHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="06:00" align="center">
                 <el-table-column
-                        prop="time0600"
+                        prop="sixFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0600 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sixFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0630"
+                        prop="sixHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0630 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sixHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
-
             </el-table-column>
             <el-table-column label="07:00" align="center">
                 <el-table-column
-                        prop="time0700"
+                        prop="sevenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0700 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sevenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0730"
+                        prop="sevenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0730 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sevenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="08:00" align="center">
                 <el-table-column
-                        prop="time0800"
+                        prop="eightFull"
                         label="00"
                         width="40"
                 >
                     <template scope="scope">
-                        <div :class="scope.row.time0800 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.eightFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0830"
+                        prop="eightHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0830 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.eightHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="09:00" align="center">
                 <el-table-column
-                        prop="time0900"
+                        prop="nineFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0900 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.nineFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time0930"
+                        prop="nineHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time0930 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.nineHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="10:00" align="center">
                 <el-table-column
-                        prop="time1000"
+                        prop="tenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1000 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.tenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1930"
+                        prop="tenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1030 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.tenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="11:00" align="center">
                 <el-table-column
-                        prop="time1100"
+                        prop="elevenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1100 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.elevenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1130"
+                        prop="elevenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1130 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.elevenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="12:00" align="center">
                 <el-table-column
-                        prop="time1200"
+                        prop="twelveFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1200 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twelveFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1230"
+                        prop="twelveHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1230 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twelveHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="13:00" align="center">
                 <el-table-column
-                        prop="time1300"
+                        prop="thirteenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1300 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.thirteenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1330"
+                        prop="thirteenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1330 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.thirteenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="14:00" align="center">
                 <el-table-column
-                        prop="time1400"
+                        prop="fourteenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1400 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fourteenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1430"
+                        prop="fourteenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1430 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fourteenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="15:00" align="center">
                 <el-table-column
-                        prop="time1500"
+                        prop="fifteenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1500 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fifteenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1530"
+                        prop="fifteenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1530 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.fifteenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="16:00" align="center">
                 <el-table-column
-                        prop="time1600"
+                        prop="sixteenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1600 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sixteenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1630"
+                        prop="sixteenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1630 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.sixteenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="17:00" align="center">
                 <el-table-column
-                        prop="time1700"
+                        prop="seventeenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1700 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.seventeenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1730"
+                        prop="seventeenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1730 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.seventeenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="18:00" align="center">
                 <el-table-column
-                        prop="time1800"
+                        prop="eighteenthFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1800 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.eighteenthFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1830"
+                        prop="eighteenthHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1830 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.eighteenthHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="19:00" align="center">
                 <el-table-column
-                        prop="time1900"
+                        prop="nineteenFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1900 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.nineteenFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time1930"
+                        prop="nineteenHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time1930 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.nineteenHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="20:00" align="center">
                 <el-table-column
-                        prop="time2000"
+                        prop="twentyFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2000 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time2030"
+                        prop="twentyHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2030 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="21:00" align="center">
                 <el-table-column
-                        prop="time2100"
+                        prop="twentyOneFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2100 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyOneFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time2130"
+                        prop="twentyOneHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2130 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyOneHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="22:00" align="center">
                 <el-table-column
-                        prop="time2200"
+                        prop="twentyTwoFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2200 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyTwoFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time2230"
+                        prop="twentyTwoHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2230 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyTwoHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
             </el-table-column>
             <el-table-column label="23:00" align="center">
                 <el-table-column
-                        prop="time2300"
+                        prop="twentyThreeFull"
                         label="00"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2300 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyThreeFull === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="time2330"
+                        prop="twentyThreeHalf"
                         label="30"
                         width="40">
                     <template scope="scope">
-                        <div :class="scope.row.time2330 === 1 ? 'used':''"></div>
+                        <div :class="scope.row.twentyThreeHalf === true ? 'used':''"></div>
                         <!--<span v-if="scope.row.time0800=== 1" >{{scope.$index+1}} </span>-->
                     </template>
                 </el-table-column>
@@ -703,7 +702,7 @@
                                         center
                                 >
                                     <div style="text-align: center ; padding: 0">
-                                        <h3 >会议预定成功</h3>
+                                        <h3>会议预定成功</h3>
                                     </div>
 
                                 </el-dialog>
@@ -753,7 +752,7 @@
 
 <script>
     import {getMeetingList} from '../api/table';
-    import { formatDate } from '../util/formatDate'
+    import {formatDate} from '../util/formatDate'
     import '@/util/mock';
     import axios from 'axios';
 
@@ -766,60 +765,61 @@
                 startTime: '',
                 endTime: '',
                 tableData: [{
+                    roomID: 0,
+                    name: '',
+                    buidling: 0,
                     location: '',
-                    size: '',
-                    equipment: '',
-                    id: '',
-                    time: {
-                        time0000: '',
-                        time0030: '',
-                        time0100: '',
-                        time0130: '',
-                        time0200: '',
-                        time0230: '',
-                        time0300: '',
-                        time0330: '',
-                        time0400: '',
-                        time0430: '',
-                        time0500: '',
-                        time0530: '',
-                        time0600: '',
-                        time0630: '',
-                        time0700: '',
-                        time0730: '',
-                        time0800: '',
-                        time0830: '',
-                        time0900: '',
-                        time0930: '',
-                        time1000: '',
-                        time1030: '',
-                        time1100: '',
-                        time1130: '',
-                        time1200: '',
-                        time1230: '',
-                        time1300: '',
-                        time1330: '',
-                        time1400: '',
-                        time1430: '',
-                        time1500: '',
-                        time1530: '',
-                        time1600: '',
-                        time1630: '',
-                        time1700: '',
-                        time1730: '',
-                        time1800: '',
-                        time1830: '',
-                        time1900: '',
-                        time1930: '',
-                        time2000: '',
-                        time2030: '',
-                        time2100: '',
-                        time2130: '',
-                        time2200: '',
-                        time2230: '',
-                        time2300: '',
-                        time2330: '',
-                    }
+                    capacity: '',
+                    catalogue: '',
+                    flag: 1,
+                    zeroFull: '',
+                    zeroHalf: '',
+                    oneFull: '',
+                    oneHalf: '',
+                    twoFull: '',
+                    twoHalf: '',
+                    threeFull: '',
+                    threeHalf: '',
+                    fourFull: '',
+                    fourHalf: '',
+                    fiveFull: '',
+                    fiveHalf: '',
+                    sixFull: '',
+                    sixHalf: '',
+                    sevenFull: '',
+                    sevenHalf: '',
+                    eightFull: '',
+                    eightHalf: '',
+                    nineFull: '',
+                    nineHalf: '',
+                    tenFull: '',
+                    tenHalf: '',
+                    elevenFull: '',
+                    elevenHalf: '',
+                    twelveFull: '',
+                    twelveHalf: '',
+                    thirteenFull: '',
+                    thirteenHalf: '',
+                    fourteenFull: '',
+                    fourteenHalf: '',
+                    fifteenFull: '',
+                    fifteenHalf: '',
+                    sixteenFull: '',
+                    sixteenHalf: '',
+                    seventeenFull: '',
+                    seventeenHalf: '',
+                    eighteenthFull: '',
+                    eighteenthHalf: '',
+                    nineteenFull: '',
+                    nineteenHalf: '',
+                    twentyFull: '',
+                    twentyHalf: '',
+                    twentyOneFull: '',
+                    twentyOneHalf: '',
+                    twentyTwoFull: '',
+                    twentyTwoHalf: '',
+                    twentyThreeFull: '',
+                    twentyThreeHalf: '',
                 }
                 ],
 
@@ -840,49 +840,68 @@
                     label: '北京烤鸭'
                 }],
 
-                location: '',
-                size: '',
-                equipment: '',
+                location:
+                    '',
+                size:
+                    '',
+                equipment:
+                    '',
 
-                labelPosition: 'right',
-                active: 0,
-                centerDialogVisible: false,
+                labelPosition:
+                    'right',
+                active:
+                    0,
+                centerDialogVisible:
+                    false,
 
-                ruleForm: {
-                    name: '',
-                    user: '',
-                    users: '',
-                    desc: ''
-                },
+                ruleForm:
+                    {
+                        name: '',
+                        user:
+                            '',
+                        users:
+                            '',
+                        desc:
+                            ''
+                    }
+                ,
                 rules: {
                     name: [
                         {required: true, message: '请输入会议名称', trigger: 'blur'},
                         {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
                     ],
-                    user: [
-                        {required: true, message: '请填写活动形式', trigger: 'blur'},
-                    ],
-                    users: [
-                        {required: true, message: '请填写活动形式', trigger: 'blur'},
-                    ],
-                    region: [
-                        {required: true, message: '请选择活动区域', trigger: 'change'}
-                    ],
-                    date1: [
-                        {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
-                    ],
-                    date2: [
-                        {type: 'date', required: true, message: '请选择时间', trigger: 'change'}
-                    ],
-                    type: [
-                        {type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change'}
-                    ],
-                    resource: [
-                        {required: true, message: '请选择活动资源', trigger: 'change'}
-                    ],
-                    desc: [
-                        {required: true, message: '请填写活动形式', trigger: 'blur'}
-                    ]
+                    user:
+                        [
+                            {required: true, message: '请填写活动形式', trigger: 'blur'},
+                        ],
+                    users:
+                        [
+                            {required: true, message: '请填写活动形式', trigger: 'blur'},
+                        ],
+                    region:
+                        [
+                            {required: true, message: '请选择活动区域', trigger: 'change'}
+                        ],
+                    date1:
+                        [
+                            {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
+                        ],
+                    date2:
+                        [
+                            {type: 'date', required: true, message: '请选择时间', trigger: 'change'}
+                        ],
+                    type:
+                        [
+                            {type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change'}
+                        ],
+                    resource:
+                        [
+                            {required: true, message: '请选择活动资源', trigger: 'change'}
+                        ],
+                    desc:
+                        [
+                            {required: true, message: '请填写活动形式', trigger: 'blur'}
+                        ]
                 }
 
             };
@@ -891,7 +910,8 @@
         created() {
             this.getTableData(this.date);
             console.log(formatDate(this.date, 'yyyy-MM-dd'));
-        },
+        }
+        ,
 
         methods: {
             //选择查询日期后请求当天所有的会议数据
@@ -903,25 +923,31 @@
                     // for(var i = 0; i < list.length; i++){
                     //     this.tableData[i] = list[i];
                     // }
-                    console.log(this.tableData[0]);
+                    console.log(this.tableData[0].catalogue);
                 })
-            },
+            }
+            ,
             getSelectStartTime(startTime, endTime) {
                 axios.get('/list1').then(res => {
                     this.tableData = res.data.tableData;
                     console.log(res);
                 })
-            },
+                console.log(startTime, endTime)
+            }
+            ,
             prev() {
                 --this.active;
                 if (this.active < 0) this.active = 0;
-            },
+            }
+            ,
             next() {
                 if (this.active++ > 2) this.active = 0;
-            },
+            }
+            ,
             onSubmit() {
                 console.log('submit!');
-            },
+            }
+            ,
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -931,25 +957,30 @@
                         return false;
                     }
                 });
-            },
+            }
+            ,
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-            },
-            cellClassName({row, column, rowIndex, columnIndex}) {
+            }
+            ,
+            // cellClassName({ row, column, rowIndex,columnIndex})
+            cellClassName({columnIndex}) {
                 if (columnIndex > 1) {
                     return 'test'
                 } else {
                     return 'xiaowangshixiaoshazi'
                 }
-            },
+            }
+            ,
             //第一次进入页面请求当天所有会议的数据
-            getTableData(date){
+            getTableData(date) {
                 getMeetingList(date).then(response => {
                     console.log(response.data);
                 })
             }
 
-        },
+        }
+        ,
         // mounted() {
         //     axios.get('/list').then(res => {
         //         this.tableData = res.data.tableData;
