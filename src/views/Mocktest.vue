@@ -20,7 +20,9 @@
             <!--<el-table-column prop="time" label="时间">-->
             <!--</el-table-column>-->
         <!--</el-table>-->
-        <span v-for="u in tableData[0]">{{ u }}<br></span>
+        <!--<span v-for="u in tableData[0]">{{ u }}<br></span>-->
+        <h3>{{this.$store.state.msg}}</h3>
+        <button @click="func()">点我!</button>
 
     </div>
 </template>
@@ -99,9 +101,13 @@
             }
         },
         created() {
-            this.getSelectData('2019-03-13 00:00:00');
+            // this.getSelectData('2019-03-13 00:00:00');
+            this.$store.state.msg = 'aaa';
         },
         methods: {
+            func(){
+                this.$router.push({ path: '/index',query: { orderId: 2 }})
+            },
             getSelectData(date) {
                 console.log(date);
                 getMeetingList(date).then(response => {
@@ -110,7 +116,7 @@
                     // for(var i = 0; i < list.length; i++){
                     //     // this.tableData[i] = list[i];
                     //     for(var j = 0; j<this.tableData[i]; j++){
-                    this.tableData.id= response.data[0][0];
+                    // this.tableData.id= response.data[0][0];
                     //     }
                     // }
                     console.log(this.tableData.id);

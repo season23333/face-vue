@@ -33,7 +33,8 @@
                                 </el-container>
                             </div>
                             <div class="value" style="padding-top: 10px">
-                                <h3 style="font-size: 45px ">0</h3>
+                                <!--页面跳转传参测试-->
+                                <h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>
                                 <p style="margin-top: 2px">正在召开会议</p>
                             </div>
                         </el-container>
