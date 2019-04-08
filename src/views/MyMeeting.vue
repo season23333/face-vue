@@ -10,8 +10,8 @@
                     sortable
                     column-key="date"
             >
-                    <!--:filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"-->
-                    <!--:filter-method="filterHandler"-->
+                <!--:filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"-->
+                <!--:filter-method="filterHandler"-->
             </el-table-column>
             <el-table-column
                     prop="name"
@@ -22,6 +22,17 @@
                     prop="address"
                     label="会议地点"
             >
+            </el-table-column>
+            <el-table-column label="详情">
+                <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="left">
+                        <p>姓名: {{ scope.row.address }}</p>
+                        <p>住址: {{ scope.row.date }}</p>
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">详情</el-tag>
+                        </div>
+                    </el-popover>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="tag"
@@ -58,24 +69,31 @@
 </template>
 
 <script>
+    import '@/util/mock'
+    import axios from 'axios';
     export default {
         name: "MyMeeting",
-        created(){
-            for(var i = 0; i < this.tableData.length; i++){
-                if(this.tableData[i].tag === 1){
+        created() {
+            for (var i = 0; i < this.tableData.length; i++) {
+                if (this.tableData[i].tag === 1) {
                     this.tableData[i].tag = '通过';
-                }else{
+                } else {
                     this.tableData[i].tag = '不通过';
                 }
                 console.log(this.tableData[i].tag);
             }
-            this.currentTime = this.format(new Date(), "yyyy-MM-dd");
-            console.log(this.currentTime);
-            console.log(this.tableData[0].date);
-
+            var date = new Date();
+            var min = date.getMinutes();
+            date.setMinutes(min - 5);
+            console.log(date);
+            var date1 = new Date();
+            if (date < date1) {
+                console.log('大于')
+            }
         },
         data() {
             return {
+                msg: 'aaaaaa',
                 currentTime: '',
                 tableData: [{
                     date: '2019-05-02',
@@ -97,10 +115,37 @@
                     name: '需求分析',
                     address: '南堂412',
                     tag: 1
+                }],
+                gridData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
                 }]
             }
         },
         methods: {
+            open() {
+                let time;
+                axios.get('/details').then(res => {
+                    time = res.data.time;
+                });
+                this.$alert('"this.time"', '标题名称', {
+                    confirmButtonText: '确定',
+                    dangerouslyUseHTMLString: true
+                });
+            },
 
             // formatter(row, column) {
             //     return row.address;
@@ -114,21 +159,6 @@
             // },
             handleDelete(index, row) {
                 console.log(index, row);
-            },
-            format(date, fmt) {
-                let o = {
-                    "M+": date.getMonth() + 1, //月份
-                    "d+": date.getDate(), //日
-                    "H+": date.getHours(), //小时
-                    "m+": date.getMinutes(), //分
-                    "s+": date.getSeconds(), //秒
-                    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-                    "S": date.getMilliseconds() //毫秒
-                };
-                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-                for (let k in o)
-                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                return fmt;
             },
         }
     }

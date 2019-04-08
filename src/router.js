@@ -3,7 +3,10 @@ import Router from 'vue-router'
 import Order from './views/Order.vue'
 import Service from './views/Service.vue'
 import Index from './views/Index'
-
+import Login from './views/Login'
+import Password_reset from './views/Password_reset'
+import Four from './views/404'
+import Five from './views/500'
 import Test from './views/Test'
 import Guide from './views/Guides'
 import Mocktest from './views/Mocktest'
@@ -17,6 +20,16 @@ export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
+        {
+          path: '/login',
+          name: 'login',
+          component: Login,
+        },
+        {
+            path: '/password_reset',
+            name: 'password_reset',
+            component: Password_reset,
+        },
         {
             path: '/test',
             name: 'test',
@@ -33,6 +46,16 @@ export default new Router({
             name: 'service',
             component: Service,
             children: [
+                {
+                    path: '/404',
+                    name: 'four',
+                    component: Four
+                },
+                {
+                    path: '/500',
+                    name: 'five',
+                    component: Five
+                },
                 {
                     path: '/order',
                     name: 'order',

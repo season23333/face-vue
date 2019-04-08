@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 
 Mock.mock('/next', 'get', {
     data: '123'
-})
+});
 
 Mock.mock('/list', 'get', {
     tableData: [
@@ -89,7 +89,7 @@ Mock.mock('/list', 'get', {
         id: '107',
         time: '无'
     }]
-})
+});
 
 Mock.mock('/list1', 'get', {
     tableData: [
@@ -144,5 +144,26 @@ Mock.mock('/list1', 'get', {
             id: '107',
             time: '无'
         }]
-})
+});
 
+Mock.mock('/place','get',{
+    options:[
+        {
+            value:'南教楼',
+            label:'南教楼'
+        },
+        {
+            value:'讲堂群',
+            label:'讲堂群'
+        },
+        {
+            value:'六层',
+            label:'六层'
+        }
+    ]
+});
+
+Mock.mock('/details','get',{
+    time: '1100',
+    size: '20',
+});
