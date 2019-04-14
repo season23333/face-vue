@@ -170,10 +170,14 @@
         data() {
             return {
                 free_num: 0,
+                timer: null
             }
         },
         created() {
             this.getList();
+            this.timer = setInterval(() =>{
+                this.getList()
+            },1000* 20)
             // console.log(text);
         },
         methods: {

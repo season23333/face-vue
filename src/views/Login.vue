@@ -8,10 +8,14 @@
             <form action="" class="login-form">
                 <div class="m-list-group">
                     <div class="m-list-group-item">
-                        <input type="text" placeholder="用户名" class="m-input" v-model="username">
+                        <input type="text" placeholder="手机号" class="m-input" v-model="loginForm.username">
                     </div>
                     <div class="m-list-group-item">
-                        <input type="password" placeholder="密码" class="m-input" v-model="password">
+                        <input :type="pwdType" placeholder="密码" class="m-input" v-model="loginForm.password"
+                               @keyup.enter.native="handleLogin"/>
+                        <span class="show-pwd" @click="showPwd">
+                            <i class="el-icon-view"></i>
+                        </span>
                     </div>
                 </div>
                 <button class="m-btn sub select-none" @click.prevent="handleLogin" v-loading="isLoging">登录</button>
@@ -28,28 +32,48 @@
     </div>
 </template>
 <script>
-    import {login} from '../api/user';
+
+
     export default {
         name: 'Login',
         data() {
             return {
-                username: 'Administrator',
-                password: '123456',
+                loginForm: {
+                    username: '17685590508',
+                    password: '123456',
+                },
                 isLoging: false,
+                pwdType: 'password',
             }
         },
         methods: {
+            showPwd() {
+                if (this.pwdType === 'password') {
+                    this.pwdType = ''
+                } else {
+                    this.pwdType = 'password'
+                }
+            },
+
+
             handleLogin() {
-                if (!this.username || !this.password) {
+                if (!this.loginForm.username || !this.loginForm.password) {
                     return this.$message.warning('用户名和密码不能为空')
+                } else {
+                    if(!(/^1[34578]\d{9}$/.test(this.loginForm.username))){
+                        return this.$message.warning('请输入正确的手机号');
+                    }
                 }
                 this.isLoging = true;
-                login(this.username, this.password).then(res => {
-                    if (res.data.code === 200) {
-                        this.$message.success('登录成功');
-                        this.$router.push({name: 'index'});
-                        this.isLoging = false;
-                    }
+                //md5加密，等后端改好后修改
+                console.log('MD5:' + this.$md5(this.loginForm.password));
+                this.$store.dispatch('Login', this.loginForm).then(() => {
+                    this.isLoging = false;
+                    console.log('Jump');
+                    this.$router.push({path: this.redirect || '/index'});
+                    console.log('End Jump')
+                }).catch(() => {
+                    this.isLoging = false;
                 })
             }
         }
@@ -155,5 +179,15 @@
         .login-box {
             width: auto;
         }
+    }
+
+    .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        font-size: 16px;
+        color: darkgrey;
+        cursor: pointer;
+        user-select: none;
     }
 </style>

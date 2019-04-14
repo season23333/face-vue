@@ -10,11 +10,14 @@ import './util/mock'
 import 'vuetify/dist/vuetify.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
+import './permission'
+import md5 from 'js-md5'
 import echarts from 'echarts'
 
 Vue.config.productionTip = false
 Vue.prototype.$http=axios
 Vue.prototype.$ajax=axios
+Vue.prototype.$md5 = md5;
 
 Vue.use(Vuetify);
 

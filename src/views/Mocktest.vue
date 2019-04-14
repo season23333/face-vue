@@ -6,41 +6,42 @@
         <!--<h1>{{ msg }}</h1>-->
         <!--<h1>{{ next }}</h1>-->
         <!--&lt;!&ndash;<form>&ndash;&gt;-->
-            <!--&lt;!&ndash;<input type="file" @change="getFile($event)">&ndash;&gt;-->
-            <!--&lt;!&ndash;<button class="button button-primary button-pill button-small" @click="submit($event)">提交</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="file" @change="getFile($event)">&ndash;&gt;-->
+        <!--&lt;!&ndash;<button class="button button-primary button-pill button-small" @click="submit($event)">提交</button>&ndash;&gt;-->
         <!--&lt;!&ndash;</form>&ndash;&gt;-->
 
 
         <!--<el-table :data="Data" >-->
-            <!--<el-table-column prop="id" label="Id" :class="Data.id === '100'? 'used':''">-->
-                <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div :class="scope.row.id === '100'? 'used':''">{{scope.row.id}}</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</template>&ndash;&gt;-->
-            <!--</el-table-column>-->
-            <!--<el-table-column prop="time" label="时间">-->
-            <!--</el-table-column>-->
+        <!--<el-table-column prop="id" label="Id" :class="Data.id === '100'? 'used':''">-->
+        <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div :class="scope.row.id === '100'? 'used':''">{{scope.row.id}}</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</template>&ndash;&gt;-->
+        <!--</el-table-column>-->
+        <!--<el-table-column prop="time" label="时间">-->
+        <!--</el-table-column>-->
         <!--</el-table>-->
         <!--<span v-for="u in tableData[0]">{{ u }}<br></span>-->
-        <h3>{{this.$store.state.msg}}</h3>
+        <!--<h3>{{this.$store.state.msg}}</h3>-->
         <button @click="func()">点我!</button>
-
+        <button @click="aaa()">清除token</button>
     </div>
 </template>
 
 <script>
     // import '@/util/mock';
-    // import axios from 'axios';
+    import axios from 'axios';
     import {text} from '../api/table'
+    import {test} from '../api/login'
     import {getMeetingList} from '../api/table';
 
     export default {
         name: "mocktest",
-        data(){
-            return{
-                text:"",
+        data() {
+            return {
+                text: "",
                 msg: 'Welcome to Your Vue.js App',
                 file: '',
-                Data:[],
+                Data: [],
                 next: "",
                 tableData: [{
                     location: '',
@@ -100,13 +101,21 @@
                 }]
             }
         },
-        created() {
-            // this.getSelectData('2019-03-13 00:00:00');
-            this.$store.state.msg = 'aaa';
-        },
+        // created() {
+        //     // this.getSelectData('2019-03-13 00:00:00');
+        //     this.$store.state.msg = 'aaa';
+        // },
         methods: {
-            func(){
-                this.$router.push({ path: '/index',query: { orderId: 2 }})
+            // func(){
+            //     this.$router.push({ path: '/index',query: { orderId: 2 }})
+            // },
+            aaa(){
+                this.$store.dispatch('LogOut');
+            },
+            func() {
+                test().then(res => {
+                    console.log(res);
+                })
             },
             getSelectData(date) {
                 console.log(date);
@@ -165,9 +174,7 @@
             //     // }
             // },
         },
-        watch:{
-
-        },
+        watch: {},
 
         // mounted() {
         //     // axios.get('/list').then(res => {
@@ -197,7 +204,8 @@
     .demo-table-info-row {
         background: #2d8cf0;
     }
-    .used el-table{
+
+    .used el-table {
         background: #008080;
     }
 </style>

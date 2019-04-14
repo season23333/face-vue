@@ -5,13 +5,12 @@ export function getMeetingList(date) {
     return axios.get('http://127.0.0.1:8082/conference/list',{params:{date:date}})
 }
 
-
-
-
-
-
 export function text(a) {
     return axios.get('http://localhost:8082/room/free',{params:{a:a}})
+}
+
+export function getDetails(pageNum,pageSize) {
+    return axios.get('http://localhost:8082/',{params:{pageNum:pageNum,pageSize:pageSize}})
 }
 
 // export function text(a) {

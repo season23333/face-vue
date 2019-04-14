@@ -63,7 +63,7 @@
                     </a>
                     <a href="">
                         <el-dropdown-item>
-                            安全升级
+                            <span style="display:block;" @click="logout">登出</span>
                         </el-dropdown-item>
                     </a>
                 </el-dropdown-menu>
@@ -79,7 +79,15 @@
 
 <script>
     export default {
-        name: "Header.vue"
+        name: "Header.vue",
+        methods:{
+            //登出后端接口未测试
+            logout() {
+                this.$store.dispatch('LogOut').then(() => {
+                    location.reload() // 为了重新实例化vue-router对象 避免bug
+                })
+            }
+        }
     }
 </script>
 
