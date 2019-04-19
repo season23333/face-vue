@@ -66,7 +66,8 @@
                 }
                 this.isLoging = true;
                 //md5加密，等后端改好后修改
-                console.log('MD5:' + this.$md5(this.loginForm.password));
+                this.loginForm.password = this.$md5(this.loginForm.password);
+                // console.log('MD5:' + this.$md5(this.loginForm.password));
                 this.$store.dispatch('Login', this.loginForm).then(() => {
                     this.isLoging = false;
                     console.log('Jump');

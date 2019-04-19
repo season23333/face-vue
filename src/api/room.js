@@ -1,13 +1,48 @@
-import axios from 'axios'
+import request from '../util/request'
+import {stringify} from 'qs'
+
+// export function getInfo(token) {
+//     return request({
+//         url: '/user/role',
+//         method: 'get',
+//         params: { token }
+//     })
+// }
 
 export function getFreeRoom() {
-    return axios.get('http://47.103.6.243:8080/room/free')
+    return request({
+        url: '/room/freeRoomNumber',
+        method: 'get',
+    })
 }
 
 export function getAllBuilding() {
-    return axios.get('http://47.103.6.243:8080/building/getAllBuilding')
+    return request({
+        url: '/building/allBuilding',
+        method: 'get',
+    })
 }
 
 export function byBuilding(building) {
-    return axios.get('http://172.24.203.64:8080/room/byBuilding',{params:{building:building}})
+    return request({
+        url: '/room/list/building',
+        method: 'get',
+        params: {buildingID: building}
+    })
+}
+
+export function getRoomName(roomID) {
+    return request({
+        url: '/room/roomObject',
+        method: 'get',
+        params: {roomID: roomID}
+    })
+}
+
+export function getBuildingName(buildingID) {
+    return request({
+        url: '/building/buildingObject',
+        method: 'get',
+        params: {buildingID: buildingID}
+    })
 }

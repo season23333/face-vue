@@ -12,6 +12,9 @@ import Guide from './views/Guides'
 import Mocktest from './views/Mocktest'
 import Form from './views/Form'
 import MyMeeting from './views/MyMeeting'
+import ManageMeeting from './views/ManageMeeting'
+import Notification from './views/Notification'
+import Profile from './views/Profile'
 
 
 Vue.use(Router)
@@ -46,6 +49,21 @@ export default new Router({
             name: 'service',
             component: Service,
             children: [
+                {
+                    path: '/profile',
+                    name: 'profile',
+                    component: Profile
+                },
+                {
+                    path: '/notification',
+                    name: 'notification',
+                    component: Notification
+                },
+                {
+                    path: '/managemeeting',
+                    name: 'managemeeting',
+                    component: ManageMeeting
+                },
                 {
                     path: '/404',
                     name: 'four',

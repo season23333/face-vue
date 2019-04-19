@@ -1,5 +1,101 @@
+<!--<script>-->
+    <!--data: function(){-->
+        <!--return {-->
+            <!--Dmessages: [{-->
+                <!--name: '吴娇',-->
+                <!--phone: 15265320210,-->
+                <!--ticket: 3,-->
+                <!--integral: 300000,-->
+                <!--time:'2019-1-19',-->
+            <!--},{-->
+                <!--name: '忙着长肉',-->
+                <!--phone: 15265320210,-->
+                <!--ticket: 2,-->
+                <!--integral: 50000,-->
+                <!--time:'2019-1-29'-->
+            <!--},{-->
+                <!--name: '刘珊珊',-->
+                <!--phone: 15265320210,-->
+                <!--ticket: 5,-->
+                <!--integral: 3000,-->
+                <!--time:'2019-1-22'-->
+            <!--},{-->
+                <!--name: '刘珊珊',-->
+                <!--phone: 15265320210,-->
+                <!--ticket: 9,-->
+                <!--integral: 90000,-->
+                <!--time:'2019-1-30'-->
+            <!--}],-->
+            <!--sortType: null,                 // 数组对象中的哪一个属性进行排序-->
+            <!--order: false,                   // 升序还是降序-->
+        <!--}-->
+    <!--},-->
+    <!--methods: {-->
+        <!--sort(type){                     // 排序-->
+            <!--this.order = !this.order;		// 更改为 升序或降序-->
+            <!--this.sortType = type;-->
+            <!--this.Dmessages.sort(this.compare(type));-->
+            <!--// 调用下面 compare 方法 并传值-->
+        <!--},-->
+        <!--compare(attr){                  // 排序方法-->
+            <!--let that = this;-->
+            <!--return function(a,b){-->
+                <!--let val1 = a[attr];-->
+                <!--let val2 = b[attr];-->
+
+                <!--if(that.order){-->
+                    <!--if(that.sortType == 'time'){            // 如果是时间就转换成时间格式-->
+                        <!--return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));-->
+                    <!--}else{-->
+                        <!--return val2 - val1;-->
+                    <!--}-->
+
+                <!--}else{-->
+                    <!--if(that.sortType == 'time'){-->
+                        <!--return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));-->
+                    <!--}else{-->
+                        <!--return val1 - val2;-->
+                    <!--}-->
+                <!--}-->
+            <!--}-->
+        <!--}-->
+    <!--},-->
+<!--</script>-->
+
+
+
+
 <template>
     <div>
+        <!--<button @click="sort('date')">aaaaa</button>-->
+        <!--<el-table-->
+
+                <!--:data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"-->
+                <!--style="width: 100%">-->
+            <!--<el-table-column-->
+                    <!--sortable-->
+                    <!--prop="date"-->
+                    <!--label="日期"-->
+                    <!--width="180">-->
+            <!--</el-table-column>-->
+            <!--<el-table-column-->
+                    <!--prop="name"-->
+                    <!--label="姓名"-->
+                    <!--width="180">-->
+            <!--</el-table-column>-->
+            <!--<el-table-column-->
+                    <!--prop="address"-->
+                    <!--label="地址">-->
+            <!--</el-table-column>-->
+        <!--</el-table>-->
+        <!--<el-pagination-->
+                <!--@current-change="handleCurrentChange"-->
+                <!--:current-page="currentPage"-->
+                <!--:page-size="pagesize"-->
+                <!--background-->
+                <!--layout="prev, pager, next"-->
+                <!--:total="tableData.length">-->
+        <!--</el-pagination>-->
         <!--<a @click="getList()">aaaa</a>-->
         <!--<h3>mock测试</h3>-->
         <!--<h3>数据渲染：{{ text }}</h3>-->
@@ -33,6 +129,7 @@
     import {text} from '../api/table'
     import {test} from '../api/login'
     import {getMeetingList} from '../api/table';
+    import {getDetails} from "../api/user";
 
     export default {
         name: "mocktest",
@@ -43,73 +140,102 @@
                 file: '',
                 Data: [],
                 next: "",
-                tableData: [{
-                    location: '',
-                    size: '',
-                    equipment: '',
-                    id: '',
-                    time: {
-                        time0000: '',
-                        time0030: '',
-                        time0100: '',
-                        time0130: '',
-                        time0200: '',
-                        time0230: '',
-                        time0300: '',
-                        time0330: '',
-                        time0400: '',
-                        time0430: '',
-                        time0500: '',
-                        time0530: '',
-                        time0600: '',
-                        time0630: '',
-                        time0700: '',
-                        time0730: '',
-                        time0800: '',
-                        time0830: '',
-                        time0900: '',
-                        time0930: '',
-                        time1000: '',
-                        time1030: '',
-                        time1100: '',
-                        time1130: '',
-                        time1200: '',
-                        time1230: '',
-                        time1300: '',
-                        time1330: '',
-                        time1400: '',
-                        time1430: '',
-                        time1500: '',
-                        time1530: '',
-                        time1600: '',
-                        time1630: '',
-                        time1700: '',
-                        time1730: '',
-                        time1800: '',
-                        time1830: '',
-                        time1900: '',
-                        time1930: '',
-                        time2000: '',
-                        time2030: '',
-                        time2100: '',
-                        time2130: '',
-                        time2200: '',
-                        time2230: '',
-                        time2300: '',
-                        time2330: '',
-                    }
-                }]
+                tableData: [
+                    {
+                    date: '2016-05-02',
+                    name: '1王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '2王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '3王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '4王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }, {
+                        date: '2016-05-02',
+                        name: '5王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-04',
+                        name: '6王小虎',
+                        address: '上海市普陀区金沙江路 1517 弄'
+                    }, {
+                        date: '2016-05-01',
+                        name: '7王小虎',
+                        address: '上海市普陀区金沙江路 1519 弄'
+                    }, {
+                        date: '2016-05-03',
+                        name: '8王小虎',
+                        address: '上海市普陀区金沙江路 1516 弄'
+                    }],
+                currentPage:1,
+                pagesize:2,
+                n: {
+                    one1: '',
+                    two: ''
+                },
             }
         },
         // created() {
         //     // this.getSelectData('2019-03-13 00:00:00');
         //     this.$store.state.msg = 'aaa';
         // },
+        created() {
+            this.tokenTest();
+        },
         methods: {
+            sort(type){                     // 排序
+                this.order = !this.order;		// 更改为 升序或降序
+                this.sortType = type;
+                this.Dmessages.sort(this.compare(type));
+                // 调用下面 compare 方法 并传值
+            },
+            compare(attr){                  // 排序方法
+                let that = this;
+                return function(a,b){
+                    let val1 = a[attr];
+                    let val2 = b[attr];
+
+                    if(that.order){
+                        if(that.sortType == 'time'){            // 如果是时间就转换成时间格式
+                            return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));
+                        }else{
+                            return val2 - val1;
+                        }
+
+                    }else{
+                        if(that.sortType == 'time'){
+                            return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));
+                        }else{
+                            return val1 - val2;
+                        }
+                    }
+                }
+            },
+            handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+            },
+            tokenTest() {
+                console.log('测试');
+                getDetails().then(res => {
+                    console.log(res.data);
+                });
+                axios.get('http://192.168.43.182:8080/room/test').then(res => {
+                    this.n.one = res.data.data.adsf;
+                    console.log('接受测试', this.n.one);
+                })
+
+            },
             // func(){
             //     this.$router.push({ path: '/index',query: { orderId: 2 }})
             // },
-            aaa(){
+            aaa() {
                 this.$store.dispatch('LogOut');
             },
             func() {

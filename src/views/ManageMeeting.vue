@@ -66,74 +66,19 @@
                     align="center"
                     label="操作">
                 <template slot-scope="scope">
-                    <el-button
-                            v-if="scope.row.flag === 0 &&scope.row.user === ID"
-                            round
-                            size="mini"
-                            @click="msgDialogVisible = true"
-                            style="margin-right: 20px"
-                    >添加与会人
-                    </el-button>
-                    <el-button
-                            v-else
-                            round
-                            size="mini"
-                            disabled
-                            style="margin-right: 20px"
-                    >添加与会人
-                    </el-button>
-                    <el-dialog
-                            title="提示"
-                            :visible.sync="msgDialogVisible"
-                            width="30%"
-                            :before-close="handleClose"
-                            center>
-                        <el-form :model="msgForm" ref="msgForm" label-width="100px"
-                                 class="demo-dynamic">
-                            <el-form-item
-                                    v-for="(P, index) in msgForm.people"
-                                    :label="'通知人' + (index+1)"
-                                    :key="P.key"
-                                    :prop="'people.' + index + '.name'"
-                                    :rules="[{
-                                        required: true, message: '通知人不能为空', trigger: 'blur'
-                                    },{
-                                        validator:validatePass,trigger:'blur'
-                                    }]"
-                            >
-                                <!--<el-input v-model="P.name" style="width: 200px"></el-input>-->
-                                <el-autocomplete
-                                        class="inline-input"
-                                        v-model="P.name"
-                                        :fetch-suggestions="querySearch"
-                                        placeholder="请输入内容"
-                                        :trigger-on-focus="false"
-                                        @select="handleSelect"
-                                ></el-autocomplete>
-                                <el-button @click.prevent="removeDomain(P)" style="margin-left: 20px">删除</el-button>
-                            </el-form-item>
-
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('msgForm')">提交</el-button>
-                                <el-button @click="addDomain">新增通知人</el-button>
-                                <!--<el-button @click="resetForm('msgForm')">重置</el-button>-->
-                            </el-form-item>
-                        </el-form>
-                    </el-dialog>
-
 
                     <el-button
-                            v-if="scope.row.flag === 0 && scope.row.user === ID"
-                            size="mini"
-                            type="success"
-                            @click="handleDelete(scope.$index, scope.row.conferenceID)">取消会议
-                    </el-button>
-                    <el-button
-                            v-else
+                            v-if="scope.row.flag === 1"
                             size="mini"
                             type="danger"
                             disabled
-                            @click="handleDelete(scope.$index, scope.row.conferenceID)">取消会议
+                            @click="handleDelete(scope.$index, scope.row.conferenceID)">驳回会议
+                    </el-button>
+                    <el-button
+                            v-else
+                            size="mini"
+                            type="success"
+                            @click="handleDelete(scope.$index, scope.row.conferenceID)">驳回会议
                     </el-button>
                 </template>
             </el-table-column>
@@ -158,11 +103,11 @@
     import {getDetails} from "../api/user";
     import {getRoomName, getBuildingName} from "../api/room";
     import {validatePeople, getUserID} from "../api/user"
-    import {getPage, cancelConference} from "../api/conference";
+    import {getPage, rejectConference} from "../api/conference";
     // import axios from 'axios';
 
     export default {
-        name: "MyMeeting",
+        name: "ManageMeeting",
         data() {
             return {
                 loading: true,//改好前后端交互后，这里默认应该是true
@@ -433,13 +378,13 @@
             //     });
             // },
 
-            //取消会议
+            //驳回会议
             handleDelete(index, row) {
-                cancelConference(row).then(res => {
+                rejectConference(row).then(res => {
                     console.log('取消预定' + res);
                     if (res.status === 0) {
                         this.$message({
-                            message: '会议取消成功',
+                            message: '驳回会议成功',
                             type: 'success'
                         });
                     }

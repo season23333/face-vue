@@ -164,26 +164,29 @@
 
 <script>
     import {getFreeRoom} from '../api/room'
+    import {formatDate} from "../util/formatDate";
 
     export default {
         name: "Card",
         data() {
             return {
                 free_num: 0,
-                timer: null
+                timer: null,
+                date: new Date()
             }
         },
         created() {
+            // console.log(formatDate(this.date, 'yyyy-MM-dd hh:mm:ss'));
             this.getList();
             this.timer = setInterval(() =>{
                 this.getList()
-            },1000* 20)
-            // console.log(text);
+            },1000* 20);
+
         },
         methods: {
             getList() {
                 getFreeRoom().then(response => {
-                    this.free_num = response.data;
+                    this.free_num = response.data.data;
                     console.log(response.data);
                 })
             }

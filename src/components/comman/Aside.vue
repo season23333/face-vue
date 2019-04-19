@@ -20,14 +20,10 @@
                 <el-menu-item index="/order">快速预定</el-menu-item>
                 <el-menu-item index="/guide">向导预定</el-menu-item>
             </el-submenu>
-            <el-submenu index="2">
-                <template slot="title">
-                    <i class="el-icon-setting"></i>
-                    <span>会议管理</span>
-                </template>
-                <el-menu-item index="/mymeeting">我的会议</el-menu-item>
-                <el-menu-item index="/">管理会议</el-menu-item>
-            </el-submenu>
+            <el-menu-item index="/managemeeting">
+                <i class="el-icon-setting"></i>
+                <span slot="title">会议管理</span>
+            </el-menu-item>
             <el-menu-item index="/Form">
                 <i class="el-icon-menu"></i>
                 <span slot="title">数据统计</span>
@@ -40,10 +36,15 @@
                 <el-menu-item index="">会议室管理</el-menu-item>
                 <el-menu-item index="">用户管理</el-menu-item>
             </el-submenu>
-            <el-menu-item index="4">
-                <i class="el-icon-edit"></i>
-                <span slot="title">个人中心</span>
-            </el-menu-item>
+            <el-submenu index="4">
+                <template slot="title">
+                    <i class="el-icon-edit"></i>
+                    <span>个人中心</span>
+                </template>
+                <el-menu-item index="/mymeeting">我的会议</el-menu-item>
+                <el-menu-item index="/notification">查看消息</el-menu-item>
+                <el-menu-item index="/profile">修改资料</el-menu-item>
+            </el-submenu>
         </el-menu>
     </el-col>
 </template>

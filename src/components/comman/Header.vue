@@ -1,6 +1,6 @@
 <template>
     <el-container id="container" style="background: #008080">
-        <el-col :span="2" >
+        <el-col :span="2">
             <img src="../../assets/icon/logo-meeting.png" style="margin-left: 32%">
         </el-col>
         <el-col :span="18" id="col-18">
@@ -20,9 +20,9 @@
                         </el-dropdown-item>
                     </a>
                     <!--<a href="">-->
-                        <!--<el-dropdown-item>-->
-                            <!--狮子头(2)-->
-                        <!--</el-dropdown-item>-->
+                    <!--<el-dropdown-item>-->
+                    <!--狮子头(2)-->
+                    <!--</el-dropdown-item>-->
                     <!--</a>-->
                 </el-dropdown-menu>
             </el-dropdown>
@@ -35,15 +35,13 @@
                     <i class="el-icon-bell"></i>
                 </el-badge>
                 <el-dropdown-menu slot="dropdown">
-                    <a href="">
-                        <el-dropdown-item>
-                            系统通知(1)
-                        </el-dropdown-item>
-                    </a>
+                    <el-dropdown-item >
+                        <span style="display:block;" @click="sysMessage">系统通知</span>
+                    </el-dropdown-item>
                     <!--<a href="">-->
-                        <!--<el-dropdown-item>-->
-                            <!--狮子头(2)-->
-                        <!--</el-dropdown-item>-->
+                    <!--<el-dropdown-item>-->
+                    <!--狮子头(2)-->
+                    <!--</el-dropdown-item>-->
                     <!--</a>-->
                 </el-dropdown-menu>
             </el-dropdown>
@@ -56,16 +54,9 @@
                     <i class="el-icon-setting"></i>
                 </el-badge>
                 <el-dropdown-menu slot="dropdown">
-                    <a href="">
-                        <el-dropdown-item>
-                            个人照片更新
-                        </el-dropdown-item>
-                    </a>
-                    <a href="">
-                        <el-dropdown-item>
-                            <span style="display:block;" @click="logout">登出</span>
-                        </el-dropdown-item>
-                    </a>
+                    <el-dropdown-item>
+                        <span style="display:block;" @click="logout">登出</span>
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-col>
@@ -80,12 +71,16 @@
 <script>
     export default {
         name: "Header.vue",
-        methods:{
+        methods: {
             //登出后端接口未测试
             logout() {
                 this.$store.dispatch('LogOut').then(() => {
                     location.reload() // 为了重新实例化vue-router对象 避免bug
                 })
+            },
+            //系统通知页面跳转
+            sysMessage(){
+                this.$router.push('/notification');
             }
         }
     }
@@ -110,12 +105,12 @@
         color: white;
     }
 
-    img{
+    img {
         height: 80%;
         margin-top: 5%;
     }
 
-    a{
-        text-decoration:none;
+    a {
+        text-decoration: none;
     }
 </style>

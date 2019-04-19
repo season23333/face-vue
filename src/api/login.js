@@ -1,13 +1,18 @@
 import request from '../util/request'
-import { stringify } from 'qs'
-export function login(phoneNumber,password) {
+import {stringify} from 'qs'
+
+export function login(phoneNumber, password) {
     return request({
         url: '/user/login',
         method: 'post',
-        data: stringify({
+        data: {
             phoneNumber,
             password
-        })
+        }
+        // data: {
+        //     phoneNumber: phoneNumber,
+        //     password: password
+        // }
     })
 }
 
@@ -15,17 +20,11 @@ export function getInfo(token) {
     return request({
         url: '/user/role',
         method: 'get',
-        params: { token }
+        params: {token}
     })
 }
 
-export function logout() {
-    return request({
-        url: '/user/logout',
-        method: 'post'
-    })
-}
-
+//测试token用的接口
 export function test() {
     return request({
         url: '/user/test',

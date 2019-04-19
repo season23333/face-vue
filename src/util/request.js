@@ -2,19 +2,33 @@ import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '../util/auth'
+import Qs from 'qs'
 
 // 创建axios实例
 const service = axios.create({
     baseURL: 'http://47.103.6.243:8080', // api 的 base_url
-    timeout: 5000 // 请求超时时间
+    // baseURL: 'http://192.168.43.182:8080',
+    // baseURL: 'http://180.201.169.185:8080',
+    // baseURL: 'http://172.24.53.222:8080',
+    timeout: 5000 ,// 请求超时时间
+    transformRequest:[function (data) {
+        data = Qs.stringify(data);
+        return data;
+    }]
 });
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 // request拦截器
 service.interceptors.request.use(
     config => {
         console.log('发请求'+getToken());
         if (store.state.token) {
-            config.headers.Authorization = getToken() // 让每个请求携带token
+            config.headers.Authorization = getToken() ;// 让每个请求携带token
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            // config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        } else {
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
         return config
     },
