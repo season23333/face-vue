@@ -10,7 +10,7 @@
                         <div class="value" style="padding-top: 10px">
                             <!--<h3 style="font-size: 45px ">{{free_num}}</h3>-->
                             <h3 style="font-size: 30px;margin: 10px">{{free_num}}</h3>
-                            <p style="margin-top: 2px">空闲会议室</p>
+                            <p class="myinline" style="margin-top: 2px">空闲会议室</p>
                         </div>
                     </el-container>
                 </section>
@@ -26,7 +26,7 @@
                             <!--页面跳转传参测试-->
                             <!--<h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>-->
                             <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p style="margin-top: 2px">正在召开会议</p>
+                            <p class="myinline" style="margin-top: 2px">正在召开会议</p>
                         </div>
                     </el-container>
                 </section>
@@ -41,7 +41,7 @@
                         <div class="value" style="padding-top: 10px">
                             <!--<h3 style="font-size: 45px ">2</h3>-->
                             <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p style="margin-top: 2px">电话会议</p>
+                            <p class="myinline" style="margin-top: 2px">电话会议</p>
                         </div>
                     </el-container>
                 </section>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="value" style="padding-top: 10px">
                             <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p style="margin-top: 2px">我的会议</p>
+                            <p class="myinline" style="margin-top: 2px">我的会议</p>
                         </div>
                     </el-container>
                 </section>
@@ -134,13 +134,13 @@
             </el-col>
         </el-row>
         <!--<div style="width: 80%;margin-left: 10%;margin-top: 2.8%">-->
-            <!--<blockquote style="font-size: 1.83em ; text-align: left ">-->
-                <!--<span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">-->
-                    <!--字典里最重要的三个词，就是意志、工作、等待。<br>-->
-                  <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将要在这三块基石上建立我成功的金字塔。——巴斯德-->
+        <!--<blockquote style="font-size: 1.83em ; text-align: left ">-->
+        <!--<span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">-->
+        <!--字典里最重要的三个词，就是意志、工作、等待。<br>-->
+        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将要在这三块基石上建立我成功的金字塔。——巴斯德-->
 
-                <!--</span>-->
-            <!--</blockquote>-->
+        <!--</span>-->
+        <!--</blockquote>-->
         <!--</div>-->
     </div>
 </template>
@@ -203,7 +203,7 @@
         /*margin-left: 23%;*/
     }
 
-    .icon-te{
+    .icon-te {
         margin-top: 21px;
     }
 
@@ -279,36 +279,44 @@
         color: darkcyan;
     }
 
+    .myinline {
+        display:block;
+        word-break: keep-all; /* 不换行 */
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+    }
+
     /*!*@import url(https://fonts.googleapis.com/css?family=Roboto);*!*/
     /*blockquote {*/
-        /*color: darkgrey;*/
-        /*!*background-color: #eae6f3;*!*/
-        /*!*border-left: 1em solid #5236a0;*!*/
-        /*padding: 1em 1.5em 1em 1.5em;*/
-        /*position: relative;*/
-        /*!*font-family: 'Roboto', sans-serif;*!*/
-        /**/
-        /*line-height: 150%;*/
-        /*text-indent: 35px;*/
+    /*color: darkgrey;*/
+    /*!*background-color: #eae6f3;*!*/
+    /*!*border-left: 1em solid #5236a0;*!*/
+    /*padding: 1em 1.5em 1em 1.5em;*/
+    /*position: relative;*/
+    /*!*font-family: 'Roboto', sans-serif;*!*/
+    /**/
+    /*line-height: 150%;*/
+    /*text-indent: 35px;*/
     /*}*/
 
     /*blockquote:before {*/
-        /*color: lightgrey;*/
-        /*content: "\201C";*/
-        /*font-size: 5em;*/
-        /*position: absolute;*/
-        /*left: -15px;*/
-        /*top: 40px;*/
-        /*line-height: 0.1em;*/
+    /*color: lightgrey;*/
+    /*content: "\201C";*/
+    /*font-size: 5em;*/
+    /*position: absolute;*/
+    /*left: -15px;*/
+    /*top: 40px;*/
+    /*line-height: 0.1em;*/
     /*}*/
 
     /*blockquote:after {*/
-        /*color: lightgray;*/
-        /*content: "\201D";*/
-        /*font-size: 5em;*/
-        /*position: absolute;*/
-        /*right: 15px;*/
-        /*bottom: 0em;*/
-        /*line-height: 0.1em;*/
+    /*color: lightgray;*/
+    /*content: "\201D";*/
+    /*font-size: 5em;*/
+    /*position: absolute;*/
+    /*right: 15px;*/
+    /*bottom: 0em;*/
+    /*line-height: 0.1em;*/
     /*}*/
 </style>
