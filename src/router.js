@@ -105,6 +105,142 @@
 // })
 
 
+// import Vue from 'vue'
+// import Router from 'vue-router'
+//
+// Vue.use(Router)
+//
+// export default new Router({
+//     mode: 'history',
+//     base: process.env.BASE_URL,
+//     routes: [
+//         { path: '/', redirect: '/index' },
+//         {
+//             path: '/login',
+//             name: 'login',
+//             component: () => import('@/views/index/index.vue'),
+//             component:()=>import(/*webpackChunkName:"name"*/"@/views/home.vue")
+//             component(resolve) {
+//                 require(['./views/Login'], resolve)
+//             }
+//         },
+//         {
+//             path: '/password_reset',
+//             name: 'password_reset',
+//             // component: Password_reset,
+//             component(resolve) {
+//                 require(['./views/Password_reset'], resolve)
+//             }
+//         },
+//         {
+//             path: '/test',
+//             name: 'test',
+//             // component: Test,
+//             component(resolve) {
+//                 require(['./views/Test'], resolve)
+//             }
+//         },
+//         {
+//             path: '/mocktest',
+//             name: 'mocktest',
+//             // component: Mocktest,
+//             component(resolve) {
+//                 require(['./views/Mocktest'], resolve)
+//             }
+//         },
+//         {
+//             path: '/service',
+//             name: 'service',
+//             // component: Service,
+//             component(resolve) {
+//                 require(['./views/Service.vue'], resolve)
+//             },
+//             children: [
+//                 {
+//                     path: '/profile',
+//                     name: 'profile',
+//                     component(resolve) {
+//                         require(['./views/Profile'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/notification',
+//                     name: 'notification',
+//                     // component: Notification
+//                     component(resolve) {
+//                         require(['./views/Notification'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/managemeeting',
+//                     name: 'managemeeting',
+//                     // component: ManageMeeting
+//                     component(resolve) {
+//                         require(['./views/ManageMeeting'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/404',
+//                     name: 'four',
+//                     // component: Four
+//                     component(resolve) {
+//                         require(['./views/404'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/500',
+//                     name: 'five',
+//                     // component: Five
+//                     component(resolve) {
+//                         require(['./views/500'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/order',
+//                     name: 'order',
+//                     // component: Order
+//                     component(resolve) {
+//                         require(['./views/Order.vue'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/index',
+//                     name: 'index',
+//                     // component: Index
+//                     component(resolve) {
+//                         require(['./views/Index'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/guide',
+//                     name: 'guide',
+//                     // component: Guide
+//                     component(resolve) {
+//                         require(['./views/Guides'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/form',
+//                     name: 'form',
+//                     // component: Form
+//                     component(resolve) {
+//                         require(['./views/Form'], resolve)
+//                     }
+//                 },
+//                 {
+//                     path: '/mymeeting',
+//                     name: 'mymeeting',
+//                     // component: MyMeeting
+//                     component(resolve) {
+//                         require(['./views/MyMeeting'], resolve)
+//                     }
+//                 }
+//             ]
+//         }
+//     ]
+// })
+
+
 import Vue from 'vue'
 import Router from 'vue-router'
 
@@ -118,120 +254,80 @@ export default new Router({
         {
             path: '/login',
             name: 'login',
-            component(resolve) {
-                require(['./views/Login'], resolve)
-            }
+            component:()=>import(/*webpackChunkName:"user"*/"./views/Login")
         },
         {
             path: '/password_reset',
             name: 'password_reset',
-            // component: Password_reset,
-            component(resolve) {
-                require(['./views/Password_reset'], resolve)
-            }
+            component:()=>import(/*webpackChunkName:"user"*/"./views/Password_reset")
         },
-        {
-            path: '/test',
-            name: 'test',
-            // component: Test,
-            component(resolve) {
-                require(['./views/Test'], resolve)
-            }
-        },
+        // {
+        //     path: '/test',
+        //     name: 'test',
+        //     // component: Test,
+        //     component(resolve) {
+        //         require(['./views/Test'], resolve)
+        //     }
+        // },
         {
             path: '/mocktest',
             name: 'mocktest',
-            // component: Mocktest,
-            component(resolve) {
-                require(['./views/Mocktest'], resolve)
-            }
+            component:()=>import(/*webpackChunkName:"mocktest"*/"./views/Mocktest")
         },
         {
             path: '/service',
             name: 'service',
-            // component: Service,
-            component(resolve) {
-                require(['./views/Service.vue'], resolve)
-            },
+            component:()=>import(/*webpackChunkName:"service"*/"./views/Service.vue"),
             children: [
                 {
                     path: '/profile',
                     name: 'profile',
-                    component(resolve) {
-                        require(['./views/Profile'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile"),
                 },
                 {
                     path: '/notification',
                     name: 'notification',
-                    // component: Notification
-                    component(resolve) {
-                        require(['./views/Notification'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"notification"*/"./views/Notification"),
                 },
                 {
                     path: '/managemeeting',
                     name: 'managemeeting',
-                    // component: ManageMeeting
-                    component(resolve) {
-                        require(['./views/ManageMeeting'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"managemeeting"*/"./views/ManageMeeting"),
                 },
                 {
                     path: '/404',
                     name: 'four',
-                    // component: Four
-                    component(resolve) {
-                        require(['./views/404'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"four"*/"./views/404"),
                 },
                 {
                     path: '/500',
                     name: 'five',
-                    // component: Five
-                    component(resolve) {
-                        require(['./views/500'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"five"*/"./views/500"),
                 },
                 {
                     path: '/order',
                     name: 'order',
-                    // component: Order
-                    component(resolve) {
-                        require(['./views/Order.vue'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"order"*/"./views/Order.vue"),
                 },
                 {
                     path: '/index',
                     name: 'index',
-                    // component: Index
-                    component(resolve) {
-                        require(['./views/Index'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"index"*/"./views/Index"),
                 },
                 {
                     path: '/guide',
                     name: 'guide',
-                    // component: Guide
-                    component(resolve) {
-                        require(['./views/Guides'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"guides"*/"./views/Guides"),
                 },
                 {
                     path: '/form',
                     name: 'form',
-                    // component: Form
-                    component(resolve) {
-                        require(['./views/Form'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"form"*/"./views/Form"),
                 },
                 {
                     path: '/mymeeting',
                     name: 'mymeeting',
-                    // component: MyMeeting
-                    component(resolve) {
-                        require(['./views/MyMeeting'], resolve)
-                    }
+                    component:()=>import(/*webpackChunkName:"mymeeting"*/"./views/MyMeeting"),
                 }
             ]
         }
