@@ -254,12 +254,12 @@ export default new Router({
         {
             path: '/login',
             name: 'login',
-            component:()=>import(/*webpackChunkName:"user"*/"./views/Login")
+            component:()=>import(/*webpackChunkName:"user"*/"./views/Login.vue")
         },
         {
             path: '/password_reset',
             name: 'password_reset',
-            component:()=>import(/*webpackChunkName:"user"*/"./views/Password_reset")
+            component:()=>import(/*webpackChunkName:"user"*/"./views/Password_reset.vue")
         },
         // {
         //     path: '/test',
@@ -272,7 +272,7 @@ export default new Router({
         {
             path: '/mocktest',
             name: 'mocktest',
-            component:()=>import(/*webpackChunkName:"mocktest"*/"./views/Mocktest")
+            component:()=>import(/*webpackChunkName:"mocktest"*/"./views/Mocktest.vue")
         },
         {
             path: '/service',
@@ -282,27 +282,27 @@ export default new Router({
                 {
                     path: '/profile',
                     name: 'profile',
-                    component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile"),
+                    component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile.vue"),
                 },
                 {
                     path: '/notification',
                     name: 'notification',
-                    component:()=>import(/*webpackChunkName:"notification"*/"./views/Notification"),
+                    component:()=>import(/*webpackChunkName:"notification"*/"./views/Notification.vue"),
                 },
                 {
                     path: '/managemeeting',
                     name: 'managemeeting',
-                    component:()=>import(/*webpackChunkName:"managemeeting"*/"./views/ManageMeeting"),
+                    component:()=>import(/*webpackChunkName:"managemeeting"*/"./views/ManageMeeting.vue"),
                 },
                 {
                     path: '/404',
                     name: 'four',
-                    component:()=>import(/*webpackChunkName:"four"*/"./views/404"),
+                    component:()=>import(/*webpackChunkName:"four"*/"./views/404.vue"),
                 },
                 {
                     path: '/500',
                     name: 'five',
-                    component:()=>import(/*webpackChunkName:"five"*/"./views/500"),
+                    component:()=>import(/*webpackChunkName:"five"*/"./views/500.vue"),
                 },
                 {
                     path: '/order',
@@ -312,22 +312,22 @@ export default new Router({
                 {
                     path: '/index',
                     name: 'index',
-                    component:()=>import(/*webpackChunkName:"index"*/"./views/Index"),
+                    component:()=>import(/*webpackChunkName:"index"*/"./views/Index.vue"),
                 },
                 {
                     path: '/guide',
                     name: 'guide',
-                    component:()=>import(/*webpackChunkName:"guides"*/"./views/Guides"),
+                    component:()=>import(/*webpackChunkName:"guides"*/"./views/Guides.vue"),
                 },
                 {
                     path: '/form',
                     name: 'form',
-                    component:()=>import(/*webpackChunkName:"form"*/"./views/Form"),
+                    component:()=>import(/*webpackChunkName:"form"*/"./views/Form.vue"),
                 },
                 {
                     path: '/mymeeting',
                     name: 'mymeeting',
-                    component:()=>import(/*webpackChunkName:"mymeeting"*/"./views/MyMeeting"),
+                    component:()=>import(/*webpackChunkName:"mymeeting"*/"./views/MyMeeting.vue"),
                 }
             ]
         }
