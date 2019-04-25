@@ -23,7 +23,8 @@
         margin-top: 150px;
         padding: 15px;
         border-radius: 4px;
-        font-family: Roboto, Segoe UI, "Microsoft YaHei";
+        /*font-family: Roboto, Segoe UI, "Microsoft YaHei";*/
+        font-family: 微软雅黑;
     }
 
     .error-panel:after {

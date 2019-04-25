@@ -2,6 +2,7 @@
     <div class="fullscreen">
         <div class="login-box">
             <div style="text-align: center">
+                <!--<img v-lazy="imgs" alt="" class="logo">-->
                 <img src="../assets/logo1.png" alt="" class="logo">
             </div>
             <p class="text-tips" style="font-size: medium;">你好，欢迎登录</p>
@@ -32,8 +33,6 @@
     </div>
 </template>
 <script>
-
-
     export default {
         name: 'Login',
         data() {

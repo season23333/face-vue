@@ -1,100 +1,123 @@
 <!--<script>-->
-    <!--data: function(){-->
-        <!--return {-->
-            <!--Dmessages: [{-->
-                <!--name: '吴娇',-->
-                <!--phone: 15265320210,-->
-                <!--ticket: 3,-->
-                <!--integral: 300000,-->
-                <!--time:'2019-1-19',-->
-            <!--},{-->
-                <!--name: '忙着长肉',-->
-                <!--phone: 15265320210,-->
-                <!--ticket: 2,-->
-                <!--integral: 50000,-->
-                <!--time:'2019-1-29'-->
-            <!--},{-->
-                <!--name: '刘珊珊',-->
-                <!--phone: 15265320210,-->
-                <!--ticket: 5,-->
-                <!--integral: 3000,-->
-                <!--time:'2019-1-22'-->
-            <!--},{-->
-                <!--name: '刘珊珊',-->
-                <!--phone: 15265320210,-->
-                <!--ticket: 9,-->
-                <!--integral: 90000,-->
-                <!--time:'2019-1-30'-->
-            <!--}],-->
-            <!--sortType: null,                 // 数组对象中的哪一个属性进行排序-->
-            <!--order: false,                   // 升序还是降序-->
-        <!--}-->
-    <!--},-->
-    <!--methods: {-->
-        <!--sort(type){                     // 排序-->
-            <!--this.order = !this.order;		// 更改为 升序或降序-->
-            <!--this.sortType = type;-->
-            <!--this.Dmessages.sort(this.compare(type));-->
-            <!--// 调用下面 compare 方法 并传值-->
-        <!--},-->
-        <!--compare(attr){                  // 排序方法-->
-            <!--let that = this;-->
-            <!--return function(a,b){-->
-                <!--let val1 = a[attr];-->
-                <!--let val2 = b[attr];-->
+<!--data: function(){-->
+<!--return {-->
+<!--Dmessages: [{-->
+<!--name: '吴娇',-->
+<!--phone: 15265320210,-->
+<!--ticket: 3,-->
+<!--integral: 300000,-->
+<!--time:'2019-1-19',-->
+<!--},{-->
+<!--name: '忙着长肉',-->
+<!--phone: 15265320210,-->
+<!--ticket: 2,-->
+<!--integral: 50000,-->
+<!--time:'2019-1-29'-->
+<!--},{-->
+<!--name: '刘珊珊',-->
+<!--phone: 15265320210,-->
+<!--ticket: 5,-->
+<!--integral: 3000,-->
+<!--time:'2019-1-22'-->
+<!--},{-->
+<!--name: '刘珊珊',-->
+<!--phone: 15265320210,-->
+<!--ticket: 9,-->
+<!--integral: 90000,-->
+<!--time:'2019-1-30'-->
+<!--}],-->
+<!--sortType: null,                 // 数组对象中的哪一个属性进行排序-->
+<!--order: false,                   // 升序还是降序-->
+<!--}-->
+<!--},-->
+<!--methods: {-->
+<!--sort(type){                     // 排序-->
+<!--this.order = !this.order;		// 更改为 升序或降序-->
+<!--this.sortType = type;-->
+<!--this.Dmessages.sort(this.compare(type));-->
+<!--// 调用下面 compare 方法 并传值-->
+<!--},-->
+<!--compare(attr){                  // 排序方法-->
+<!--let that = this;-->
+<!--return function(a,b){-->
+<!--let val1 = a[attr];-->
+<!--let val2 = b[attr];-->
 
-                <!--if(that.order){-->
-                    <!--if(that.sortType == 'time'){            // 如果是时间就转换成时间格式-->
-                        <!--return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));-->
-                    <!--}else{-->
-                        <!--return val2 - val1;-->
-                    <!--}-->
+<!--if(that.order){-->
+<!--if(that.sortType == 'time'){            // 如果是时间就转换成时间格式-->
+<!--return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));-->
+<!--}else{-->
+<!--return val2 - val1;-->
+<!--}-->
 
-                <!--}else{-->
-                    <!--if(that.sortType == 'time'){-->
-                        <!--return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));-->
-                    <!--}else{-->
-                        <!--return val1 - val2;-->
-                    <!--}-->
-                <!--}-->
-            <!--}-->
-        <!--}-->
-    <!--},-->
+<!--}else{-->
+<!--if(that.sortType == 'time'){-->
+<!--return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));-->
+<!--}else{-->
+<!--return val1 - val2;-->
+<!--}-->
+<!--}-->
+<!--}-->
+<!--}-->
+<!--},-->
 <!--</script>-->
 
 
-
-
 <template>
+
     <div>
+        <el-popover
+                placement="right"
+                width="240"
+                trigger="click">
+            <div>
+                <el-input v-model="input" placeholder="请输入内容" suffix-icon="el-icon-search"
+                          style="width: 200px"></el-input>
+                <ul class="myul">
+                    <li v-for='(v,k) in arr' :key="k" @click="data(k)" :class="['myli',{'active':k===isActive}]"
+                        @mouseenter="mouseEnter(k)"
+                        @mouseleave="mouseLeave">
+                        <span>aaaaa</span>
+                        <div style="position: absolute; right: 0">
+                            <i v-if="k===isActive&&v.bol===false" class="icon-span"
+                               :class="{'icon-span-select' : v.bol===true}"></i>
+                            <i v-if="v.bol===true" class="icon-span" :class="{'icon-span-select' : v.bol===true}"></i>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <el-button slot="reference">新增通知人</el-button>
+        </el-popover>
+
         <!--<button @click="sort('date')">aaaaa</button>-->
         <!--<el-table-->
 
-                <!--:data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"-->
-                <!--style="width: 100%">-->
-            <!--<el-table-column-->
-                    <!--sortable-->
-                    <!--prop="date"-->
-                    <!--label="日期"-->
-                    <!--width="180">-->
-            <!--</el-table-column>-->
-            <!--<el-table-column-->
-                    <!--prop="name"-->
-                    <!--label="姓名"-->
-                    <!--width="180">-->
-            <!--</el-table-column>-->
-            <!--<el-table-column-->
-                    <!--prop="address"-->
-                    <!--label="地址">-->
-            <!--</el-table-column>-->
+        <!--:data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"-->
+        <!--style="width: 100%">-->
+        <!--<el-table-column-->
+        <!--sortable-->
+        <!--prop="date"-->
+        <!--label="日期"-->
+        <!--width="180">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+        <!--prop="name"-->
+        <!--label="姓名"-->
+        <!--width="180">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+        <!--prop="address"-->
+        <!--label="地址">-->
+        <!--</el-table-column>-->
         <!--</el-table>-->
         <!--<el-pagination-->
-                <!--@current-change="handleCurrentChange"-->
-                <!--:current-page="currentPage"-->
-                <!--:page-size="pagesize"-->
-                <!--background-->
-                <!--layout="prev, pager, next"-->
-                <!--:total="tableData.length">-->
+        <!--@current-change="handleCurrentChange"-->
+        <!--:current-page="currentPage"-->
+        <!--:page-size="pagesize"-->
+        <!--background-->
+        <!--layout="prev, pager, next"-->
+        <!--:total="tableData.length">-->
         <!--</el-pagination>-->
         <!--<a @click="getList()">aaaa</a>-->
         <!--<h3>mock测试</h3>-->
@@ -126,7 +149,7 @@
 <script>
     // import '@/util/mock';
     import axios from 'axios';
-    import {text} from '../api/table'
+    // import {text} from '../api/table'
     import {test} from '../api/login'
     import {getMeetingList} from '../api/table';
     import {getDetails} from "../api/user";
@@ -142,22 +165,22 @@
                 next: "",
                 tableData: [
                     {
-                    date: '2016-05-02',
-                    name: '1王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '2王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '3王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '4王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
+                        date: '2016-05-02',
+                        name: '1王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }, {
+                        date: '2016-05-04',
+                        name: '2王小虎',
+                        address: '上海市普陀区金沙江路 1517 弄'
+                    }, {
+                        date: '2016-05-01',
+                        name: '3王小虎',
+                        address: '上海市普陀区金沙江路 1519 弄'
+                    }, {
+                        date: '2016-05-03',
+                        name: '4王小虎',
+                        address: '上海市普陀区金沙江路 1516 弄'
+                    }, {
                         date: '2016-05-02',
                         name: '5王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
@@ -174,51 +197,91 @@
                         name: '8王小虎',
                         address: '上海市普陀区金沙江路 1516 弄'
                     }],
-                currentPage:1,
-                pagesize:2,
+                currentPage: 1,
+                pagesize: 2,
                 n: {
                     one1: '',
                     two: ''
                 },
+                i: 0,
+                isShow: 1,
+                arr: [
+                    {bol: false},
+                    {bol: false},
+                    {bol: false},
+                    {bol: false},
+                    {bol: false}],
+                isActive: -1
             }
         },
         // created() {
         //     // this.getSelectData('2019-03-13 00:00:00');
         //     this.$store.state.msg = 'aaa';
         // },
-        created() {
-            this.tokenTest();
-        },
+        // created() {
+        //     this.tokenTest();
+        // },
         methods: {
-            sort(type){                     // 排序
+            mouseEnter(index) {
+                this.isActive = index;
+                console.log('k:' + index);
+            },
+            //   鼠标移除
+            mouseLeave() {
+                this.isActive = null;
+            },
+            data(k) {
+                // this.isShow = !this.isShow
+                // 通过i知道当前被点的数据是谁，
+                // 把被点击的数据的 bol值改成true其他的都改成false
+                // for (var i = 0; i < this.arr.length; i++) {
+                //     this.arr[i].bol = false;
+                // }
+                if (this.arr[k].bol === false) {
+                    this.arr[k].bol = true;
+                } else {
+                    this.arr[k].bol = false
+                }
+
+            },
+
+            change() {
+                if (this.i === 0) {
+                    this.i = 1;
+                } else {
+                    this.i = 0;
+                }
+
+            },
+            sort(type) {                     // 排序
                 this.order = !this.order;		// 更改为 升序或降序
                 this.sortType = type;
                 this.Dmessages.sort(this.compare(type));
                 // 调用下面 compare 方法 并传值
             },
-            compare(attr){                  // 排序方法
+            compare(attr) {                  // 排序方法
                 let that = this;
-                return function(a,b){
+                return function (a, b) {
                     let val1 = a[attr];
                     let val2 = b[attr];
 
-                    if(that.order){
-                        if(that.sortType == 'time'){            // 如果是时间就转换成时间格式
-                            return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));
-                        }else{
+                    if (that.order) {
+                        if (that.sortType == 'time') {            // 如果是时间就转换成时间格式
+                            return new Date(val2.replace(/-/, '/')) - new Date(val1.replace(/-/, '/'));
+                        } else {
                             return val2 - val1;
                         }
 
-                    }else{
-                        if(that.sortType == 'time'){
-                            return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));
-                        }else{
+                    } else {
+                        if (that.sortType == 'time') {
+                            return new Date(val1.replace(/-/, '/')) - new Date(val2.replace(/-/, '/'));
+                        } else {
                             return val1 - val2;
                         }
                     }
                 }
             },
-            handleCurrentChange: function(currentPage){
+            handleCurrentChange: function (currentPage) {
                 this.currentPage = currentPage;
             },
             tokenTest() {
@@ -327,12 +390,88 @@
 </script>
 
 <style scoped>
-    .demo-table-info-row {
-        background: #2d8cf0;
+    .myred {
+        background-color: red;
     }
 
-    .used el-table {
-        background: #008080;
+    /*em {*/
+    /*font-style: normal;*/
+    /*float: right;*/
+    /*padding-right: 10px;*/
+    /*display: none;*/
+    /*}*/
+
+    /*.active em {*/
+    /*display: block;*/
+    /*}*/
+    /*.active{*/
+    /*background-color: red;*/
+    /*}*/
+
+    .myul {
+        padding: 10px 0 0;
+        margin: 0;
+        display: block;
+        list-style-type: disc;
+        scroll-snap-margin-block-start: 1em;
+        scroll-snap-margin-block-end: 1em;
+        scroll-snap-margin-inline-start: 0px;
+        scroll-snap-margin-inline-end: 0px;
+        scroll-padding-inline-start: 40px;
+    }
+
+    .myli {
+        height: 40px;
+        padding: 0 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+        width: 100%;
+        position: relative;
+        min-height: 40px;
+        color: #666;
+        outline-style: none;
+    }
+
+    .icon-span {
+        display: inline-block;
+        background-color: #fff;
+        border-radius: 100%;
+        border: 1px solid #ccc;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    .icon-span::after {
+        border: 2px solid transparent;
+        border-left: 0;
+        border-top: 0;
+        content: " ";
+        top: 3px;
+        left: 8px;
+        position: absolute;
+        width: 10px;
+        height: 16px;
+        -webkit-transform: rotate(45deg) scale(0);
+        transform: rotate(45deg) scale(0);
+        -webkit-transition: -webkit-transform .2s;
+        transition: -webkit-transform .2s;
+        transition: transform .2s;
+        transition: transform .2s, -webkit-transform .2s;
+    }
+
+    .icon-span-select {
+        /*background-color: green;*/
+        border-color: #fff;
+    }
+
+    .icon-span-select::after {
+        border-color: green;
+        -webkit-transform: rotate(45deg) scale(1);
+        transform: rotate(45deg) scale(1);
     }
 </style>
 

@@ -38,6 +38,8 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-lazyload": "^1.2.6",
+    "vue-svg-icon": "^1.2.9",
     "vue-template-compiler": "^2.5.21"
   }
 }

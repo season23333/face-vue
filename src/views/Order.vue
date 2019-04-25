@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row style="margin-top: 2.2%; margin-bottom: 2.2% " :gutter="0">
-            <el-col :span="7">
+            <el-col :xs="12" :sm="7" :lg="7">
                 <div class="block">
                     <span class="demonstration">日期：</span>
                     <el-date-picker
@@ -12,7 +12,7 @@
                     </el-date-picker>
                 </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :xs="12" :sm="7" :lg="6">
                 楼宇：
                 <el-select v-model="building.buildingID" prop="building.name" value-key="buildingID" placeholder="请选择"
                            clearable
@@ -26,7 +26,7 @@
                     </el-option>
                 </el-select>
             </el-col>
-            <el-col :span="6">
+            <el-col :xs="12" :sm="7" :lg="6">
                 会议室：
                 <el-select v-model="room.roomID" prop="room.name" value-key="roomID" placeholder="请选择"
                            clearable
@@ -39,10 +39,10 @@
                     </el-option>
                 </el-select>
             </el-col>
-            <el-col :span="1" style="text-align: right">
+            <el-col :xs="12" :sm="7" :lg="1" style="text-align: right">
                 <el-button icon="el-icon-search" circle @click="search()"></el-button>
             </el-col>
-            <el-col :span="3">
+            <el-col :xs="12" :sm="7" :lg="3">
                 <div>
                     <el-button plain @click="openForm">新增预定</el-button>
                     <el-dialog
@@ -738,7 +738,7 @@
 
 <script>
     import '@/util/mock'
-    import axios from 'axios';
+    // import axios from 'axios';
     import {getMeetingList} from '../api/table';
     import {getUserID} from '../api/user';
     import {byBuilding, getAllBuilding} from '../api/room';
@@ -907,7 +907,7 @@
                         console.log(this.room);
                     });
                 }
-                if(!this.currentBuildingID){
+                if (!this.currentBuildingID) {
                     this.room = [];
                 }
             },
@@ -923,7 +923,7 @@
             getRoomID() {
                 this.currentRoomID = this.room.roomID;
                 console.log(this.currentRoomID);
-                if(!this.currentRoomID){
+                if (!this.currentRoomID) {
                     this.room = [];
                     this.currentRoomID = -1;
                 }

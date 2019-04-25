@@ -98,7 +98,7 @@
                                     :rules="[{
                                         required: true, message: '通知人不能为空', trigger: 'blur'
                                     },{
-                                        validator:validatePass,trigger:'blur'
+                                        validator:validatePass, trigger:'manual'
                                     }]"
                             >
                                 <!--<el-input v-model="P.name" style="width: 200px"></el-input>-->
@@ -205,9 +205,10 @@
                     user: 0,
                 }],
                 test: [
-                    {value: 'aaa'},
-                    {value: 'ahh'},
-                    {value: 'bbb'}
+                    {value: ''},
+                ],
+                res:[
+                    {value:''}
                 ]
                 // color:'#F6F7FA'
                 // peopleDialogVisible: false,
@@ -371,9 +372,10 @@
             },
             //验证与会人是否合法
             validatePass(rule, value, callback) {
-                console.log('验证是否合法' + value);
-
-                if (value === 'aaa') {
+                console.log('验证是否合法' + this.test.indexOf(value));
+                console.log('验证是否合法' +this.test[0].value);
+                var index = this.test.indexOf(value);
+                if (index !== -1) {
                     callback();
                 } else {
                     callback(new Error("通知人姓名有误,请重新输入"))
@@ -504,11 +506,11 @@
             querySearch(queryString, cb) {
                 console.log('请求:', queryString);
                 validatePeople(queryString).then(res => {
-                    console.log(res.data.realName + res.data.userID);
-                    this.test.value = res.data.realName;
-                    this.test.value += res.data.userID;
-                    console.log(this.test.value);
-
+                    for(var i =0;i<res.data.length;i++){
+                        this.test[i].value = res.data[i].userID;
+                        this.test[i].value += res.data[i].realName;
+                        this.test[i].value += res.data[i].phoneNumber;
+                    }
                 });
                 var results = this.test;
                 // 调用 callback 返回建议列表的数据
@@ -516,7 +518,7 @@
             },
             handleSelect(item) {
                 console.log(item);
-                console.log('输出', this.msgForm);
+                console.log('输出');
             }
         }
     }
