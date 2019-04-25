@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100% ">
+    <div style="height: 100%                                                                                                                                                                                                                                                                                                                                               ">
         <el-row :gutter="20" style="height: 80px">
             <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
                 <section class="panel">
@@ -8,7 +8,8 @@
                             <img src="../assets/icon/user.png" class="icon-user" style="width: 57px;height: 57px">
                         </div>
                         <div class="value" style="padding-top: 10px">
-                            <h3 style="font-size: 45px ">{{free_num}}</h3>
+                            <!--<h3 style="font-size: 45px ">{{free_num}}</h3>-->
+                            <h3 style="font-size: 30px;margin: 10px">{{free_num}}</h3>
                             <p style="margin-top: 2px">空闲会议室</p>
                         </div>
                     </el-container>
@@ -23,7 +24,8 @@
                         </div>
                         <div class="value" style="padding-top: 10px">
                             <!--页面跳转传参测试-->
-                            <h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>
+                            <!--<h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>-->
+                            <h3 style="font-size: 30px;margin: 10px">5</h3>
                             <p style="margin-top: 2px">正在召开会议</p>
                         </div>
                     </el-container>
@@ -37,7 +39,8 @@
                                  style="height: 62px ; width:62px">
                         </div>
                         <div class="value" style="padding-top: 10px">
-                            <h3 style="font-size: 45px ">2</h3>
+                            <!--<h3 style="font-size: 45px ">2</h3>-->
+                            <h3 style="font-size: 30px;margin: 10px">5</h3>
                             <p style="margin-top: 2px">电话会议</p>
                         </div>
                     </el-container>
@@ -51,7 +54,7 @@
                                  style="height: 57px ; width:57px">
                         </div>
                         <div class="value" style="padding-top: 10px">
-                            <h3 style="font-size: 45px ">5</h3>
+                            <h3 style="font-size: 30px;margin: 10px">5</h3>
                             <p style="margin-top: 2px">我的会议</p>
                         </div>
                     </el-container>
