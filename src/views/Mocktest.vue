@@ -1,148 +1,67 @@
-<!--<script>-->
-<!--data: function(){-->
-<!--return {-->
-<!--Dmessages: [{-->
-<!--name: '吴娇',-->
-<!--phone: 15265320210,-->
-<!--ticket: 3,-->
-<!--integral: 300000,-->
-<!--time:'2019-1-19',-->
-<!--},{-->
-<!--name: '忙着长肉',-->
-<!--phone: 15265320210,-->
-<!--ticket: 2,-->
-<!--integral: 50000,-->
-<!--time:'2019-1-29'-->
-<!--},{-->
-<!--name: '刘珊珊',-->
-<!--phone: 15265320210,-->
-<!--ticket: 5,-->
-<!--integral: 3000,-->
-<!--time:'2019-1-22'-->
-<!--},{-->
-<!--name: '刘珊珊',-->
-<!--phone: 15265320210,-->
-<!--ticket: 9,-->
-<!--integral: 90000,-->
-<!--time:'2019-1-30'-->
-<!--}],-->
-<!--sortType: null,                 // 数组对象中的哪一个属性进行排序-->
-<!--order: false,                   // 升序还是降序-->
-<!--}-->
-<!--},-->
-<!--methods: {-->
-<!--sort(type){                     // 排序-->
-<!--this.order = !this.order;		// 更改为 升序或降序-->
-<!--this.sortType = type;-->
-<!--this.Dmessages.sort(this.compare(type));-->
-<!--// 调用下面 compare 方法 并传值-->
-<!--},-->
-<!--compare(attr){                  // 排序方法-->
-<!--let that = this;-->
-<!--return function(a,b){-->
-<!--let val1 = a[attr];-->
-<!--let val2 = b[attr];-->
-
-<!--if(that.order){-->
-<!--if(that.sortType == 'time'){            // 如果是时间就转换成时间格式-->
-<!--return new Date(val2.replace(/-/,'/')) - new Date(val1.replace(/-/,'/'));-->
-<!--}else{-->
-<!--return val2 - val1;-->
-<!--}-->
-
-<!--}else{-->
-<!--if(that.sortType == 'time'){-->
-<!--return new Date(val1.replace(/-/,'/')) - new Date(val2.replace(/-/,'/'));-->
-<!--}else{-->
-<!--return val1 - val2;-->
-<!--}-->
-<!--}-->
-<!--}-->
-<!--}-->
-<!--},-->
-<!--</script>-->
-
-
 <template>
-
     <div>
-        <el-popover
-                placement="right"
-                width="240"
-                trigger="click">
-            <div>
-                <el-input v-model="input" placeholder="请输入内容" suffix-icon="el-icon-search"
-                          style="width: 200px"></el-input>
-                <ul class="myul">
-                    <li v-for='(v,k) in arr' :key="k" @click="data(k)" :class="['myli',{'active':k===isActive}]"
-                        @mouseenter="mouseEnter(k)"
-                        @mouseleave="mouseLeave">
-                        <span>aaaaa</span>
-                        <div style="position: absolute; right: 0">
-                            <i v-if="k===isActive&&v.bol===false" class="icon-span"
-                               :class="{'icon-span-select' : v.bol===true}"></i>
-                            <i v-if="v.bol===true" class="icon-span" :class="{'icon-span-select' : v.bol===true}"></i>
-                        </div>
+        <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
-                    </li>
-                </ul>
+        <el-dialog title="与会人" :visible.sync="dialogFormVisible">
+
+            <!--<el-tag type="info" :key="tag"-->
+            <!--v-for="tag in dynamicTags">{{tag}}-->
+            <!--</el-tag>-->
+
+
+            <el-popover
+                    placement="right"
+                    width="240"
+                    trigger="click">
+                <div>
+                    <el-input v-model="search" placeholder="请输入内容" suffix-icon="el-icon-search"
+                              style="width: 200px"></el-input>
+                    <div v-loading="divLoading">
+                        <ul class="myul">
+                            <!--<li @click="data(0)" class="myli"-->
+                                <!--@mouseenter="mouseEnter(0)"-->
+                                <!--@mouseleave="mouseLeave">-->
+                                <!--<span>{{arr[0].realName}}</span>-->
+                                <!--<div style=" right: 0">-->
+
+
+                                    <!--<i v-if="isActive===0&&arr[0].bol===false" class="icon-span"-->
+                                       <!--:class="{'icon-span-selec' : arr[0].bol===false}"></i>-->
+                                    <!--<i v-else-if="arr[0].bol===true" class="icon-span"-->
+                                       <!--:class="{'icon-span-select' : arr[0].bol===true}"></i>-->
+
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <li v-for='(v,k) in arr' :key="k" @click="data(k)" class="myli"
+                            @mouseenter="mouseEnter(k)"
+                            @mouseleave="mouseLeave">
+                            <span>{{v.realName}}</span>
+                            <div style=" right: 0">
+
+
+                            <i v-if="isActive===k&&v.bol===false" class="icon-span"
+                            :class="{'icon-span-selec' : v.bol===false}"></i>
+                            <i v-else-if="v.bol===true" class="icon-span"
+                            :class="{'icon-span-select' : v.bol===true}"></i>
+
+                            </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <el-button slot="reference">新增通知人</el-button>
+            </el-popover>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
             </div>
-            <el-button slot="reference">新增通知人</el-button>
-        </el-popover>
-
-        <!--<button @click="sort('date')">aaaaa</button>-->
-        <!--<el-table-->
-
-        <!--:data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"-->
-        <!--style="width: 100%">-->
-        <!--<el-table-column-->
-        <!--sortable-->
-        <!--prop="date"-->
-        <!--label="日期"-->
-        <!--width="180">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-        <!--prop="name"-->
-        <!--label="姓名"-->
-        <!--width="180">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-        <!--prop="address"-->
-        <!--label="地址">-->
-        <!--</el-table-column>-->
-        <!--</el-table>-->
-        <!--<el-pagination-->
-        <!--@current-change="handleCurrentChange"-->
-        <!--:current-page="currentPage"-->
-        <!--:page-size="pagesize"-->
-        <!--background-->
-        <!--layout="prev, pager, next"-->
-        <!--:total="tableData.length">-->
-        <!--</el-pagination>-->
-        <!--<a @click="getList()">aaaa</a>-->
-        <!--<h3>mock测试</h3>-->
-        <!--<h3>数据渲染：{{ text }}</h3>-->
-        <!--<h1>{{ msg }}</h1>-->
-        <!--<h1>{{ next }}</h1>-->
-        <!--&lt;!&ndash;<form>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input type="file" @change="getFile($event)">&ndash;&gt;-->
-        <!--&lt;!&ndash;<button class="button button-primary button-pill button-small" @click="submit($event)">提交</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;</form>&ndash;&gt;-->
+        </el-dialog>
 
 
-        <!--<el-table :data="Data" >-->
-        <!--<el-table-column prop="id" label="Id" :class="Data.id === '100'? 'used':''">-->
-        <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div :class="scope.row.id === '100'? 'used':''">{{scope.row.id}}</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</template>&ndash;&gt;-->
-        <!--</el-table-column>-->
-        <!--<el-table-column prop="time" label="时间">-->
-        <!--</el-table-column>-->
-        <!--</el-table>-->
-        <!--<span v-for="u in tableData[0]">{{ u }}<br></span>-->
-        <!--<h3>{{this.$store.state.msg}}</h3>-->
-        <button @click="func()">点我!</button>
-        <button @click="aaa()">清除token</button>
+        <!--<button @click="func()">点我!</button>-->
+        <!--<button @click="aaa()">清除token</button>-->
     </div>
 </template>
 
@@ -153,11 +72,13 @@
     import {test} from '../api/login'
     import {getMeetingList} from '../api/table';
     import {getDetails} from "../api/user";
+    import {validatePeople} from "../api/user"
 
     export default {
         name: "mocktest",
         data() {
             return {
+                search: '',
                 text: "",
                 msg: 'Welcome to Your Vue.js App',
                 file: '',
@@ -206,12 +127,20 @@
                 i: 0,
                 isShow: 1,
                 arr: [
-                    {bol: false},
-                    {bol: false},
-                    {bol: false},
-                    {bol: false},
-                    {bol: false}],
-                isActive: -1
+                    {
+                        bol: false,
+                        userID: '',
+                        realName: '',
+                        phoneNumber: ''
+                    },
+                ],
+                isActive: -1,
+                searchPoi: [],
+                divLoading: false,
+                onLine: true,
+                dialogFormVisible: false,
+                dynamicTags: [],
+                timeout: null
             }
         },
         // created() {
@@ -221,10 +150,45 @@
         // created() {
         //     this.tokenTest();
         // },
+        watch: {
+            search(curVal) {
+                // 实现input连续输入，只发一次请求
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    console.log('???' + curVal);
+                    this.getListPOI(curVal);
+                }, 300);
+            }
+        },
         methods: {
+            //模糊匹配
+            async getListPOI(inputVal) {
+                if (inputVal === '') {
+                    return false;
+                }
+                this.searchPoi = [];
+                this.divLoading = true;
+                if (!navigator.onLine) {//没有网络
+                    // this.onLine = false;
+                    this.divLoading = false;
+                    return false;
+                }
+                try {
+                    await validatePeople(inputVal).then(res => {
+                        this.arr = res.data;
+                        for (var i = 0; i < res.data.length; i++) {
+                            this.arr[i].bol = false;
+                        }
+                    });
+                    this.divLoading = false;
+                    // console.log(this.timeout)
+                } catch (err) {
+                    console.log(err);
+                }
+            },
             mouseEnter(index) {
                 this.isActive = index;
-                console.log('k:' + index);
+                console.log('鼠标移入（false是灰色 未选择这一项）:' + this.arr[index].bol);
             },
             //   鼠标移除
             mouseLeave() {
@@ -237,11 +201,15 @@
                 // for (var i = 0; i < this.arr.length; i++) {
                 //     this.arr[i].bol = false;
                 // }
+                this.search = this.arr[k].realName;
                 if (this.arr[k].bol === false) {
                     this.arr[k].bol = true;
                 } else {
                     this.arr[k].bol = false
                 }
+                console.log('点击列表某一项改变（）' + this.arr[k].bol);
+                this.isActive = null;
+                this.isActive = k;
 
             },
 
@@ -251,75 +219,74 @@
                 } else {
                     this.i = 0;
                 }
-
             },
-            sort(type) {                     // 排序
-                this.order = !this.order;		// 更改为 升序或降序
-                this.sortType = type;
-                this.Dmessages.sort(this.compare(type));
-                // 调用下面 compare 方法 并传值
-            },
-            compare(attr) {                  // 排序方法
-                let that = this;
-                return function (a, b) {
-                    let val1 = a[attr];
-                    let val2 = b[attr];
-
-                    if (that.order) {
-                        if (that.sortType == 'time') {            // 如果是时间就转换成时间格式
-                            return new Date(val2.replace(/-/, '/')) - new Date(val1.replace(/-/, '/'));
-                        } else {
-                            return val2 - val1;
-                        }
-
-                    } else {
-                        if (that.sortType == 'time') {
-                            return new Date(val1.replace(/-/, '/')) - new Date(val2.replace(/-/, '/'));
-                        } else {
-                            return val1 - val2;
-                        }
-                    }
-                }
-            },
-            handleCurrentChange: function (currentPage) {
-                this.currentPage = currentPage;
-            },
-            tokenTest() {
-                console.log('测试');
-                getDetails().then(res => {
-                    console.log(res.data);
-                });
-                axios.get('http://192.168.43.182:8080/room/test').then(res => {
-                    this.n.one = res.data.data.adsf;
-                    console.log('接受测试', this.n.one);
-                })
-
-            },
+            // sort(type) {                     // 排序
+            //     this.order = !this.order;		// 更改为 升序或降序
+            //     this.sortType = type;
+            //     this.Dmessages.sort(this.compare(type));
+            //     // 调用下面 compare 方法 并传值
+            // },
+            // compare(attr) {                  // 排序方法
+            //     let that = this;
+            //     return function (a, b) {
+            //         let val1 = a[attr];
+            //         let val2 = b[attr];
+            //
+            //         if (that.order) {
+            //             if (that.sortType == 'time') {            // 如果是时间就转换成时间格式
+            //                 return new Date(val2.replace(/-/, '/')) - new Date(val1.replace(/-/, '/'));
+            //             } else {
+            //                 return val2 - val1;
+            //             }
+            //
+            //         } else {
+            //             if (that.sortType == 'time') {
+            //                 return new Date(val1.replace(/-/, '/')) - new Date(val2.replace(/-/, '/'));
+            //             } else {
+            //                 return val1 - val2;
+            //             }
+            //         }
+            //     }
+            // },
+            // handleCurrentChange: function (currentPage) {
+            //     this.currentPage = currentPage;
+            // },
+            // tokenTest() {
+            //     console.log('测试');
+            //     getDetails().then(res => {
+            //         console.log(res.data);
+            //     });
+            //     axios.get('http://192.168.43.182:8080/room/test').then(res => {
+            //         this.n.one = res.data.data.adsf;
+            //         console.log('接受测试', this.n.one);
+            //     })
+            //
+            // },
             // func(){
             //     this.$router.push({ path: '/index',query: { orderId: 2 }})
             // },
-            aaa() {
-                this.$store.dispatch('LogOut');
-            },
-            func() {
-                test().then(res => {
-                    console.log(res);
-                })
-            },
-            getSelectData(date) {
-                console.log(date);
-                getMeetingList(date).then(response => {
-                    this.tableData = response.data;
-                    // var list = response.data;
-                    // for(var i = 0; i < list.length; i++){
-                    //     // this.tableData[i] = list[i];
-                    //     for(var j = 0; j<this.tableData[i]; j++){
-                    // this.tableData.id= response.data[0][0];
-                    //     }
-                    // }
-                    console.log(this.tableData.id);
-                })
-            },
+            // aaa() {
+            //     this.$store.dispatch('LogOut');
+            // },
+            // func() {
+            //     test().then(res => {
+            //         console.log(res);
+            //     })
+            // },
+            // getSelectData(date) {
+            //     console.log(date);
+            //     getMeetingList(date).then(response => {
+            //         this.tableData = response.data;
+            //         // var list = response.data;
+            //         // for(var i = 0; i < list.length; i++){
+            //         //     // this.tableData[i] = list[i];
+            //         //     for(var j = 0; j<this.tableData[i]; j++){
+            //         // this.tableData.id= response.data[0][0];
+            //         //     }
+            //         // }
+            //         console.log(this.tableData.id);
+            //     })
+            // },
             //     getList(){
             //         text(this.msg).then(response=>{
             //             console.log(response.data);
@@ -363,7 +330,6 @@
             //     // }
             // },
         },
-        watch: {},
 
         // mounted() {
         //     // axios.get('/list').then(res => {
@@ -404,7 +370,8 @@
     /*.active em {*/
     /*display: block;*/
     /*}*/
-    /*.active{*/
+    /*.active {*/
+    /*display: block;*/
     /*background-color: red;*/
     /*}*/
 
@@ -473,6 +440,18 @@
         -webkit-transform: rotate(45deg) scale(1);
         transform: rotate(45deg) scale(1);
     }
+
+    .icon-span-selec {
+        border-color: #fff;
+    }
+
+    .icon-span-selec::after {
+        border-color: lightgray;
+        -webkit-transform: rotate(45deg) scale(1);
+        transform: rotate(45deg) scale(1);
+    }
+
+
 </style>
 
 
