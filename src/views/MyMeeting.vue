@@ -82,44 +82,84 @@
                             style="margin-right: 20px"
                     >添加与会人
                     </el-button>
-                    <el-dialog
-                            title="提示"
-                            :visible.sync="msgDialogVisible"
-                            width="30%"
-                            :before-close="handleClose"
-                            center>
-                        <el-form :model="msgForm" ref="msgForm" label-width="100px"
-                                 class="demo-dynamic">
-                            <el-form-item
-                                    v-for="(P, index) in msgForm.people"
-                                    :label="'通知人' + (index+1)"
-                                    :key="P.key"
-                                    :prop="'people.' + index + '.name'"
-                                    :rules="[{
-                                        required: true, message: '通知人不能为空', trigger: 'blur'
-                                    },{
-                                        validator:validatePass, trigger:'manual'
-                                    }]"
-                            >
-                                <!--<el-input v-model="P.name" style="width: 200px"></el-input>-->
-                                <el-autocomplete
-                                        class="inline-input"
-                                        v-model="P.name"
-                                        :fetch-suggestions="querySearch"
-                                        placeholder="请输入内容"
-                                        :trigger-on-focus="false"
-                                        @select="handleSelect"
-                                ></el-autocomplete>
-                                <el-button @click.prevent="removeDomain(P)" style="margin-left: 20px">删除</el-button>
-                            </el-form-item>
-
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('msgForm')">提交</el-button>
-                                <el-button @click="addDomain">新增通知人</el-button>
-                                <!--<el-button @click="resetForm('msgForm')">重置</el-button>-->
-                            </el-form-item>
-                        </el-form>
+                    <el-dialog title="添加与会人" :visible.sync="msgDialogVisible" :before-close="closeDialog">
+                        <el-tag
+                                style="margin-right: 10px"
+                                :key="tag"
+                                v-for="tag in nameList"
+                                closable
+                                :disable-transitions="false"
+                                @close="handleClose(tag)">
+                            {{tag}}
+                        </el-tag>
+                        <el-popover
+                                placement="right"
+                                width="240"
+                                trigger="click">
+                            <div>
+                                <el-input v-model="search" placeholder="请输入与会人" suffix-icon="el-icon-search"
+                                          style="width: 200px"></el-input>
+                                <div v-loading="divLoading" v-if="sshow === true">
+                                    <ul class="myul">
+                                        <li v-for='(v,k) in arr' :key="k" @click="data(k)" class="myli"
+                                            @mouseenter="mouseEnter(k)"
+                                            @mouseleave="mouseLeave">
+                                            <span>{{v.realName}}{{v.phoneNumber}}</span>
+                                            <div style=" right: 0">
+                                                <i v-if="isActive===k&&v.bol===false" class="icon-span"
+                                                   :class="{'icon-span-selec' : v.bol===false}"></i>
+                                                <i v-else-if="v.bol===true" class="icon-span"
+                                                   :class="{'icon-span-select' : v.bol===true}"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <el-button slot="reference">新增通知人</el-button>
+                        </el-popover>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="msgDialogVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="update()">确 定</el-button>
+                        </div>
                     </el-dialog>
+                    <!--<el-dialog-->
+                            <!--title="提示"-->
+                            <!--:visible.sync="msgDialogVisible"-->
+                            <!--width="30%"-->
+                            <!--:before-close="handleClose"-->
+                            <!--center>-->
+                        <!--<el-form :model="msgForm" ref="msgForm" label-width="100px"-->
+                                 <!--class="demo-dynamic">-->
+                            <!--<el-form-item-->
+                                    <!--v-for="(P, index) in msgForm.people"-->
+                                    <!--:label="'通知人' + (index+1)"-->
+                                    <!--:key="P.key"-->
+                                    <!--:prop="'people.' + index + '.name'"-->
+                                    <!--:rules="[{-->
+                                        <!--required: true, message: '通知人不能为空', trigger: 'blur'-->
+                                    <!--},{-->
+                                        <!--validator:validatePass, trigger:'manual'-->
+                                    <!--}]"-->
+                            <!--&gt;-->
+                                <!--&lt;!&ndash;<el-input v-model="P.name" style="width: 200px"></el-input>&ndash;&gt;-->
+                                <!--<el-autocomplete-->
+                                        <!--class="inline-input"-->
+                                        <!--v-model="P.name"-->
+                                        <!--:fetch-suggestions="querySearch"-->
+                                        <!--placeholder="请输入内容"-->
+                                        <!--:trigger-on-focus="false"-->
+                                        <!--@select="handleSelect"-->
+                                <!--&gt;</el-autocomplete>-->
+                                <!--<el-button @click.prevent="removeDomain(P)" style="margin-left: 20px">删除</el-button>-->
+                            <!--</el-form-item>-->
+
+                            <!--<el-form-item>-->
+                                <!--<el-button type="primary" @click="submitForm('msgForm')">提交</el-button>-->
+                                <!--<el-button @click="addDomain">新增通知人</el-button>-->
+                                <!--&lt;!&ndash;<el-button @click="resetForm('msgForm')">重置</el-button>&ndash;&gt;-->
+                            <!--</el-form-item>-->
+                        <!--</el-form>-->
+                    <!--</el-dialog>-->
 
 
                     <el-button
@@ -159,6 +199,7 @@
     import {getRoomName, getBuildingName} from "../api/room";
     import {validatePeople, getUserID} from "../api/user"
     import {getPage, cancelConference} from "../api/conference";
+    import {Message} from 'element-ui'
     // import axios from 'axios';
 
     export default {
@@ -188,7 +229,7 @@
                     status: 1,//是否通过，1是通过
                     flag: 0,
                 }],
-                msgDialogVisible: false,
+
                 msgForm: {
                     people: [{
                         name: ''
@@ -209,11 +250,58 @@
                 ],
                 res:[
                     {value:''}
-                ]
+                ],
+                search: '',
+                arr: [
+                    {
+                        bol: false,
+                        userID: '',
+                        realName: '',
+                        phoneNumber: '',
+                        str: ''
+                    },
+                ],
+                isActive: -1,
+                searchPoi: [],
+                divLoading: false,
+                onLine: true,
+                msgDialogVisible: false,
+                dynamicTags: [],
+                timeout: null,
+                sshow: false,
+                nameList: []
                 // color:'#F6F7FA'
                 // peopleDialogVisible: false,
                 // inputVisible: false,
                 // inputValue: '',
+            }
+        },
+        watch: {
+            search(curVal) {
+                // 实现input连续输入，只发一次请求
+                if (curVal === '') {
+                    this.sshow = false;
+                    return false;
+                } else {
+                    var reg = /^[\u0391-\uFFE5A-Za-z]+$/;
+                    if (reg.test(curVal)) {
+                        // if (this.nameList.indexOf(curVal) !== -1)
+                        this.sshow = true;
+                    } else {
+                        this.sshow = false;
+                        Message({
+                            message: '请输入正确姓名',
+                            type: 'error',
+                            duration: 1000
+                        });
+                        return false;
+                    }
+                }
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    console.log('???' + curVal);
+                    this.getListPOI(curVal);
+                }, 300);
             }
         },
         created() {
@@ -450,20 +538,95 @@
                     this.showPage();
                 })
             },
-            //关闭对话框
-            handleClose(done) {
+            //模糊匹配
+            async getListPOI(inputVal) {
+                if (inputVal === '') {
+                    return false;
+                }
+                this.searchPoi = [];
+                this.divLoading = true;
+                if (!navigator.onLine) {//没有网络
+                    // this.onLine = false;
+                    this.divLoading = false;
+                    return false;
+                }
+                try {
+                    await validatePeople(inputVal).then(res => {
+                        this.arr = res.data;
+                        for (var i = 0; i < res.data.length; i++) {
+                            var str = this.arr[i].realName + this.arr[i].phoneNumber;
+                            this.arr[i].str = str;
+                            if (this.nameList.indexOf(str) === -1) {
+                                this.arr[i].bol = false;
+                            } else {
+                                this.arr[i].bol = true;
+                            }
+                        }
+                    });
+                    this.divLoading = false;
+                    // console.log(this.timeout)
+                } catch (err) {
+                    console.log(err);
+                }
+            },
+            mouseEnter(index) {
+                this.isActive = index;
+                console.log('鼠标移入（false是灰色 未选择这一项）:' + this.arr[index].bol);
+            },
+            //   鼠标移除
+            mouseLeave() {
+                this.isActive = null;
+            },
+            data(k) {
+                this.search = this.arr[k].realName;
+                if (this.arr[k].bol === false) {
+                    this.arr[k].bol = true;
+                    var str = this.arr[k].realName + this.arr[k].phoneNumber;
+                    this.nameList.push(str);
+                    // this.nameList.push(this.arr[k].realName);
+                } else {
+                    this.arr[k].bol = false;
+                    this.nameList.splice(this.nameList.indexOf(this.arr[k].realName), 1);
+                }
+                console.log('点击列表某一项改变（）' + this.arr[k].bol);
+                this.isActive = null;
+                this.isActive = k;
+
+            },
+            handleClose(tag) {
+                for (var i = 0; i < this.arr.length; i++) {
+                    if (this.arr[i].str === tag) {
+                        this.arr[i].bol = false;
+                    }
+                }
+                this.nameList.splice(this.nameList.indexOf(tag), 1);
+            },
+            closeDialog(done) {
                 this.$confirm('确认关闭？')
-                    .then(() => {
-                        // this.$nextTick(() => {
-                        //     this.$refs.form.resetFields();       // this.$refs.adduserform.resetFields();
-                        // });
-                        // this.msgDialogVisible = false;
-                        // console.log('关闭');
+                    .then(_ => {
                         done();
                     })
-                    .catch(() => {
+                    .catch(_ => {
                     });
             },
+            update(){
+                this.msgDialogVisible = false;
+                console.log('提交了')
+            }
+            //关闭对话框
+            // handleClose(done) {
+            //     this.$confirm('确认关闭？')
+            //         .then(() => {
+            //             // this.$nextTick(() => {
+            //             //     this.$refs.form.resetFields();       // this.$refs.adduserform.resetFields();
+            //             // });
+            //             // this.msgDialogVisible = false;
+            //             // console.log('关闭');
+            //             done();
+            //         })
+            //         .catch(() => {
+            //         });
+            // },
             // //删除与会人
             // handleCloseTag(tag) {
             //     this.people.splice(this.people.indexOf(tag), 1);
@@ -503,26 +666,101 @@
             //     this.inputVisible = false;
             //     this.inputValue = '';
             // },
-            querySearch(queryString, cb) {
-                console.log('请求:', queryString);
-                validatePeople(queryString).then(res => {
-                    for(var i =0;i<res.data.length;i++){
-                        this.test[i].value = res.data[i].userID;
-                        this.test[i].value += res.data[i].realName;
-                        this.test[i].value += res.data[i].phoneNumber;
-                    }
-                });
-                var results = this.test;
-                // 调用 callback 返回建议列表的数据
-                cb(results);
-            },
-            handleSelect(item) {
-                console.log(item);
-                console.log('输出');
-            }
+            // querySearch(queryString, cb) {
+            //     console.log('请求:', queryString);
+            //     validatePeople(queryString).then(res => {
+            //         for(var i =0;i<res.data.length;i++){
+            //             this.test[i].value = res.data[i].userID;
+            //             this.test[i].value += res.data[i].realName;
+            //             this.test[i].value += res.data[i].phoneNumber;
+            //         }
+            //     });
+            //     var results = this.test;
+            //     // 调用 callback 返回建议列表的数据
+            //     cb(results);
+            // },
+            // handleSelect(item) {
+            //     console.log(item);
+            //     console.log('输出');
+            // }
         }
     }
 </script>
 
-<style>
+<style scoped>
+    .myul {
+        padding: 10px 0 0;
+        margin: 0;
+        display: block;
+        list-style-type: disc;
+        scroll-snap-margin-block-start: 1em;
+        scroll-snap-margin-block-end: 1em;
+        scroll-snap-margin-inline-start: 0px;
+        scroll-snap-margin-inline-end: 0px;
+        scroll-padding-inline-start: 40px;
+    }
+
+    .myli {
+        height: 40px;
+        padding: 0 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+        width: 100%;
+        position: relative;
+        min-height: 40px;
+        color: #666;
+        outline-style: none;
+    }
+
+    .icon-span {
+        display: inline-block;
+        background-color: #fff;
+        border-radius: 100%;
+        border: 1px solid #ccc;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    .icon-span::after {
+        border: 2px solid transparent;
+        border-left: 0;
+        border-top: 0;
+        content: " ";
+        top: 3px;
+        left: 8px;
+        position: absolute;
+        width: 10px;
+        height: 16px;
+        -webkit-transform: rotate(45deg) scale(0);
+        transform: rotate(45deg) scale(0);
+        -webkit-transition: -webkit-transform .2s;
+        transition: -webkit-transform .2s;
+        transition: transform .2s;
+        transition: transform .2s, -webkit-transform .2s;
+    }
+
+    .icon-span-select {
+        /*background-color: green;*/
+        border-color: #fff;
+    }
+
+    .icon-span-select::after {
+        border-color: green;
+        -webkit-transform: rotate(45deg) scale(1);
+        transform: rotate(45deg) scale(1);
+    }
+
+    .icon-span-selec {
+        border-color: #fff;
+    }
+
+    .icon-span-selec::after {
+        border-color: lightgray;
+        -webkit-transform: rotate(45deg) scale(1);
+        transform: rotate(45deg) scale(1);
+    }
 </style>

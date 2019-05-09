@@ -1,52 +1,36 @@
 <template>
     <div>
-        <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
-
-        <el-dialog title="与会人" :visible.sync="dialogFormVisible">
-
-            <!--<el-tag type="info" :key="tag"-->
-            <!--v-for="tag in dynamicTags">{{tag}}-->
-            <!--</el-tag>-->
-
-
+        <el-button type="text" @click="msgDialogVisible = true" >打开嵌套表单的 Dialog
+        </el-button>
+        <el-dialog title="与会人" :visible.sync="msgDialogVisible" :before-close="closeDialog">
+            <el-tag
+                    style="margin-right: 10px"
+                    :key="tag"
+                    v-for="tag in nameList"
+                    closable
+                    :disable-transitions="false"
+                    @close="handleClose(tag)">
+                {{tag}}
+            </el-tag>
             <el-popover
                     placement="right"
                     width="240"
                     trigger="click">
                 <div>
-                    <el-input v-model="search" placeholder="请输入内容" suffix-icon="el-icon-search"
+                    <el-input v-model="search" placeholder="请输入与会人" suffix-icon="el-icon-search"
                               style="width: 200px"></el-input>
-                    <div v-loading="divLoading">
+                    <div v-loading="divLoading" v-if="sshow === true">
                         <ul class="myul">
-                            <!--<li @click="data(0)" class="myli"-->
-                                <!--@mouseenter="mouseEnter(0)"-->
-                                <!--@mouseleave="mouseLeave">-->
-                                <!--<span>{{arr[0].realName}}</span>-->
-                                <!--<div style=" right: 0">-->
-
-
-                                    <!--<i v-if="isActive===0&&arr[0].bol===false" class="icon-span"-->
-                                       <!--:class="{'icon-span-selec' : arr[0].bol===false}"></i>-->
-                                    <!--<i v-else-if="arr[0].bol===true" class="icon-span"-->
-                                       <!--:class="{'icon-span-select' : arr[0].bol===true}"></i>-->
-
-                                <!--</div>-->
-
-                            <!--</li>-->
                             <li v-for='(v,k) in arr' :key="k" @click="data(k)" class="myli"
-                            @mouseenter="mouseEnter(k)"
-                            @mouseleave="mouseLeave">
-                            <span>{{v.realName}}</span>
-                            <div style=" right: 0">
-
-
-                            <i v-if="isActive===k&&v.bol===false" class="icon-span"
-                            :class="{'icon-span-selec' : v.bol===false}"></i>
-                            <i v-else-if="v.bol===true" class="icon-span"
-                            :class="{'icon-span-select' : v.bol===true}"></i>
-
-                            </div>
-
+                                @mouseenter="mouseEnter(k)"
+                                @mouseleave="mouseLeave">
+                                <span>{{v.realName}}{{v.phoneNumber}}</span>
+                                <div style=" right: 0">
+                                    <i v-if="isActive===k&&v.bol===false" class="icon-span"
+                                       :class="{'icon-span-selec' : v.bol===false}"></i>
+                                    <i v-else-if="v.bol===true" class="icon-span"
+                                       :class="{'icon-span-select' : v.bol===true}"></i>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -54,105 +38,64 @@
                 <el-button slot="reference">新增通知人</el-button>
             </el-popover>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                <el-button @click="msgDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="update()">确 定</el-button>
             </div>
         </el-dialog>
-
-
-        <!--<button @click="func()">点我!</button>-->
-        <!--<button @click="aaa()">清除token</button>-->
     </div>
 </template>
 
 <script>
-    // import '@/util/mock';
-    import axios from 'axios';
-    // import {text} from '../api/table'
-    import {test} from '../api/login'
-    import {getMeetingList} from '../api/table';
-    import {getDetails} from "../api/user";
+    // import axios from 'axios';
     import {validatePeople} from "../api/user"
+    import {Message} from 'element-ui'
 
     export default {
         name: "mocktest",
         data() {
             return {
                 search: '',
-                text: "",
-                msg: 'Welcome to Your Vue.js App',
-                file: '',
-                Data: [],
-                next: "",
-                tableData: [
-                    {
-                        date: '2016-05-02',
-                        name: '1王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }, {
-                        date: '2016-05-04',
-                        name: '2王小虎',
-                        address: '上海市普陀区金沙江路 1517 弄'
-                    }, {
-                        date: '2016-05-01',
-                        name: '3王小虎',
-                        address: '上海市普陀区金沙江路 1519 弄'
-                    }, {
-                        date: '2016-05-03',
-                        name: '4王小虎',
-                        address: '上海市普陀区金沙江路 1516 弄'
-                    }, {
-                        date: '2016-05-02',
-                        name: '5王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }, {
-                        date: '2016-05-04',
-                        name: '6王小虎',
-                        address: '上海市普陀区金沙江路 1517 弄'
-                    }, {
-                        date: '2016-05-01',
-                        name: '7王小虎',
-                        address: '上海市普陀区金沙江路 1519 弄'
-                    }, {
-                        date: '2016-05-03',
-                        name: '8王小虎',
-                        address: '上海市普陀区金沙江路 1516 弄'
-                    }],
-                currentPage: 1,
-                pagesize: 2,
-                n: {
-                    one1: '',
-                    two: ''
-                },
-                i: 0,
-                isShow: 1,
                 arr: [
                     {
                         bol: false,
                         userID: '',
                         realName: '',
-                        phoneNumber: ''
+                        phoneNumber: '',
+                        str: ''
                     },
                 ],
                 isActive: -1,
                 searchPoi: [],
                 divLoading: false,
                 onLine: true,
-                dialogFormVisible: false,
+                msgDialogVisible: false,
                 dynamicTags: [],
-                timeout: null
+                timeout: null,
+                sshow: false,
+                nameList: []
             }
         },
-        // created() {
-        //     // this.getSelectData('2019-03-13 00:00:00');
-        //     this.$store.state.msg = 'aaa';
-        // },
-        // created() {
-        //     this.tokenTest();
-        // },
         watch: {
             search(curVal) {
                 // 实现input连续输入，只发一次请求
+                if (curVal === '') {
+                    this.sshow = false;
+                    return false;
+                } else {
+                    var reg = /^[\u0391-\uFFE5A-Za-z]+$/;
+                    if (reg.test(curVal)) {
+                        // if (this.nameList.indexOf(curVal) !== -1)
+                        this.sshow = true;
+                    } else {
+                        this.sshow = false;
+                        Message({
+                            message: '请输入正确姓名',
+                            type: 'error',
+                            duration: 1000
+                        });
+                        return false;
+                    }
+                }
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     console.log('???' + curVal);
@@ -177,7 +120,13 @@
                     await validatePeople(inputVal).then(res => {
                         this.arr = res.data;
                         for (var i = 0; i < res.data.length; i++) {
-                            this.arr[i].bol = false;
+                            var str = this.arr[i].realName + this.arr[i].phoneNumber;
+                            this.arr[i].str = str;
+                            if (this.nameList.indexOf(str) === -1) {
+                                this.arr[i].bol = false;
+                            } else {
+                                this.arr[i].bol = true;
+                            }
                         }
                     });
                     this.divLoading = false;
@@ -195,31 +144,48 @@
                 this.isActive = null;
             },
             data(k) {
-                // this.isShow = !this.isShow
-                // 通过i知道当前被点的数据是谁，
-                // 把被点击的数据的 bol值改成true其他的都改成false
-                // for (var i = 0; i < this.arr.length; i++) {
-                //     this.arr[i].bol = false;
-                // }
                 this.search = this.arr[k].realName;
                 if (this.arr[k].bol === false) {
                     this.arr[k].bol = true;
+                    var str = this.arr[k].realName + this.arr[k].phoneNumber;
+                    this.nameList.push(str);
+                    // this.nameList.push(this.arr[k].realName);
                 } else {
-                    this.arr[k].bol = false
+                    this.arr[k].bol = false;
+                    this.nameList.splice(this.nameList.indexOf(this.arr[k].realName), 1);
                 }
                 console.log('点击列表某一项改变（）' + this.arr[k].bol);
                 this.isActive = null;
                 this.isActive = k;
 
             },
-
-            change() {
-                if (this.i === 0) {
-                    this.i = 1;
-                } else {
-                    this.i = 0;
+            handleClose(tag) {
+                for (var i = 0; i < this.arr.length; i++) {
+                    if (this.arr[i].str === tag) {
+                        this.arr[i].bol = false;
+                    }
                 }
+                this.nameList.splice(this.nameList.indexOf(tag), 1);
             },
+            closeDialog(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            update(){
+                this.msgDialogVisible = false;
+                console.log('提交了')
+            }
+            // change() {
+            //     if (this.i === 0) {
+            //         this.i = 1;
+            //     } else {
+            //         this.i = 0;
+            //     }
+            // },
             // sort(type) {                     // 排序
             //     this.order = !this.order;		// 更改为 升序或降序
             //     this.sortType = type;
