@@ -39,3 +39,22 @@ export function rejectConference(conferenceID) {
         params: {conferenceID: conferenceID}
     })
 }
+
+export function addConfPeople(userIdList,conferenceID) {
+    return request({
+        url:'/conference/participants',
+        method:'post',
+        data: {
+            userIdList,
+            conferenceID
+        }
+    })
+}
+
+export function showConfPeople(conferenceID) {
+    return request({
+        url:'conference/participants',
+        method:'get',
+        params:{conferenceID:conferenceID}
+    })
+}

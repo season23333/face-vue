@@ -7,6 +7,7 @@ import Qs from 'qs'
 // 创建axios实例
 const service = axios.create({
     baseURL: 'http://47.103.6.243:8080', // api 的 base_url
+    // baseURL: 'http://172.24.26.12:8080', // api 的 base_url
     // baseURL: 'http://192.168.43.182:8080',
     // baseURL: 'http://180.201.169.185:8080',
     // baseURL: 'http://172.24.53.222:8080',

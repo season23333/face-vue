@@ -5,155 +5,158 @@
             <el-step title="会议室"></el-step>
             <el-step title="会议详情"></el-step>
         </el-steps>
-        <div v-if="active===0">
-            <el-row :gutter="0">
-                <!--<el-form ref="form" :inline="true" :model="form" class="demo-form-inline" label-width="80px"-->
-                <!--style="margin-top: 2%">-->
-                <!--<el-input label="选择日期" prop="date">-->
-                <el-col :span="10">
-                    <div class="block" style="margin-top: 5% ; margin-left: 28%">
-                        <span class="demonstration" style="margin-right: 2% ;font-size: 16px ">日期：</span>
-                        <el-date-picker
-                                v-model="date"
-                                type="date"
-                                placeholder="选择日期"
-                                format="yyyy-MM-dd"
-                                value-format="yyyy-MM-dd HH:mm:ss"
-                                @change="getSelectData(date)">
-                        </el-date-picker>
-                    </div>
-                </el-col>
-                <!--</el-input>-->
-                <!--<el-col :span="12">-->
-                <el-col :span="12" style="text-align: left;margin-left: 0.3%;margin-top: 0.08%;">
-                    <div class="block" style="margin-top: 3.88%">
-                        <span class="demonstration" style="margin-right: 1% ; font-size: 16px">时间：</span>
-                        <!--<el-form-item label="开始时间" prop="startTime">-->
-                        <el-time-select
-                                placeholder="起始时间"
-                                v-model="startTime"
-                                :picker-options="{
+        <div v-if="active===0" style="margin-top: 2%">
+            <div>
+                <div style="width: 50%;float: left">
+                    <label>开始时间：</label>
+                    <el-date-picker
+                            style="margin-bottom: 10px"
+                            v-model="startDate"
+                            type="date"
+                            placeholder="选择日期"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            @change="getSelectData(date)">
+                    </el-date-picker>
+                    <el-time-select
+                            style="margin-left: 20px;margin-bottom: 10px"
+                            placeholder="起始时间"
+                            v-model="startTime"
+                            :picker-options="{
                                             start: '00:00',
                                             step: '00:30',
                                             end: '23:30'}"
 
-                        >
-                        </el-time-select>
-                        <!--</el-form-item>-->
-                        <span class="demonstration" style="">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
-                        <!--<el-form-item label="结束时间" prop="endTime">-->
-                        <el-time-select
-                                placeholder="结束时间"
-                                v-model="endTime"
-                                :picker-options="{
+                    >
+                    </el-time-select>
+                </div>
+                <div style="width: 50%;float: left">
+                    <label>结束时间：</label>
+                    <el-date-picker
+                            style="margin-bottom: 10px"
+                            v-model="endDate"
+                            type="date"
+                            placeholder="选择日期"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            @change="getSelectData(date)">
+                    </el-date-picker>
+                    <el-time-select
+                            style="margin-left: 20px;margin-bottom: 10px"
+                            placeholder="结束时间"
+                            v-model="endTime"
+                            :picker-options="{
                                 start: '00:00',
                                 step: '00:30',
                                 end: '23:30',
                                 minTime: startTime
                                 }"
-                                @change="getSelectStartTime(startTime,endTime)">
-                        </el-time-select>
-                        <!--</el-form-item>-->
-                        <!--<el-form-item>-->
-                        <el-button style="margin-top: 12px; " @click="prev" v-if="active==1||active==2">上一步</el-button>
-                        <el-button style="margin-top: 2%;margin-left: 60%;" @click="next" v-if="active==0||active==1">
-                            下一步
-                        </el-button>
-                        <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
-                        <!--</el-form-item>-->
-                    </div>
+                            @change="getSelectStartTime(startTime,endTime)">
+                    </el-time-select>
+                </div>
+            </div>
+            <el-row>
+                <el-col :span="24" style="text-align: center">
+                    <el-button style="margin-top: 12px; " @click="next">下一步
+                    </el-button>
                 </el-col>
-                <!--</el-form>-->
             </el-row>
         </div>
         <div v-if="active===1" style="margin-top: 2%">
-            <el-row :gutter="0">
-                <!--<el-form ref="form" :inline="true" :model="form" class="demo-form-inline" label-width="80px"-->
-                <!--style="margin-top: 2% ">-->
-                <!--<el-form-item label="位置" prop="date">-->
-                <!--&lt;!&ndash;<el-col :span="10">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="block" style="margin-top: 5% ; margin-left: 28%">&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="demonstration" style="margin-right: 2% ;font-size: 16px ">日期：</span>&ndash;&gt;-->
-                <!--<el-date-picker-->
-                <!--v-model="date"-->
-                <!--type="date"-->
-                <!--placeholder="选择日期"-->
-                <!--@change="getSelectData(date)">-->
-                <!--</el-date-picker>-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
-                <!--</el-form-item>-->
-                <!--<el-form-item label="容量" prop="endTime">-->
-                <!--<el-time-select-->
-                <!--placeholder="结束时间"-->
-                <!--v-model="endTime"-->
-                <!--:picker-options="{-->
-                <!--start: '08:30',-->
-                <!--step: '00:15',-->
-                <!--end: '18:30',-->
-                <!--minTime: startTime-->
-                <!--}">-->
-                <!--</el-time-select>-->
-                <!--</el-form-item>-->
-                <!--<el-form-item label="设备">-->
-                <el-col :span="8">
-                    <span style="margin-left: 30%">
-                        会议地点:
-                    </span>
-                    <el-select v-model="tableData.location" clearable placeholder="请选择会议地点">
-                        <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                        </el-option>
-                    </el-select>
-                </el-col>
-                <el-col :span="8">
-                    <span>
-                        会议容量:
-                    </span>
-                    <el-select v-model="size" placeholder="请选择会议容量">
-                        <el-option label="20人以下" value="shanghai"></el-option>
-                        <el-option label="20-100人" value="beijing"></el-option>
-                        <el-option label="100人以上" value="beijing"></el-option>
-                    </el-select>
-                </el-col>
-                <el-col :span="8">
-                    <div style="margin-top: 2% ; margin-right: 40%">
-                        <el-checkbox-group v-model="equipment">
-                            <el-checkbox label="投影仪" name="type" style="margin-right: 10px"></el-checkbox>
-                            <el-checkbox label="白板" name="type" style="margin-right: 10px"></el-checkbox>
-                            <el-checkbox label="空调" name="type" style="margin-right: 10px"></el-checkbox>
-                        </el-checkbox-group>
-                    </div>
-                </el-col>
-
-                <!--</el-form-item>-->
+            <div>
+                <el-form class="demo-form-inline" :inline="true" :model="form">
+                    <el-form-item label="会议地点" prop="address" style="margin-left: 0">
+                        <el-select v-model="building.buildingID" prop="building.name"
+                                   value-key="buildingID" placeholder="请选择地点"
+                                   clearable
+                                   style="width: 180px"
+                        >
+                            <el-option
+                                    v-for="item in building"
+                                    :key="item.buildingID"
+                                    :label="item.name"
+                                    :value="item.buildingID"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="会议楼宇" prop="building">
+                        <el-select v-model="building.buildingID" prop="building.name"
+                                   value-key="buildingID" placeholder="请选择楼宇"
+                                   clearable
+                                   style="width: 180px"
+                        >
+                            <el-option
+                                    v-for="item in building"
+                                    :key="item.buildingID"
+                                    :label="item.name"
+                                    :value="item.buildingID"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="会议楼层" prop="address">
+                        <el-select v-model="building.buildingID" prop="building.name"
+                                   value-key="buildingID" placeholder="请选择楼层"
+                                   clearable
+                                   style="width: 180px"
+                        >
+                            <el-option
+                                    v-for="item in building"
+                                    :key="item.buildingID"
+                                    :label="item.name"
+                                    :value="item.buildingID"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
                 <el-row>
-                    <!--<el-form-item>-->
                     <el-col :span="12" style="text-align: center ">
                         <el-button style="margin-top: 12px" @click="prev" v-if="active==1||active==2">上一步
                         </el-button>
                     </el-col>
-                    <!--</el-form-item>-->
-                    <!--<el-form-item>-->
                     <el-col :span="12" style="text-align: center">
                         <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
                         </el-button>
-                        <el-button style="margin-top: 12px" v-if="active==2">提交</el-button>
                     </el-col>
-                    <!--</el-form-item>-->
                 </el-row>
-                <!--</el-form>-->
-            </el-row>
+            </div>
+        </div>
+        <div v-if="active===2" style="margin-top: 2%">
+            <div>
+                <el-form class="demo-form-inline" :inline="true" :model="anotherForm">
+                    <el-form-item label="会议容量" prop="size">
+                        <el-input-number v-model="anotherForm.size" :step="5"></el-input-number>
+                    </el-form-item>
+                    <el-form-item label="会议室类型" prop="type">
+                        <el-select v-model="anotherForm.type" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <el-row>
+                    <el-col :span="24" style="text-align: center ">
+                        <el-button style="margin-top: 12px" @click="prev" v-if="active==1||active==2">上一步
+                        </el-button>
+                    </el-col>
+                    <el-col :span="12" style="text-align: center">
+                        <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
+                        </el-button>
+                    </el-col>
+                </el-row>
+            </div>
         </div>
         <el-table
                 :data="tableData"
                 style="width: 100%"
                 height="400"
                 border
-                v-if="active===1||active===0"
                 id="table"
                 :cell-class-name="cellClassName"
                 @cell-click="next"
@@ -657,111 +660,35 @@
                 </el-table-column>
             </el-table-column>
         </el-table>
-        <div v-if="active===2">
-            <div>
-                <el-row :gutter="25">
 
-                    <el-col :span="14">
-                        <div style="border-bottom: 1px solid lightgrey ; width: 70% ; margin-left: 25% ;margin-top: 3% ; padding-bottom: 1%">
-                            <h3 style="font-size: large ; color: #909399 ; text-align: left ; font-weight: 500">
-                                会议室申请说明
-                            </h3>
-                        </div>
-                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm"
-                                 style="width: 70% ; margin-left: 25% ; margin-top: 2% " class="demo-ruleForm"
-                                 :label-position="labelPosition" label-width="20%">
-                            <el-form-item label="会议名称" prop="name">
-                                <el-input v-model="ruleForm.name" style="width: 80%"></el-input>
-                            </el-form-item>
-                            <el-form-item label="申请人">
-                                <el-input v-model="ruleForm.user" style="width: 80%;"></el-input>
-                            </el-form-item>
-                            <el-form-item label="参与者">
-                                <el-input v-model="ruleForm.users" style="width: 80%"></el-input>
-                            </el-form-item>
-                            <el-form-item label="会议内容" prop="desc">
-                                <el-input type="textarea" v-model="ruleForm.desc" style="width: 80%"></el-input>
-                            </el-form-item>
-                            <!--<el-form-item>-->
-                            <!--&lt;!&ndash;<el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-button @click="resetForm('ruleForm')">重置</el-button>&ndash;&gt;-->
-                            <!--</el-form-item>-->
-                            <el-form-item style="text-align: right">
-
-                                <el-button style="margin-top: 12px; " @click="prev" v-if="active==1||active==2">上一步
-                                </el-button>
-                                <el-button style="margin-top: 12px; " @click="next" v-if="active==0||active==1">下一步
-                                </el-button>
-                                <el-button style="margin-top: 12px" v-if="active==2"
-                                           @click="centerDialogVisible = true">提交
-                                </el-button>
-                                <el-dialog
-                                        title="提示"
-                                        :visible.sync="centerDialogVisible"
-                                        width="30%"
-                                        center
-                                >
-                                    <div style="text-align: center ; padding: 0">
-                                        <h3>会议预定成功</h3>
-                                    </div>
-
-                                </el-dialog>
-
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="10">
-                        <div style="width: 60% ; margin-top: 5% ">
-                            <h3 style="border-bottom: 1px solid lightgray ; padding-bottom: 1% ; font-size: large ; color: #909399 ; text-align: left ; font-weight: 500 ">
-                                会议室详情
-                            </h3>
-                            <el-row>
-                                <el-col :span="12">
-                                    <div style="text-align: left ; margin-top: 12%">
-                                        <p style="font-size: 14px; color: #606266">会议室名：综合楼A417</p>
-                                        <p style="font-size: 14px; color: #606266">所在位置：综合楼A</p>
-                                    </div>
-                                </el-col>
-                                <el-col :span="12">
-                                    <div style="text-align: left ; margin-top: 12%">
-                                        <p style="font-size: 14px; color: #606266">容量：20~100人</p>
-                                        <p style="font-size: 14px; color: #606266">设备：投影仪,白板</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <h3 style="border-bottom: 1px solid lightgray ; padding-bottom: 1% ; font-size: large ; color: #909399 ; text-align: left ; font-weight: 500 ; margin-top: 4%">
-                                会议时间
-                            </h3>
-                            <div style="text-align: left ; margin-top: 7%">
-                                <p style="font-size: 14px; color: #606266">日期：2019年3月26日</p>
-                                <p style="font-size: 14px; color: #606266">时间：11:00--12:00</p>
-                            </div>
-
-                        </div>
-                    </el-col>
-                </el-row>
-
-            </div>
-
-
-        </div>
     </div>
 </template>
 
 <script>
     import {getMeetingList} from '../api/table';
     import {formatDate} from '../util/formatDate'
-    import '@/util/mock';
-    import axios from 'axios';
+    import {byBuilding, getAllBuilding} from '../api/room';
+    // import axios from 'axios';
 
     export default {
         name: "Guides",
 
         data() {
             return {
+                startDate: '-1',
+                startTime: '-1',
+                endDate: '-1',
+                endTime: '-1',
+                form: {
+                    address:'-1',
+                    building: '-1',
+                    location:'-1'
+                },
+                anotherForm:{
+                    size:-1,
+                    type:'-1'
+                },
                 date: new Date(),
-                startTime: '',
-                endTime: '',
                 tableData: [{
                     roomID: 0,
                     name: '',
@@ -820,98 +747,28 @@
                     twentyThreeHalf: '',
                 }
                 ],
+                active: 0,
 
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
+                building: [{
+                    name: '请选择楼宇',
+                    buildingID: -1,
                 }],
-
-                location:
-                    '',
-                size:
-                    '',
-                equipment:
-                    '',
-
-                labelPosition:
-                    'right',
-                active:
-                    0,
-                centerDialogVisible:
-                    false,
-
-                ruleForm:
-                    {
-                        name: '',
-                        user:
-                            '',
-                        users:
-                            '',
-                        desc:
-                            ''
-                    }
-                ,
-                rules: {
-                    name: [
-                        {required: true, message: '请输入会议名称', trigger: 'blur'},
-                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
-                    ],
-                    user:
-                        [
-                            {required: true, message: '请填写活动形式', trigger: 'blur'},
-                        ],
-                    users:
-                        [
-                            {required: true, message: '请填写活动形式', trigger: 'blur'},
-                        ],
-                    region:
-                        [
-                            {required: true, message: '请选择活动区域', trigger: 'change'}
-                        ],
-                    date1:
-                        [
-                            {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
-                        ],
-                    date2:
-                        [
-                            {type: 'date', required: true, message: '请选择时间', trigger: 'change'}
-                        ],
-                    type:
-                        [
-                            {type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change'}
-                        ],
-                    resource:
-                        [
-                            {required: true, message: '请选择活动资源', trigger: 'change'}
-                        ],
-                    desc:
-                        [
-                            {required: true, message: '请填写活动形式', trigger: 'blur'}
-                        ]
-                }
 
             };
         },
-
         created() {
             this.getTableData(this.date);
             console.log(formatDate(this.date, 'yyyy-MM-dd'));
-        }
-        ,
-
+            this.getPlace();
+        },
         methods: {
+            //获取所有楼名数据
+            getPlace() {
+                getAllBuilding().then(response => {
+                    this.building = response.data;
+                    console.log(this.building);
+                })
+            },
             //选择查询日期后请求当天所有的会议数据
             getSelectData(date) {
                 console.log(date);
@@ -976,22 +833,8 @@
                     console.log(response.data);
                 })
             }
-
         }
         ,
-        // mounted() {
-        //     axios.get('/list').then(res => {
-        //         this.tableData = res.data.tableData;
-        //         console.log(res);
-        //     })
-        //     // axios.get('/list').then(res => {
-        //     //     this.tableData = res.data.tableData;
-        //     //     console.log(this.tableData.length);
-        //     // })
-        //     // getMeetingList(this.date).then(response=>{
-        //     //     this.tableData = response.data.tableData;
-        //     // })
-        // }
     }
 </script>
 

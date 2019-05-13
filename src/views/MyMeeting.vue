@@ -70,7 +70,7 @@
                             v-if="scope.row.flag === 0 &&scope.row.user === ID"
                             round
                             size="mini"
-                            @click="msgDialogVisible = true"
+                            @click="addPeople(scope.row.conferenceID)"
                             style="margin-right: 20px"
                     >添加与会人
                     </el-button>
@@ -104,7 +104,7 @@
                                         <li v-for='(v,k) in arr' :key="k" @click="data(k)" class="myli"
                                             @mouseenter="mouseEnter(k)"
                                             @mouseleave="mouseLeave">
-                                            <span>{{v.realName}}{{v.phoneNumber}}</span>
+                                            <span>{{v.str}}</span>
                                             <div style=" right: 0">
                                                 <i v-if="isActive===k&&v.bol===false" class="icon-span"
                                                    :class="{'icon-span-selec' : v.bol===false}"></i>
@@ -118,7 +118,7 @@
                             <el-button slot="reference">新增通知人</el-button>
                         </el-popover>
                         <div slot="footer" class="dialog-footer">
-                            <el-button @click="msgDialogVisible = false">取 消</el-button>
+                            <!--<el-button @click="msgDialogVisible = false">取 消</el-button>-->
                             <el-button type="primary" @click="update()">确 定</el-button>
                         </div>
                     </el-dialog>
@@ -198,7 +198,7 @@
     import {getDetails} from "../api/user";
     import {getRoomName, getBuildingName} from "../api/room";
     import {validatePeople, getUserID} from "../api/user"
-    import {getPage, cancelConference} from "../api/conference";
+    import {getPage, cancelConference,addConfPeople,showConfPeople} from "../api/conference";
     import {Message} from 'element-ui'
     // import axios from 'axios';
 
@@ -269,7 +269,11 @@
                 dynamicTags: [],
                 timeout: null,
                 sshow: false,
-                nameList: []
+                nameList: [],
+                splitChar:'-',
+                updateList:[],
+                b:'',
+                confID:''
                 // color:'#F6F7FA'
                 // peopleDialogVisible: false,
                 // inputVisible: false,
@@ -470,41 +474,41 @@
                 }
             },
             //删除与会人
-            removeDomain(item) {
-                var index = this.msgForm.people.indexOf(item);
-                if (index !== -1) {
-                    this.msgForm.people.splice(index, 1)
-                }
-            },
+            // removeDomain(item) {
+            //     var index = this.msgForm.people.indexOf(item);
+            //     if (index !== -1) {
+            //         this.msgForm.people.splice(index, 1)
+            //     }
+            // },
             //新增与会人
-            addDomain() {
-                //发请求确认短信通知人是否合法
-                this.msgForm.people.push({
-                    value: '',
-                    key: Date.now()
-                });
-            },
+            // addDomain() {
+            //     //发请求确认短信通知人是否合法
+            //     this.msgForm.people.push({
+            //         value: '',
+            //         key: Date.now()
+            //     });
+            // },
             // //重置与会人表单
             // resetForm(formName) {
             //     this.$refs[formName].resetFields();
             // },
             //提交与会人表单
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        console.log(this.msgForm.people);
-                        this.$message({
-                            message: '提交成功，稍后与会人将收到短信通知',
-                            type: 'success'
-                        });
-                        this.msgDialogVisible = false;
-                    } else {
-                        this.$message.error('请重新填写表单');
-                        return false;
-                    }
-                });
-
-            },
+            // submitForm(formName) {
+            //     this.$refs[formName].validate((valid) => {
+            //         if (valid) {
+            //             console.log(this.msgForm.people);
+            //             this.$message({
+            //                 message: '提交成功，稍后与会人将收到短信通知',
+            //                 type: 'success'
+            //             });
+            //             this.msgDialogVisible = false;
+            //         } else {
+            //             this.$message.error('请重新填写表单');
+            //             return false;
+            //         }
+            //     });
+            //
+            // },
             //分页的翻页
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
@@ -554,7 +558,8 @@
                     await validatePeople(inputVal).then(res => {
                         this.arr = res.data;
                         for (var i = 0; i < res.data.length; i++) {
-                            var str = this.arr[i].realName + this.arr[i].phoneNumber;
+                            var str = this.arr[i].realName +this.splitChar+ this.arr[i].userID;
+                            console.log('拼接字符串：'+str);
                             this.arr[i].str = str;
                             if (this.nameList.indexOf(str) === -1) {
                                 this.arr[i].bol = false;
@@ -581,7 +586,7 @@
                 this.search = this.arr[k].realName;
                 if (this.arr[k].bol === false) {
                     this.arr[k].bol = true;
-                    var str = this.arr[k].realName + this.arr[k].phoneNumber;
+                    var str = this.arr[k].realName +this.splitChar+ this.arr[k].userID;
                     this.nameList.push(str);
                     // this.nameList.push(this.arr[k].realName);
                 } else {
@@ -600,18 +605,51 @@
                     }
                 }
                 this.nameList.splice(this.nameList.indexOf(tag), 1);
+                console.log('关闭tag后'+this.nameList);
             },
             closeDialog(done) {
                 this.$confirm('确认关闭？')
                     .then(_ => {
+                        // this.nameList.length = 0;
+                        // this.updateList.length = 0;
+                        this.nameList.splice(0);
+                        this.updateList.splice(0);
                         done();
                     })
                     .catch(_ => {
                     });
             },
+            addPeople(confID){
+                this.confID = confID;
+                this.msgDialogVisible = true;
+                showConfPeople(this.confID).then(res =>{
+                    for(var i = 0; i < res.data.length; i++){
+                        var str = res.data[i].realName +this.splitChar+ res.data[i].userID;
+                        this.nameList.push(str);
+                    }
+                })
+            },
+            //提交与会人列表
             update(){
                 this.msgDialogVisible = false;
-                console.log('提交了')
+                console.log('提交前'+this.nameList);
+
+                for(var i=0;i<this.nameList.length;i++){
+
+                    this.updateList[i] = this.nameList[i].split('-')[1]
+                }
+                console.log('转换前'+this.updateList);
+                this.b = this.updateList.join(",");
+                console.log('提交了'+this.b);
+                addConfPeople(this.b, this.confID).then(res => {
+                    console.log(res);
+                });
+                // this.nameList.length = 0;
+                // this.updateList.length = 0;
+                this.nameList.splice(0);
+                this.updateList.splice(0);
+
+                // console.log('提交了'+this.b);
             }
             //关闭对话框
             // handleClose(done) {

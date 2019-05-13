@@ -1,7 +1,8 @@
 <template>
     <el-col :span="24">
+        <!--:default-active="$route.path"-->
         <el-menu
-                :default-active="$route.path"
+                :default-active="activeMenuIndex()"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
@@ -33,18 +34,21 @@
                     <i class="el-icon-view"></i>
                     <span>系统管理</span>
                 </template>
-                <el-menu-item index="">会议室管理</el-menu-item>
-                <el-menu-item index="">用户管理</el-menu-item>
+                <el-menu-item index="7">会议室管理</el-menu-item>
+                <el-menu-item index="8">用户管理</el-menu-item>
             </el-submenu>
-            <el-submenu index="4">
-                <template slot="title">
-                    <i class="el-icon-edit"></i>
-                    <span>个人中心</span>
-                </template>
-                <el-menu-item index="/mymeeting">我的会议</el-menu-item>
-                <el-menu-item index="/notification">查看消息</el-menu-item>
-                <el-menu-item index="/profile">修改资料</el-menu-item>
-            </el-submenu>
+            <el-menu-item index="/hide" style="visibility: hidden">
+
+            </el-menu-item>
+            <!--<el-submenu index="4">-->
+                <!--<template slot="title">-->
+                    <!--<i class="el-icon-edit"></i>-->
+                    <!--<span>个人中心</span>-->
+                <!--</template>-->
+                <!--<el-menu-item index="/mymeeting">我的会议</el-menu-item>-->
+                <!--<el-menu-item index="/notification">查看消息</el-menu-item>-->
+                <!--<el-menu-item index="/profile">修改资料</el-menu-item>-->
+            <!--</el-submenu>-->
         </el-menu>
     </el-col>
 </template>
@@ -58,6 +62,13 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            activeMenuIndex(){
+                if(this.$route.path === '/mymeeting' || this.$route.path === '/notification'){
+                    return '/hide';
+                }else {
+                    return this.$route.path;
+                }
             }
         }
     }

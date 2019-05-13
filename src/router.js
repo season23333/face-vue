@@ -7,7 +7,7 @@
 // import Password_reset from './views/Password_reset'
 // import Four from './views/404'
 // import Five from './views/500'
-// // import Test from './views/Test'
+import Test from './views/Test'
 // import Guide from './views/Guides'
 // import Mocktest from './views/Mocktest'
 // import Form from './views/Form'
@@ -261,14 +261,11 @@ export default new Router({
             name: 'password_reset',
             component:()=>import(/*webpackChunkName:"user"*/"./views/Password_reset.vue")
         },
-        // {
-        //     path: '/test',
-        //     name: 'test',
-        //     // component: Test,
-        //     component(resolve) {
-        //         require(['./views/Test'], resolve)
-        //     }
-        // },
+        {
+            path: '/test',
+            name: 'test',
+            component: Test,
+        },
         {
             path: '/mocktest',
             name: 'mocktest',
@@ -279,11 +276,11 @@ export default new Router({
             name: 'service',
             component:()=>import(/*webpackChunkName:"service"*/"./views/Service.vue"),
             children: [
-                {
-                    path: '/profile',
-                    name: 'profile',
-                    component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile.vue"),
-                },
+                // {
+                //     path: '/profile',
+                //     name: 'profile',
+                //     component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile.vue"),
+                // },
                 {
                     path: '/notification',
                     name: 'notification',
