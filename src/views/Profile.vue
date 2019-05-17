@@ -151,6 +151,14 @@
                     </template>
                 </el-input>
             </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input :type="pwdType" v-model="profileForm.password" >
+                    <template  slot="append">
+                        <i class="el-icon-view" style="color: #008080" @click="showPwd"></i>
+                    </template>
+                </el-input>
+
+            </el-form-item>
             <el-form-item label="email" prop="email">
                 <el-input v-model="profileForm.email" @focus="changeFlag1()" @blur="changeFlag1()">
                     <template v-if="flag1===true" slot="append">
@@ -191,8 +199,10 @@
                     phoneNumber: '10010000000',
                     email: 'xxxx@qq.com',
                     department: '项目经理',
+                    password:''
                 },
-                formLabelWidth: '120px'
+                formLabelWidth: '120px',
+                pwdType: 'password',
             }
         },
         created(){
@@ -228,9 +238,25 @@
             },
             submit() {
                 console.log('提交了')
-            }
+            },
+            showPwd() {
+                if (this.pwdType === 'password') {
+                    this.pwdType = ''
+                } else {
+                    this.pwdType = 'password'
+                }
+            },
         }
     }
 </script>
-<style scoped>
+<style >
+    .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        font-size: 16px;
+        color: darkgrey;
+        cursor: pointer;
+        user-select: none;
+    }
 </style>

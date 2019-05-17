@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <div style="margin-top: 30px">
             <div style="display: inline-block">
@@ -36,7 +35,8 @@
                             :value="items.roomID">
                     </el-option>
                 </el-select>
-                <el-button icon="el-icon-search" circle @click="search()" style="margin-left: 65px;margin-bottom: 10px"></el-button>
+                <el-button icon="el-icon-search" circle @click="search()"
+                           style="margin-left: 65px;margin-bottom: 10px"></el-button>
                 <el-button plain @click="openForm">新增预定</el-button>
                 <el-dialog
                         title="预定会议室"
@@ -209,231 +209,9 @@
                     </el-form>
                 </el-dialog>
             </div>
-
         </div>
-        <!--<el-row style="margin-top: 2.2%; margin-bottom: 2.2% ">-->
-            <!--<el-col :xs="7" :sm="12" :lg="6" style="margin-bottom: 5px;">-->
-                <!--<div class="block">-->
-                    <!--<span class="demonstration">日期：</span>-->
-                    <!--<el-date-picker-->
-                            <!--v-model="form.date"-->
-                            <!--type="date"-->
-                            <!--placeholder="选择日期"-->
-                    <!--&gt;-->
-                    <!--</el-date-picker>-->
-                <!--</div>-->
-            <!--</el-col>-->
-            <!--<el-col :xs="6" :sm="12" :lg="7" style="margin-bottom: 5px">-->
-                <!--<span>楼宇：</span>-->
-                <!--<el-select v-model="building.buildingID" prop="building.name" value-key="buildingID" placeholder="请选择"-->
-                           <!--clearable-->
-                           <!--@change="getRoom()">-->
-                    <!--<el-option-->
-                            <!--v-for="item in building"-->
-                            <!--:key="item.buildingID"-->
-                            <!--:label="item.name"-->
-                            <!--:value="item.buildingID"-->
-                    <!--&gt;-->
-                    <!--</el-option>-->
-                <!--</el-select>-->
-            <!--</el-col>-->
-            <!--<el-col :xs="6" :sm="12" :lg="7">-->
-                <!--<span>会议室：</span>-->
-                <!--<el-select v-model="room.roomID" prop="room.name" value-key="roomID" placeholder="请选择"-->
-                           <!--clearable-->
-                           <!--@change="getRoomID()">-->
-                    <!--<el-option-->
-                            <!--v-for="items in room"-->
-                            <!--:key="items.roomID"-->
-                            <!--:label="items.name"-->
-                            <!--:value="items.roomID">-->
-                    <!--</el-option>-->
-                <!--</el-select>-->
-            <!--</el-col>-->
-            <!--<el-col :xs="1" :sm="4" :lg="1" style="text-align: right">-->
-                <!--<el-button icon="el-icon-search" circle @click="search()"></el-button>-->
-            <!--</el-col>-->
-            <!--<el-col :xs="3" :sm="6" :lg="3">-->
-                <!--<div>-->
-                    <!--<el-button plain @click="openForm">新增预定</el-button>-->
-                    <!--<el-dialog-->
-                            <!--title="预定会议室"-->
-                            <!--:visible.sync="dialogVisible"-->
-                            <!--width="523px"-->
-                            <!--:before-close="handleClose">-->
-                        <!--<el-form ref="form" :model="form" label-width="80px" class="demo-ruleForm" :rules="rules">-->
-                            <!--<el-form-item label="申请人ID" prop="ID">-->
-                                <!--<el-input-->
-                                        <!--placeholder="申请人ID"-->
-                                        <!--v-model="form.ID"-->
-                                        <!--:disabled="true">-->
-                                <!--</el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item label="会议名称" prop="name">-->
-                                <!--<el-input v-model="form.name"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--&lt;!&ndash;<el-form-item label="活动日期" prop="date">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-date-picker&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="form.date"&ndash;&gt;-->
-                            <!--&lt;!&ndash;type="date"&ndash;&gt;-->
-                            <!--&lt;!&ndash;placeholder="选择日期">&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-date-picker>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-form-item>&ndash;&gt;-->
-                            <!--<el-form-item label="活动日期" prop="startTime">-->
-                                <!--<el-date-picker-->
-                                        <!--align="center"-->
-                                        <!--v-model="form.startTime"-->
-                                        <!--type="datetimerange"-->
-                                        <!--:picker-options="pickerOptions0"-->
-                                        <!--range-separator="至"-->
-                                        <!--start-placeholder="开始日期"-->
-                                        <!--end-placeholder="结束日期">-->
-                                <!--</el-date-picker>-->
-                            <!--</el-form-item>-->
-                            <!--&lt;!&ndash;<el-row :gutter="12">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-col :span="14">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-form-item label="活动时间" prop="startTime" style="margin-left: 0">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-time-select&ndash;&gt;-->
-                            <!--&lt;!&ndash;style="width: 100% "&ndash;&gt;-->
-                            <!--&lt;!&ndash;placeholder="起始时间"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="form.startTime"&ndash;&gt;-->
-                            <!--&lt;!&ndash;:picker-options="{&ndash;&gt;-->
-                            <!--&lt;!&ndash;start: '00:00',&ndash;&gt;-->
-                            <!--&lt;!&ndash;step: '00:30',&ndash;&gt;-->
-                            <!--&lt;!&ndash;end: '23:30'&ndash;&gt;-->
-                            <!--&lt;!&ndash;}">&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-time-select>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-form-item>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-col :span="1" style="margin-top: 2%">&ndash;&gt;-->
-                            <!--&lt;!&ndash; - &ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-col :span="9">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-form-item prop="endTime" id="time">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-time-select&ndash;&gt;-->
-                            <!--&lt;!&ndash;style="width: 100% "&ndash;&gt;-->
-                            <!--&lt;!&ndash;placeholder="结束时间"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="form.endTime"&ndash;&gt;-->
-                            <!--&lt;!&ndash;:picker-options="{&ndash;&gt;-->
-                            <!--&lt;!&ndash;start: '00:30',&ndash;&gt;-->
-                            <!--&lt;!&ndash;step: '00:30',&ndash;&gt;-->
-                            <!--&lt;!&ndash;end: '23:30',&ndash;&gt;-->
-                            <!--&lt;!&ndash;minTime: form.startTime&ndash;&gt;-->
-                            <!--&lt;!&ndash;}">&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-time-select>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-form-item>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-row>&ndash;&gt;-->
-                            <!--<el-row :gutter="12">-->
-                                <!--<el-col :span="14">-->
-                                    <!--<el-form-item label="会议地点" prop="building" style="margin-left: 0">-->
-                                        <!--<el-select v-model="building.buildingID" prop="building.name"-->
-                                                   <!--value-key="buildingID" placeholder="请选择楼宇"-->
-                                                   <!--clearable-->
-                                                   <!--@change="getRoom()">-->
-                                            <!--<el-option-->
-                                                    <!--v-for="item in building"-->
-                                                    <!--:key="item.buildingID"-->
-                                                    <!--:label="item.name"-->
-                                                    <!--:value="item.buildingID"-->
-                                            <!--&gt;-->
-                                            <!--</el-option>-->
-                                        <!--</el-select>-->
-                                    <!--</el-form-item>-->
-                                <!--</el-col>-->
-                                <!--<el-col :span="10">-->
-                                    <!--<el-form-item prop="room" id="time">-->
-                                        <!--<el-select v-model="room.roomID" prop="room.name" value-key="roomID"-->
-                                                   <!--placeholder="请选择会议室"-->
-                                                   <!--clearable-->
-                                                   <!--@change="getRoomID()">-->
-                                            <!--<el-option-->
-                                                    <!--v-for="items in room"-->
-                                                    <!--:key="items.roomID"-->
-                                                    <!--:label="items.name"-->
-                                                    <!--:value="items.roomID">-->
-                                            <!--</el-option>-->
-                                        <!--</el-select>-->
-                                    <!--</el-form-item>-->
-                                <!--</el-col>-->
-                            <!--</el-row>-->
-                            <!--<el-form-item label="参会人数" prop="num">-->
-                                <!--<el-input-number v-model="form.num" :min="1" :max="1001" :step="5"-->
-                                                 <!--label="描述文字"></el-input-number>-->
-                            <!--</el-form-item>-->
-                            <!--&lt;!&ndash;<el-form-item label="与会人" prop="people" style="text-align: left ">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-tag&ndash;&gt;-->
-                            <!--&lt;!&ndash;:key="tag"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-for="tag in form.people"&ndash;&gt;-->
-                            <!--&lt;!&ndash;closable&ndash;&gt;-->
-                            <!--&lt;!&ndash;:disable-transitions="false"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@close="handleCloseTag(tag)">&ndash;&gt;-->
-                            <!--&lt;!&ndash;{{tag}}&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-tag>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-input&ndash;&gt;-->
-                            <!--&lt;!&ndash;class="input-new-tag"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-if="inputVisible"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="inputValue"&ndash;&gt;-->
-                            <!--&lt;!&ndash;ref="saveTagInput"&ndash;&gt;-->
-                            <!--&lt;!&ndash;size="small"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@keyup.enter.native="handleInputConfirm"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@blur="handleInputConfirm"&ndash;&gt;-->
-                            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-button v-else class="button-new-tag" size="small" @click="showInput"&ndash;&gt;-->
-                            <!--&lt;!&ndash;style="margin-left: 2%">+ 与会人&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-form-item>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-form-item label="短信通知" prop="msgPeople" style="text-align: left">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-switch&ndash;&gt;-->
-                            <!--&lt;!&ndash;style="margin-left: 2%"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="value2"&ndash;&gt;-->
-                            <!--&lt;!&ndash;active-color="#13ce66"&ndash;&gt;-->
-                            <!--&lt;!&ndash;inactive-color="#ff4949"&ndash;&gt;-->
-                            <!--&lt;!&ndash;active-value="0"&ndash;&gt;-->
-                            <!--&lt;!&ndash;inactive-value="100"&ndash;&gt;-->
-                            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-switch>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<div v-if="value2 === '0'">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-tag&ndash;&gt;-->
-                            <!--&lt;!&ndash;:key="tag"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-for="tag in msgPeople"&ndash;&gt;-->
-                            <!--&lt;!&ndash;closable&ndash;&gt;-->
-                            <!--&lt;!&ndash;:disable-transitions="false"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@close="handleCloseTag1(tag)">&ndash;&gt;-->
-                            <!--&lt;!&ndash;{{tag}}&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-tag>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-input&ndash;&gt;-->
-                            <!--&lt;!&ndash;class="input-new-tag"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-if="inputVisible"&ndash;&gt;-->
-                            <!--&lt;!&ndash;v-model="inputValue"&ndash;&gt;-->
-                            <!--&lt;!&ndash;ref="saveTagInput"&ndash;&gt;-->
-                            <!--&lt;!&ndash;size="small"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@keyup.enter.native="handleInputConfirm1"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@blur="handleInputConfirm1"&ndash;&gt;-->
-                            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<el-button v-else class="button-new-tag" size="small" @click="showInput"&ndash;&gt;-->
-                            <!--&lt;!&ndash;style="margin-left: 2%">+ 通知人&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-form-item>&ndash;&gt;-->
-                            <!--<el-form-item style="text-align: right">-->
-                                <!--<el-button @click="handleClose">取 消</el-button>-->
-                                <!--<el-button type="primary"-->
-                                           <!--@click="onSubmit('form')">确 定-->
-                                <!--</el-button>-->
-                            <!--</el-form-item>-->
-                        <!--</el-form>-->
-                    <!--</el-dialog>-->
-                <!--</div>-->
-            <!--</el-col>-->
-        <!--</el-row>-->
+        <!--@cell-click="dialogVisible = true"-->
         <div>
-            <!--<h3 v-for="items in tableData">-->
-            <!--{{items}}-->
-            <!--</h3>-->
-
             <el-table
                     v-loading="loading"
                     :data="tableData"
@@ -442,7 +220,6 @@
                     border
                     id="table"
                     :cell-class-name="cellClassName"
-                    @cell-click="dialogVisible = true"
                     :header-cell-style="{background:'#E6F2F2'}">
 
                 <el-table-column
@@ -1281,6 +1058,9 @@
         //         this.tableData = res.data.tableData;
         //     })
         // }
+        test(){
+            alert("单元格点击事件");
+        }
     }
 </script>
 

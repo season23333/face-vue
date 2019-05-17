@@ -1,5 +1,5 @@
 import request from '../util/request'
-import {stringify} from 'qs'
+// import {stringify} from 'qs'
 
 // export function getInfo(token) {
 //     return request({
@@ -56,5 +56,12 @@ export function showConfPeople(conferenceID) {
         url:'conference/participants',
         method:'get',
         params:{conferenceID:conferenceID}
+    })
+}
+
+export function showTable() {
+    return request({
+        url:'user/currentUserInfo',
+        method:'get',
     })
 }

@@ -88,14 +88,6 @@
                 this.myDialogVisible = true;
                 this.myMsg[k].isRead = true;
             },
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {
-                    });
-            }
         }
     }
 </script>

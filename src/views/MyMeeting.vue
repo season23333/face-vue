@@ -635,12 +635,9 @@
                 console.log('提交前'+this.nameList);
 
                 for(var i=0;i<this.nameList.length;i++){
-
                     this.updateList[i] = this.nameList[i].split('-')[1]
                 }
-                console.log('转换前'+this.updateList);
                 this.b = this.updateList.join(",");
-                console.log('提交了'+this.b);
                 addConfPeople(this.b, this.confID).then(res => {
                     console.log(res);
                 });
