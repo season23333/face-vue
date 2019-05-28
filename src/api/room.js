@@ -1,5 +1,5 @@
 import request from '../util/request'
-import {stringify} from 'qs'
+// import {stringify} from 'qs'
 
 // export function getInfo(token) {
 //     return request({
@@ -44,5 +44,12 @@ export function getBuildingName(buildingID) {
         url: '/building/buildingObject',
         method: 'get',
         params: {buildingID: buildingID}
+    })
+}
+
+export function getType() {
+    return request({
+        url:'/room/catalogue',
+        method:'get',
     })
 }

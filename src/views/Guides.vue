@@ -71,17 +71,17 @@
             <div>
                 <el-form class="demo-form-inline" :inline="true" :model="Form">
                     <el-form-item label="会议地点" prop="address" style="margin-left: 0">
-                        <el-select v-model="address.addressID" prop="address.name"
-                                   value-key="addressID" placeholder="请选择地点"
+                        <el-select v-model="address.name" prop="address.name"
+                                   value-key="name" placeholder="请选择地点"
                                    clearable
                                    style="width: 180px"
                                    @change="selectAddress()"
                         >
                             <el-option
                                     v-for="item in address"
-                                    :key="item.addressID"
+                                    :key="item.name"
                                     :label="item.name"
-                                    :value="item.addressID"
+                                    :value="item.name"
                             >
                             </el-option>
                         </el-select>
@@ -103,20 +103,10 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="会议楼层" prop="location">
-                        <el-select v-model="location.locationID" prop="location.name"
-                                   value-key="locationID" placeholder="请选择楼层"
-                                   clearable
-                                   style="width: 180px"
-                                   @change="selectLocation"
-                        >
-                            <el-option
-                                    v-for="item in location"
-                                    :key="item.locationID"
-                                    :label="item.name"
-                                    :value="item.locationID"
-                            >
-                            </el-option>
-                        </el-select>
+                        <el-input @keyup.native="number" placeholder="请输入楼层数" v-model="Form.location"
+                                  style="width: 180px">
+                            <template slot="append">层</template>
+                        </el-input>
                     </el-form-item>
                 </el-form>
                 <el-row>
@@ -138,18 +128,18 @@
                         <el-input-number v-model="anotherForm.size" :min="0" :step="5"
                                          @change="selectSize()"></el-input-number>
                     </el-form-item>
-                    <el-form-item label="会议室类型" prop="type">
-                        <el-select v-model="type.typeID" prop="type.name"
-                                   value-key="typeID" placeholder="请选择类型"
+                    <el-form-item label="会议类型" prop="type">
+                        <el-select v-model="type.name" prop="type.name"
+                                   value-key="name" placeholder="请选择类型"
                                    clearable
                                    style="width: 180px"
                                    @change="selectType()"
                         >
                             <el-option
                                     v-for="item in type"
-                                    :key="item.typeID"
+                                    :key="item.name"
                                     :label="item.name"
-                                    :value="item.typeID"
+                                    :value="item.name"
                             >
                             </el-option>
                         </el-select>
@@ -167,13 +157,14 @@
                 </el-row>
             </div>
         </div>
-        <!--v-loading="loading"-->
         <el-table
+                v-loading="loading"
                 :data="tableData"
                 style="width: 100%"
-                height="400"
+                :height="abc"
                 border
                 id="table"
+                ref="mytable"
                 :cell-class-name="cellClassName"
                 @cell-click="openDialog"
                 :header-cell-style="{background:'#E6F2F2'}">
@@ -194,7 +185,7 @@
                     width="150"
                     align="center">
             </el-table-column>
-            <el-table-column label="00:00" align="center">
+            <el-table-column label="00:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="zeroFull"
                         label="00"
@@ -214,7 +205,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="01:00" align="center">
+            <el-table-column label="01:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="oneFull"
                         label="00"
@@ -234,7 +225,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="02:00" align="center">
+            <el-table-column label="02:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="twoFull"
                         label="00"
@@ -254,7 +245,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="03:00" align="center">
+            <el-table-column label="03:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="threeFull"
                         label="00"
@@ -274,7 +265,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="04:00" align="center">
+            <el-table-column label="04:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="fourFull"
                         label="00"
@@ -294,7 +285,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="05:00" align="center">
+            <el-table-column label="05:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="fiveFull"
                         label="00"
@@ -314,7 +305,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="06:00" align="center">
+            <el-table-column label="06:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="sixFull"
                         label="00"
@@ -334,7 +325,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="07:00" align="center">
+            <el-table-column label="07:00" align="center" v-if="flag === true">
                 <el-table-column
                         prop="sevenFull"
                         label="00"
@@ -354,7 +345,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="08:00" align="center">
+            <el-table-column label="08:00" align="center" :render-header="renderHeader">
                 <el-table-column
                         prop="eightFull"
                         label="00"
@@ -676,6 +667,8 @@
                 </el-table-column>
             </el-table-column>
         </el-table>
+        <div style="width: 100%;height: 40px;background-color: white" v-loading="true" v-if="loadingFlag === true">
+        </div>
         <el-dialog
                 title="预定会议室"
                 :visible.sync="dialogVisible"
@@ -733,25 +726,26 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
-
     </div>
 </template>
 
 <script>
     // import {getMeetingList} from '../api/table';
     import {formatDate} from '../util/formatDate'
-    import {byBuilding, getAllBuilding} from '../api/room';
+    import {getBuildingByAddress, getAddressByBuildingID} from '../api/building';
     import {getUserID} from '../api/user';
     import {submitConference} from '../api/conference';
     //第二轮迭代向导预定接口
     import {showTable} from '../api/conference'
+    import {getType} from '../api/room'
     // import axios from 'axios';
 
     export default {
         name: "Guides",
-
         data() {
             return {
+                loadingFlag:false,
+                abc: window.innerHeight - 60 - 270,
                 date: new Date(),
                 loading: false,
                 timeForm: {
@@ -833,41 +827,13 @@
                 }
                 ],
                 active: 0,
-                address1: [{
-                    name: '请选择地点',
-                    //name跟addressID写成一样
-                    addressID: '-1'
-                }],
                 //未链接后端时测试用的变量
-                address: [{
-                    name: '一路',
-                    addressID: '一路'
-                }, {
-                    name: '二路',
-                    addressID: '二路'
-                }],
+                address: [{}],
                 building: [{
                     name: '请选择楼宇',
                     buildingID: -1,
                 }],
-                location1: [{
-                    name: '请选择楼层',
-                    //name跟locationID写成一样
-                    locationID: '-1'
-                }],
-                //未链接后端时测试用的变量
-                location: [{
-                    name: '1楼',
-                    //name跟locationID写成一样
-                    locationID: '1楼'
-                }, {
-                    name: '2楼',
-                    locationID: '2楼'
-                }],
-                type: [{
-                    name: '请选择类型',
-                    typeID: -1
-                }],
+                type: [{}],
                 dialogVisible: false,
                 form: {
                     ID: '',
@@ -918,20 +884,31 @@
                     size: '-1',
                     type: '-1'
                 },
+                flag: false,
             };
         },
         created() {
             this.getTableData();
-
+            //获取所有会议地点
+            this.getAddress();
+            //获取所有会议楼宇
+            this.getBuilding();
         },
         methods: {
+            //输入的楼层数只能为大于1的正整数
+            showTable() {
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                    this.loading = false;
+                    this.tableData = res.data;
+                })
+            },
             //判断是否为空，并发请求
             judgeNull() {
                 this.submitForm.startTime = this.submitForm.startTime.substring(0, 10);
                 this.submitForm.endTime = this.submitForm.endTime.substring(0, 10);
                 this.submitForm.startTime = this.submitForm.startTime + this.char1 + this.timeForm.startTime + this.char2;
                 this.submitForm.endTime = this.submitForm.endTime + this.char1 + this.timeForm.endTime + this.char2;
-                console.log('submit提交对象：' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
+                // console.log('submit提交对象：' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
                 //发请求
             },
             judgeTime() {
@@ -943,41 +920,45 @@
                 // console.log('judgetime:'+this.timeForm.startDate+this.timeForm.endDate)
             },
             //第一次进入页面请求当天所有会议的数据
-
             getTableData() {
                 this.loading = true;
                 this.timeForm.startDate = this.date;
                 this.timeForm.endDate = this.date;
-                this.date = formatDate(this.date, 'yyyy-MM-dd');
+                this.date = formatDate(this.date, 'yyyy/MM/dd');
                 this.submitForm.startTime = this.date;
                 this.submitForm.endTime = this.date;
                 this.judgeTime();
                 this.judgeNull();
                 // console.log('第一次进入页面后请求参数' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
-                showTable(this.submitForm).then(res => {
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
                     this.loading = false;
                     this.tableData = res.data;
                 })
             },
             //选择开始日期后查询数据
             selectStartDate() {
+                this.loading = true;
                 if (this.timeForm.startDate !== null) {
-                    this.submitForm.startTime = formatDate(this.timeForm.startDate, 'yyyy-MM-dd');
+                    this.submitForm.startTime = formatDate(this.timeForm.startDate, 'yyyy/MM/dd');
                 } else {
                     this.timeForm.startDate = new Date();
-                    this.submitForm.startTime = formatDate(this.timeForm.startDate, 'yyyy-MM-dd');
+                    this.submitForm.startTime = formatDate(this.timeForm.startDate, 'yyyy/MM/dd');
                     this.timeForm.startTime = '00:00';
                 }
-                var timestamp1 = Date.parse(formatDate(this.timeForm.startDate, 'yyyy-MM-dd'));
+                var timestamp1 = Date.parse(formatDate(this.timeForm.startDate, 'yyyy/MM/dd'));
                 timestamp1 = timestamp1 / 1000;
-                var timestamp = Date.parse(formatDate(this.timeForm.endDate, 'yyyy-MM-dd'));
+                var timestamp = Date.parse(formatDate(this.timeForm.endDate, 'yyyy/MM/dd'));
                 timestamp = timestamp / 1000;
                 if (timestamp < timestamp1) {
                     this.timeForm.endDate = this.timeForm.startDate;
-                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy-MM-dd');
+                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy/MM/dd');
                 }
                 this.judgeTime();
                 this.judgeNull();
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                    this.loading = false;
+                    this.tableData = res.data;
+                })
                 // showTable().then(res => {
                 // console.log('提交了'+res.data.userID+res.data.realName+res.data.department+res.data.email+res.data.phoneNumber);
                 // })
@@ -991,16 +972,20 @@
                 }
                 this.judgeTime();
                 this.judgeNull();
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                    this.loading = false;
+                    this.tableData = res.data;
+                })
                 // console.log('选择开始时间后请求参数' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
             },
             //选择结束日期后查询数据
             //在这里判断是否结束日期在开始日期之后，如果不符合就消息提示 不发请求
             selectEndDate() {
                 if (this.timeForm.endDate !== null) {
-                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy-MM-dd');
-                    var timestamp1 = Date.parse(formatDate(this.timeForm.startDate, 'yyyy-MM-dd'));
+                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy/MM/dd');
+                    var timestamp1 = Date.parse(formatDate(this.timeForm.startDate, 'yyyy/MM/dd'));
                     timestamp1 = timestamp1 / 1000;
-                    var timestamp = Date.parse(formatDate(this.timeForm.endDate, 'yyyy-MM-dd'));
+                    var timestamp = Date.parse(formatDate(this.timeForm.endDate, 'yyyy/MM/dd'));
                     timestamp = timestamp / 1000;
                     if (timestamp < timestamp1) {
                         this.timeForm.endDate = this.timeForm.startDate;
@@ -1008,12 +993,16 @@
                     }
                 } else {
                     this.timeForm.endDate = this.timeForm.startDate;
-                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy-MM-dd');
+                    this.submitForm.endTime = formatDate(this.timeForm.endDate, 'yyyy/MM/dd');
                     this.timeForm.endTime = '23:30';
                     // this.canEndTime = true;
                 }
                 this.judgeTime();
                 this.judgeNull();
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                    this.loading = false;
+                    this.tableData = res.data;
+                })
                 // console.log('选择结束日期后请求参数' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
             },
             //选择结束时间后查询数据
@@ -1022,6 +1011,10 @@
                     this.timeForm.endTime = '23:30';
                 }
                 this.judgeNull();
+                showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                    this.loading = false;
+                    this.tableData = res.data;
+                })
                 // console.log('选择结束时间后请求参数' + this.submitForm.startTime + ' + ' + this.submitForm.endTime);
             },
             //下一步
@@ -1029,84 +1022,130 @@
                 if (this.active === 0) {
                     this.judgeNull();
                     //发请求刷新表格
-                    // showTable().then(res => {
-                    // })
-                    //获取所有会议地点
-                    this.getAddress();
-                    //获取所有会议楼宇
-                    this.getBuilding();
-                    //获取所有会议楼层
-                    this.getMyLocation();
+                    showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                        this.loading = false;
+                        this.tableData = res.data;
+                    })
                 }
-                if (this.active++ > 2) this.active = 0;
-                //发请求刷新表格
+                if (this.active++ ===1) {
+                    // this.active = 0;
+                    getType().then(res => {
+                        for (var i = 0; i < res.data.length; i++) {
+                            // 对象数组赋值
+                            this.$set(this.type, i, {name: res.data[i]});
+                        }
+                    });
+                    this.showTable();
+                }
+            },
+            //上一步
+            prev() {
+                --this.active;
+                this.showTable();
+                if (this.active < 0) {
+                    this.active = 0;
+                    this.showTable();
+                }
             },
             //获取所有会议地点
-            getAddress() {
-                //发请求获取会议地点，现在模拟一下数据
-                // getAllAddress().then(response => {
-                //     this.address = response.data;
-                //     console.log(this.address);
-                // })
-            },
-            //获取所有会议楼宇
             getBuilding() {
-                //写新接口，接口应该要三个参数，地址、楼宇、楼层，响应参数传address、building、location对象回来
-                getAllBuilding().then(response => {
+                //发请求获取会议地点，现在模拟一下数据
+                getBuildingByAddress(this.submitForm.address).then(response => {
                     this.building = response.data;
                     console.log(this.building);
                 })
             },
-            //获取所有会议楼层
-            getMyLocation() {
-                //发请求获取会议楼层,现在模拟一下数据
-                // getAllLocation().then(response => {
-                //     this.location = response.data;
-                //     console.log(this.location);
-                // })
-            },
-            selectAddress() {
-                if (this.address.addressID === '') {
-                    this.submitForm.address = '-1';
-                } else {
-                    this.submitForm.address = this.address.addressID;
-                }
-                console.log('选择地点后请求参数' + this.submitForm.address);
-                this.judgeNull().then(()=>{
-                    //获取所有会议楼宇
-                    this.getBuilding();
-                    //获取所有会议楼层
-                    this.getMyLocation();
+            //获取所有会议楼宇
+            getAddress() {
+                getAddressByBuildingID(this.submitForm.buildingID).then(response => {
+                    for (var i = 0; i < response.data.length; i++) {
+                        // 对象数组赋值
+                        this.$set(this.address, i, {name: response.data[i]});
+                    }
+                    if (this.address.length > response.data.length) {
+                        for (var j = this.address.length; j >= response.data.length; j--) {
+                            this.address.splice(j, 1);
+                        }
+                    }
                 })
             },
+            //选择地点
+            selectAddress() {
+                if (this.address.name === '') {
+                    this.submitForm.address = '-1';
+                    var i = -1;
+                    getAddressByBuildingID(i).then(response => {
+                        for (var i = 0; i < response.data.length; i++) {
+                            // 对象数组赋值
+                            this.$set(this.address, i, {name: response.data[i]});
+                        }
+                        if (this.address.length > response.data.length) {
+                            for (var j = this.address.length; j >= response.data.length; j--) {
+                                this.address.splice(j, 1);
+                            }
+                        }
+                    })
+                } else {
+                    this.submitForm.address = this.address.name;
+                    // this.Form.address = this.address.name;
+                }
+                // console.log('选择地点后请求参数' + this.submitForm.address);
+                this.getBuilding();
+                this.judgeNull();
+                this.showTable();
+            },
+            //选择楼宇
             selectBuilding() {
                 if (this.building.buildingID === '') {
                     this.submitForm.buildingID = -1;
                 } else {
                     this.submitForm.buildingID = this.building.buildingID;
+                    // this.Form.building = this.building.name;
                 }
-                console.log('选择楼宇后请求参数' + this.submitForm.buildingID);
+                this.getAddress();
+                // console.log('选择楼宇后请求参数' + this.submitForm.buildingID);
+                this.judgeNull();
+                this.showTable();
             },
-            selectLocation() {
-                if (this.location.locationID === '') {
+            //选择楼层，判断输入的大于0的正整数
+            number() {
+                this.Form.location = this.Form.location.replace(/[^1-9]+/g, '');
+                this.Form.location = this.Form.location.replace('.', '');
+                if (this.Form.location === '') {
                     this.submitForm.location = '-1';
                 } else {
-                    this.submitForm.location = this.location.locationID;
+                    this.submitForm.location = String(this.Form.location);
                 }
-                console.log('选择楼层后请求参数' + this.submitForm.location);
+                this.judgeNull();
+                console.log('楼层：' + this.submitForm.location);
+                this.showTable();
             },
             selectSize() {
-                console.log('选择会议容量后请求参数' + this.anotherForm.size);
+                // console.log('选择会议容量后请求参数' + this.anotherForm.size);
+                if (this.anotherForm.size === undefined) {
+                    this.submitForm.size = '-1'
+                } else {
+                    this.submitForm.size = String(this.anotherForm.size);
+                }
+                this.judgeNull();
+                this.showTable();
             },
             selectType() {
-
+                if (this.type.name === '') {
+                    this.submitForm.type = '-1';
+                } else {
+                    this.submitForm.type = this.type.name;
+                }
+                console.log(this.submitForm.type);
+                this.judgeNull();
+                this.showTable();
             },
             openDialog(row) {
                 this.dialogVisible = true;
                 //打开申请会议表单时请求用户名字和ID
-                getUserID().then(res => {
-                    this.form.ID = res.data;
-                });
+                // getUserID().then(res => {
+                //     this.form.ID = res.data;
+                // });
                 console.log('行列：' + row.buidling.name, row.roomID, row.capacity)//计数器最大值设置为capacity，最小值设置为1
             },
             getRoom() {
@@ -1115,10 +1154,10 @@
                 this.form.building = this.building.name;
                 this.currentBuildingID = this.building.buildingID;
                 if (this.currentBuildingID) {
-                    byBuilding(this.building.buildingID).then(response => {
-                        this.room = response.data;
-                        console.log(this.room);
-                    });
+                    // byBuilding(this.building.buildingID).then(response => {
+                    //     this.room = response.data;
+                    //     console.log(this.room);
+                    // });
                 }
                 if (!this.currentBuildingID) {
                     this.room = [];
@@ -1183,10 +1222,7 @@
                     .catch(() => {
                     });
             },
-            prev() {
-                --this.active;
-                if (this.active < 0) this.active = 0;
-            },
+
             // cellClassName({ row, column, rowIndex,columnIndex})
             cellClassName({columnIndex}) {
                 if (columnIndex > 1) {
@@ -1195,9 +1231,53 @@
                     return 'xiaowangshixiaoshazi'
                 }
             },
+            renderHeader(h, {column, $index}) {
+                return h('span', [
+                    h('span', {
+                        class: [this.flag ? 'el-icon-caret-left' : 'el-icon-caret-right'],
+                        // class: 'el-icon-caret-left',
+                        on: {
+                            click: () => {
+                                this.start();
+                            }
+                        }
+                    }),
+                    h('span', column.label)
+                ])
+            },
+            start() {
+                // this.rotate=!this.rotate;
+                // console.log(this.rotate)
+                if (this.flag === true) {
+                    this.flag = false;
+                } else {
+                    this.flag = true;
+                }
+                console.log(this.flag)
+            },
+        },
+        mounted() {
+            this.$refs.mytable.bodyWrapper.addEventListener('scroll', (res) => {
 
-        }
-        ,
+                let height = res.target;
+
+                let clientHeight = height.clientHeight;
+                let scrollTop = height.scrollTop;
+                let scrollHeight = height.scrollHeight;
+
+                if (clientHeight + scrollTop >= scrollHeight) {
+                    // getMeetingList(this.form.date, this.currentBuildingID, this.currentRoomID).then(response => {
+                    //     this.loading = false;
+                    //     this.temptableData = response.data;
+                    //     this.tableData = this.tableData.concat(this.temptableData);
+                    //     console.log('追加后');
+                    //     console.log(this.tableData);
+                    // })
+                    console.log('到底了');
+                }
+            }, true);
+
+        },
     }
 </script>
 

@@ -216,9 +216,10 @@
                     v-loading="loading"
                     :data="tableData"
                     style="width: 100%"
-                    height="400"
+                    :height="abc"
                     border
                     id="table"
+                    ref="mytable"
                     :cell-class-name="cellClassName"
                     :header-cell-style="{background:'#E6F2F2'}">
 
@@ -238,7 +239,7 @@
                         width="150"
                         align="center">
                 </el-table-column>
-                <el-table-column label="00:00" align="center">
+                <el-table-column label="00:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="zeroFull"
                             label="00"
@@ -258,7 +259,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="01:00" align="center">
+                <el-table-column label="01:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="oneFull"
                             label="00"
@@ -278,7 +279,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="02:00" align="center">
+                <el-table-column label="02:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="twoFull"
                             label="00"
@@ -298,7 +299,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="03:00" align="center">
+                <el-table-column label="03:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="threeFull"
                             label="00"
@@ -318,7 +319,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="04:00" align="center">
+                <el-table-column label="04:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="fourFull"
                             label="00"
@@ -338,7 +339,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="05:00" align="center">
+                <el-table-column label="05:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="fiveFull"
                             label="00"
@@ -358,7 +359,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="06:00" align="center">
+                <el-table-column label="06:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="sixFull"
                             label="00"
@@ -378,7 +379,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="07:00" align="center">
+                <el-table-column label="07:00" align="center" v-if="flag === true">
                     <el-table-column
                             prop="sevenFull"
                             label="00"
@@ -398,7 +399,7 @@
                         </template>
                     </el-table-column>
                 </el-table-column>
-                <el-table-column label="08:00" align="center">
+                <el-table-column label="08:00" align="center" :render-header="renderHeaderr">
                     <el-table-column
                             prop="eightFull"
                             label="00"
@@ -720,6 +721,8 @@
                     </el-table-column>
                 </el-table-column>
             </el-table>
+            <div style="width: 100%;height: 40px;background-color: white" v-loading="true" v-if="loadingFlag === true">
+            </div>
         </div>
     </div>
 </template>
@@ -737,6 +740,8 @@
         name: "Order",
         data() {
             return {
+                loadingFlag:false,
+                abc: window.innerHeight - 60 - 150,
                 obj: [{
                     name: '',
                     roomID: '',
@@ -784,6 +789,64 @@
                     //     { required: true, message: '请选择会议室', trigger: 'blur' }
                     // ],
                 },
+                temptableData: [{
+                    roomID: 0,
+                    name: '',
+                    building: 0,
+                    location: '',
+                    capacity: '',
+                    catalogue: '',
+                    flag: 1,
+                    zeroFull: '',
+                    zeroHalf: '',
+                    oneFull: '',
+                    oneHalf: '',
+                    twoFull: '',
+                    twoHalf: '',
+                    threeFull: '',
+                    threeHalf: '',
+                    fourFull: '',
+                    fourHalf: '',
+                    fiveFull: '',
+                    fiveHalf: '',
+                    sixFull: '',
+                    sixHalf: '',
+                    sevenFull: '',
+                    sevenHalf: '',
+                    eightFull: '',
+                    eightHalf: '',
+                    nineFull: '',
+                    nineHalf: '',
+                    tenFull: '',
+                    tenHalf: '',
+                    elevenFull: '',
+                    elevenHalf: '',
+                    twelveFull: '',
+                    twelveHalf: '',
+                    thirteenFull: '',
+                    thirteenHalf: '',
+                    fourteenFull: '',
+                    fourteenHalf: '',
+                    fifteenFull: '',
+                    fifteenHalf: '',
+                    sixteenFull: '',
+                    sixteenHalf: '',
+                    seventeenFull: '',
+                    seventeenHalf: '',
+                    eighteenthFull: '',
+                    eighteenthHalf: '',
+                    nineteenFull: '',
+                    nineteenHalf: '',
+                    twentyFull: '',
+                    twentyHalf: '',
+                    twentyOneFull: '',
+                    twentyOneHalf: '',
+                    twentyTwoFull: '',
+                    twentyTwoHalf: '',
+                    twentyThreeFull: '',
+                    twentyThreeHalf: '',
+                }
+                ],
                 tableData: [{
                     roomID: 0,
                     name: '',
@@ -859,12 +922,38 @@
                     disabledDate(time) {
                         return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
                     }
-                }
+                },
+                flag: false,
             };
         },
         created() {
             this.getTableData(this.form.date);
             this.getPlace();
+        },
+        mounted() {
+            this.$refs.mytable.bodyWrapper.addEventListener('scroll', (res) => {
+
+                let height = res.target;
+
+                let clientHeight = height.clientHeight;
+                let scrollTop = height.scrollTop;
+                let scrollHeight = height.scrollHeight;
+                console.log(clientHeight + scrollTop);
+                console.log(scrollHeight);
+                if (clientHeight + scrollTop +1>= scrollHeight) {
+                    // this.loadingFlag = true;
+                    // getMeetingList(this.form.date, this.currentBuildingID, this.currentRoomID).then(response => {
+                    //     this.loading = false;
+                    //     this.temptableData = response.data;
+                    //     this.tableData = this.tableData.concat(this.temptableData);
+                    //     console.log('追加后');
+                    //     console.log(this.tableData);
+                    //     this.loadingFlag = false;
+                    // });
+                    console.log('到底了');
+                }
+            }, true);
+
         },
         methods: {
             //第一次进入页面请求当天所有会议的数据
@@ -1048,6 +1137,30 @@
                 this.inputVisible = false;
                 this.inputValue = '';
             },
+            renderHeaderr(h, {column, $index}) {
+                return h('span', [
+                    h('span', {
+                        class: [this.flag ? 'el-icon-caret-left' : 'el-icon-caret-right'],
+                        // class: 'el-icon-caret-left',
+                        on: {
+                            click: () => {
+                                this.start();
+                            }
+                        }
+                    }),
+                    h('span', column.label)
+                ])
+            },
+            start() {
+                // this.rotate=!this.rotate;
+                // console.log(this.rotate)
+                if (this.flag === true) {
+                    this.flag = false;
+                } else {
+                    this.flag = true;
+                }
+                console.log(this.flag)
+            },
         },
         // mounted() {
         //     // axios.get('/list').then(res => {
@@ -1058,9 +1171,10 @@
         //         this.tableData = res.data.tableData;
         //     })
         // }
-        test(){
+        test() {
             alert("单元格点击事件");
-        }
+        },
+
     }
 </script>
 

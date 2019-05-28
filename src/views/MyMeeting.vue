@@ -530,10 +530,10 @@
             //取消会议
             handleDelete(index, row) {
                 cancelConference(row).then(res => {
-                    console.log('取消预定' + res);
+                    console.log('取消预定' + res.message);
                     if (res.status === 0) {
                         this.$message({
-                            message: '会议取消成功',
+                            message: res.message,
                             type: 'success'
                         });
                     }

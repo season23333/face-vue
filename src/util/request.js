@@ -6,12 +6,10 @@ import Qs from 'qs'
 
 // 创建axios实例
 const service = axios.create({
-    // baseURL: 'http://172.19.138.203:8080', // api 的 base_url
     baseURL: 'http://upcnia.club:8080', // api 的 base_url
-    // baseURL: 'http://172.24.26.12:8080', // api 的 base_url
-    // baseURL: 'http://192.168.43.182:8080',
-    // baseURL: 'http://180.201.169.185:8080',
-    // baseURL: 'http://172.24.191.225:8080',
+
+    // baseURL: 'http://172.24.191.225:8080', // api 的 base_url
+
     timeout: 5000 ,// 请求超时时间
     transformRequest:[function (data) {
         data = Qs.stringify(data);

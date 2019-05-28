@@ -257,9 +257,9 @@ export default new Router({
             component:()=>import(/*webpackChunkName:"user"*/"./views/Login.vue")
         },
         {
-            path: '/password_reset',
-            name: 'password_reset',
-            component:()=>import(/*webpackChunkName:"user"*/"./views/Password_reset.vue")
+            path: '/register',
+            name: 'register',
+            component:()=>import(/*webpackChunkName:"user"*/"./views/Register.vue")
         },
         {
             path: '/test',
@@ -276,11 +276,11 @@ export default new Router({
             name: 'service',
             component:()=>import(/*webpackChunkName:"service"*/"./views/Service.vue"),
             children: [
-                // {
-                //     path: '/profile',
-                //     name: 'profile',
-                //     component:()=>import(/*webpackChunkName:"profile"*/"./views/Profile.vue"),
-                // },
+                {
+                    path: '/manageroom',
+                    name: 'manageroom',
+                    component:()=>import(/*webpackChunkName:"profile"*/"./views/ManageRoom.vue"),
+                },
                 {
                     path: '/notification',
                     name: 'notification',

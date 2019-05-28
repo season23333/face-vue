@@ -1,3 +1,326 @@
+<template>
+    <div>
+        <el-table
+                :data="tableData"
+                ref="mytable"
+                height="160"
+                style="width: 100%">
+            <el-table-column
+                    prop="date"
+                    label="日期"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="address"
+                    label="地址">
+            </el-table-column>
+        </el-table>
+        <div v-scroll="loadMore">
+            <ul class="news">
+                <li  class="news__item" v-for="(news, index) in newslist">
+                    {{index}}-{{news.title}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</template>
+<style>
+    .news__item {
+        height: 80px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+</style>
+<script>
+    export default{
+        data(){
+            return{
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }],
+                newslist: [
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'},
+                    {title: 'hello world'}
+                ],
+                obj:{
+                    date: '2016-05-03',
+                    name: '王小虎4',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }
+            }
+        },
+        directives: {
+            scroll: {
+                bind: function (el, binding){
+                    el.addEventListener('scroll', ()=> {
+                        console.log(el);
+                        if(el.scrollHeight - el.scrollTop - el.clientHeight<=0){
+                        // if(el.scrollTop + window.innerHeight >= el.clientHeight) {
+                            console.log('load data');
+                        }
+                    })
+                }
+            }
+        },
+        mounted(){
+            this.$refs.mytable.bodyWrapper.addEventListener('scroll', (res) => {
+
+                let height = res.target;
+
+                let clientHeight = height.clientHeight;
+                let scrollTop = height.scrollTop;
+                let scrollHeight = height.scrollHeight;
+
+                if(clientHeight + scrollTop  >= scrollHeight){
+                    console.log(clientHeight + scrollTop);
+                    console.log(scrollHeight);
+                    this.tableData[4] = this.obj;
+                }
+
+            },true);
+
+        },
+        methods: {
+            abcd(){
+              console.log()
+            },
+            loadMore() {
+                let newAry = [];
+                for(let i = 0; i < 10; i++) {
+                    newAry.push({title: 'hello world'})
+                }
+                this.newslist = [...this.newslist, ...newAry];
+            },
+
+        }
+    }
+</script>
+
+<!--<template>-->
+    <!--<div class="fullscreen">-->
+        <!--<div class="login-box">-->
+            <!--<div style="text-align: center">-->
+                <!--<img src="../assets/logo1.png" alt="" class="logo">-->
+            <!--</div>-->
+            <!--<p class="text-tips" style="font-size: medium;">用户注册</p>-->
+            <!--<form action="" class="login-form">-->
+                <!--<div class="m-list-group">-->
+                    <!--<div class="m-list-group-item">-->
+                        <!--<input type="text" placeholder="用户组" class="m-input" v-model="userGroup" @focus="show =true"-->
+                               <!--@blur="show=false">-->
+                        <!--<div v-loading="divLoading" v-if="show === true"-->
+                             <!--style=" position: absolute;background-color: white">-->
+                            <!--<el-scrollbar style="height: 100%">-->
+                                <!--&lt;!&ndash;overflow-y:scroll;overflow-x:hidden;&ndash;&gt;-->
+                                <!--<ul class="myul" style="height: 80px">-->
+                                    <!--<li v-for='(v,k) in arr' :key="k" @click="show = false" class="myli"-->
+                                        <!--@mouseenter="mouseEnter(k)"-->
+                                        <!--@mouseleave="mouseLeave">-->
+                                        <!--<span>{{v}}</span>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</el-scrollbar>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</template>-->
+<!--<script>-->
+    <!--import {register} from '../api/user';-->
+
+    <!--export default {-->
+        <!--name: 'Register',-->
+        <!--data() {-->
+            <!--return {-->
+                <!--arr: [-->
+                    <!--"aaa", "bbb", "ccc"-->
+                <!--],-->
+                <!--show: false,-->
+                <!--password: '',-->
+                <!--realName: '',-->
+                <!--department: '',-->
+                <!--phoneNumber: '',-->
+                <!--userGroup: '',-->
+                <!--email: '',-->
+                <!--code: 200,-->
+                <!--pwdType: 'password',-->
+            <!--}-->
+        <!--},-->
+        <!--methods: {-->
+
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<!--<style type="text/css">-->
+    <!--.m-list-group {-->
+        <!--border-radius: 3px;-->
+        <!--padding: 0;-->
+        <!--margin: 0 0 20px;-->
+    <!--}-->
+
+    <!--.m-list-group .m-list-group-item {-->
+        <!--position: relative;-->
+        <!--display: block;-->
+        <!--padding: 6px 10px;-->
+        <!--margin-bottom: 5px;-->
+        <!--background-color: #fff;-->
+        <!--border: 1px solid #e7ecee;-->
+    <!--}-->
+
+    <!--.m-list-group .m-list-group-item:first-child {-->
+        <!--border-top-left-radius: 3px;-->
+        <!--border-top-right-radius: 3px;-->
+    <!--}-->
+
+    <!--.m-list-group .m-list-group-item:last-child {-->
+        <!--border-bottom-left-radius: 3px;-->
+        <!--border-bottom-right-radius: 3px;-->
+    <!--}-->
+
+    <!--.fullscreen {-->
+        <!--position: absolute;-->
+        <!--width: 100%;-->
+        <!--height: 100%;-->
+        <!--background: #F4F5F5;-->
+        <!--display: flex;-->
+        <!--justify-content: center;-->
+        <!--align-items: center;-->
+    <!--}-->
+
+    <!--.login-box {-->
+        <!--position: relative;-->
+        <!--width: 330px;-->
+        <!--margin: 0 auto;-->
+        <!--padding: 0px 15px;-->
+    <!--}-->
+
+    <!--.login-box .logo {-->
+        <!--max-width: 40%;-->
+        <!--margin-bottom: 30px;-->
+    <!--}-->
+
+    <!--.login-box .text-tips {-->
+        <!--text-align: center;-->
+        <!--color: #909DB7;-->
+    <!--}-->
+
+    <!--.login-box .m-input {-->
+        <!--width: 100%;-->
+        <!--padding: 10px;-->
+        <!--border: none;-->
+        <!--outline: none;-->
+        <!--box-sizing: border-box;-->
+    <!--}-->
+
+    <!--.login-box .m-btn {-->
+        <!--font-size: 18px;-->
+        <!--width: 100%;-->
+        <!--color: #fff;-->
+        <!--background-color: #ACD392;-->
+        <!--display: inline-block;-->
+        <!--padding: 10px 12px;-->
+        <!--margin-bottom: 10px;-->
+        <!--line-height: 1.42857143;-->
+        <!--text-align: center;-->
+        <!--cursor: pointer;-->
+        <!--outline: none;-->
+        <!--border-radius: 2px;-->
+        <!--border: 1px solid #ACD392;-->
+        <!--box-sizing: border-box;-->
+        <!--text-decoration: none;-->
+    <!--}-->
+
+    <!--.login-box .m-btn.m-btn-text {-->
+        <!--background: #fff;-->
+        <!--color: #36C1FA;-->
+    <!--}-->
+
+    <!--.login-box .m-btn:hover {-->
+        <!--background-color: #99CC66;-->
+    <!--}-->
+
+    <!--.login-box .m-btn.m-btn-text:hover {-->
+        <!--background-color: #F4F5F5;-->
+    <!--}-->
+
+    <!--.login-box .m-btn:active {-->
+        <!--opacity: 0.8;-->
+    <!--}-->
+
+    <!--@media (max-width: 768px) {-->
+        <!--.login-box {-->
+            <!--width: auto;-->
+        <!--}-->
+    <!--}-->
+
+    <!--.myul {-->
+        <!--padding: 10px 0 0;-->
+        <!--margin: 0;-->
+        <!--display: block;-->
+        <!--list-style-type: disc;-->
+        <!--scroll-snap-margin-block-start: 1em;-->
+        <!--scroll-snap-margin-block-end: 1em;-->
+        <!--scroll-snap-margin-inline-start: 0px;-->
+        <!--scroll-snap-margin-inline-end: 0px;-->
+        <!--scroll-padding-inline-start: 40px;-->
+    <!--}-->
+
+    <!--.myli {-->
+        <!--height: 40px;-->
+        <!--padding: 0 30px;-->
+        <!--cursor: pointer;-->
+        <!--display: flex;-->
+        <!--align-items: center;-->
+        <!--list-style-type: none;-->
+        <!--width: 100px;-->
+        <!--position: relative;-->
+        <!--min-height: 40px;-->
+        <!--color: #666;-->
+        <!--outline-style: none;-->
+    <!--}-->
+
+    <!--/*.el-scrollbar__thumb {*/-->
+    <!--/*display: none;*/-->
+    <!--/*}*/-->
+
+    <!--.el-scrollbar__wrap {-->
+        <!--overflow-x: hidden;-->
+        <!--overflow-y: auto;-->
+    <!--}-->
+<!--</style>-->
+
 <!--<template>-->
 <!--<div>-->
 <!--<el-button type="text" @click="msgDialogVisible = true" >打开嵌套表单的 Dialog-->
@@ -420,62 +743,99 @@
 
 <!--</style>-->
 
+<!--<style scoped>-->
 
-<template>
-    <el-table
-            :data="newstable"
-            style="width: 100%"
+<!--</style>-->
+<!--<template>-->
+<!--<div>-->
+<!--<el-table-->
+<!--:data="tableData"-->
+<!--style="width: 100%;">-->
+<!--<el-table-column-->
+<!--:render-header="renderHeader"-->
+<!--prop="date"-->
+<!--label="日期"-->
+<!--width="180">-->
+<!--</el-table-column>-->
+<!--<el-table-column-->
+<!--v-if="flag === false"-->
+<!--prop="name"-->
+<!--label="姓名"-->
+<!--width="180">-->
+<!--</el-table-column>-->
+<!--<el-table-column-->
+<!--prop="address"-->
+<!--label="地址"-->
+<!--&gt;-->
+<!--</el-table-column>-->
+<!--</el-table>-->
+<!--&lt;!&ndash;<i :class="[rotate?'el-icon-caret-left go':'el-icon-caret-left aa']" @click="start"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;//class随rotate的true或者false改变 我这为图方便用了项目里的图标测试，图片也是一样的~&ndash;&gt;-->
+<!--</div>-->
 
-            @row-click="handle"
-
-    >
-        <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="address"
-                label="地址">
-        </el-table-column>
-    </el-table>
-</template>
-
-<script>
-    export default {
-        methods: {
-            test({row, column, cell, event}) {
-                alert("单元格点击事件" + row);
-            },
-            handle(row, event, column) {
-                console.log(row, event, column)
-            }
-        },
-        data() {
-            return {
-                newstable: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }]
-            }
-        }
-    }
-</script>
+<!--</template>-->
+<!--<script>-->
+<!--export default {-->
+<!--data () {-->
+<!--return {-->
+<!--flag:true,-->
+<!--tableData: [{-->
+<!--date: '2016-05-02',-->
+<!--name: '王小虎',-->
+<!--address: '上海市普陀区金沙江路 1518 弄'-->
+<!--}, {-->
+<!--date: '2016-05-04',-->
+<!--name: '王小虎',-->
+<!--address: '上海市普陀区金沙江路 1517 弄'-->
+<!--}, {-->
+<!--date: '2016-05-01',-->
+<!--name: '王小虎',-->
+<!--address: '上海市普陀区金沙江路 1519 弄'-->
+<!--}, {-->
+<!--date: '2016-05-03',-->
+<!--name: '王小虎',-->
+<!--address: '上海市普陀区金沙江路 1516 弄'-->
+<!--}]-->
+<!--}-->
+<!--},-->
+<!--methods: {-->
+<!--// renderHeader(h) {-->
+<!--//     return (-->
+<!--//         <div>-->
+<!--//         <span>日期</span>-->
+<!--//         <i class="el-icon-caret-left" style="margin-left: 10px" v-if="flag===true"></i>-->
+<!--//         </div>-->
+<!--// )-->
+<!--// },-->
+<!--renderHeader (h, { column, $index }) {-->
+<!--return h('span', [-->
+<!--h('span', {-->
+<!--class: [this.flag?'el-icon-caret-left':'el-icon-caret-right'],-->
+<!--// class: 'el-icon-caret-left',-->
+<!--on: {-->
+<!--click: () => {-->
+<!--this.start();-->
+<!--}-->
+<!--}-->
+<!--}),-->
+<!--h('span', column.label)-->
+<!--])-->
+<!--},-->
+<!--start(){-->
+<!--// this.rotate=!this.rotate;-->
+<!--// console.log(this.rotate)-->
+<!--if(this.flag === true){-->
+<!--this.flag = false;-->
+<!--}else{-->
+<!--this.flag = true;-->
+<!--}-->
+<!--console.log(this.flag)-->
+<!--},-->
+<!--// must(obj) {-->
+<!--//     if (obj.columnIndex === 1) {-->
+<!--//         return 'must'-->
+<!--//     }-->
+<!--// }-->
+<!--}-->
+<!--}-->
+<!--</script>-->

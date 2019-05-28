@@ -1,5 +1,5 @@
 import request from '../util/request'
-import {stringify} from 'qs'
+// import {stringify} from 'qs'
 
 export function login(phoneNumber, password) {
     return request({

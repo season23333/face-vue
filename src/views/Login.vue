@@ -38,8 +38,8 @@
         data() {
             return {
                 loginForm: {
-                    username: '17685590508',
-                    password: '123456',
+                    username: '13081691639',
+                    password: 'yuchen123!',
                 },
                 isLoging: false,
                 pwdType: 'password',

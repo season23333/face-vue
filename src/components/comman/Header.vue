@@ -41,6 +41,9 @@
                         <span style="display:block;" @click="profile">个人信息</span>
                     </el-dropdown-item>
                     <el-dropdown-item>
+                        <span style="display:block;" @click="password_reset">修改密码</span>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
                         <span style="display:block;" @click="logout">登出</span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -52,22 +55,30 @@
         <!--</a>-->
         <!--</el-col>-->
         <Profile v-if="dialogVisible === true" v-bind:dialogVisible = "dialogVisible" v-on:success="success(res)"></Profile>
+        <Password v-if="passwordDialogVisible === true" v-bind:passwordDialogVisible = "passwordDialogVisible" v-on:passwordSuccess="passwordSuccess(res)"></Password>
     </el-container>
 </template>
 
 <script>
     import Profile from '../../views/Profile'
+    import Password from '../../views/Password_reset'
     export default {
         name: "Header.vue",
         components:{
-            Profile
+            Profile,
+            Password
         },
         data() {
             return {
-                dialogVisible: false
+                dialogVisible: false,
+                passwordDialogVisible:false
             };
         },
         methods: {
+            //是否弹出
+            passwordSuccess(res){
+                this.passwordDialogVisible = res;
+            },
             //是否弹出对话框
             success(res){
                 this.dialogVisible = res;
@@ -88,6 +99,9 @@
             profile() {
                 this.dialogVisible = true;
                 // this.$router.push('/profile');
+            },
+            password_reset(){
+                this.passwordDialogVisible = true;
             }
         }
     }

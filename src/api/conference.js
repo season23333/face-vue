@@ -40,10 +40,10 @@ export function rejectConference(conferenceID) {
     })
 }
 
-export function addConfPeople(userIdList,conferenceID) {
+export function addConfPeople(userIdList, conferenceID) {
     return request({
-        url:'/conference/participants',
-        method:'post',
+        url: '/conference/participants',
+        method: 'post',
         data: {
             userIdList,
             conferenceID
@@ -53,15 +53,24 @@ export function addConfPeople(userIdList,conferenceID) {
 
 export function showConfPeople(conferenceID) {
     return request({
-        url:'conference/participants',
-        method:'get',
-        params:{conferenceID:conferenceID}
+        url: 'conference/participants',
+        method: 'get',
+        params: {conferenceID: conferenceID}
     })
 }
 
-export function showTable() {
+export function showTable(startTime, endTime, address, buildingID, location, size, type) {
     return request({
-        url:'user/currentUserInfo',
-        method:'get',
+        url: '/room/guide',
+        method: 'get',
+        params: {
+            start: startTime,
+            end: endTime,
+            address: address,
+            buildingID: buildingID,
+            location: location,
+            capacity: size,
+            catalogue: type
+        }
     })
 }
