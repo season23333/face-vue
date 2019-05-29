@@ -34,8 +34,8 @@
                     <i class="el-icon-view"></i>
                     <span>系统管理</span>
                 </template>
-                <el-menu-item index="7">会议室管理</el-menu-item>
-                <el-menu-item index="8">用户管理</el-menu-item>
+                <el-menu-item index="/manageroom">会议室管理</el-menu-item>
+                <el-menu-item index="/managepeople">用户管理</el-menu-item>
             </el-submenu>
             <el-menu-item index="/hide" style="visibility: hidden">
 

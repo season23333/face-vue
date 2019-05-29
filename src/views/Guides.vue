@@ -128,7 +128,7 @@
                         <el-input-number v-model="anotherForm.size" :min="0" :step="5"
                                          @change="selectSize()"></el-input-number>
                     </el-form-item>
-                    <el-form-item label="会议类型" prop="type">
+                    <el-form-item label="会议室类型" prop="type">
                         <el-select v-model="type.name" prop="type.name"
                                    value-key="name" placeholder="请选择类型"
                                    clearable

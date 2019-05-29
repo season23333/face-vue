@@ -282,6 +282,11 @@ export default new Router({
                     component:()=>import(/*webpackChunkName:"profile"*/"./views/ManageRoom.vue"),
                 },
                 {
+                    path: '/managepeople',
+                    name: 'managepeople',
+                    component:()=>import(/*webpackChunkName:"profile"*/"./views/ManagePeople.vue"),
+                },
+                {
                     path: '/notification',
                     name: 'notification',
                     component:()=>import(/*webpackChunkName:"notification"*/"./views/Notification.vue"),

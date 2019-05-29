@@ -53,3 +53,11 @@ export function getType() {
         method:'get',
     })
 }
+
+export function getAllRoom(pageCurrent,pageSize) {
+    return request({
+        url:'/room/list/room',
+        method:'get',
+        params:{pageCurrent:pageCurrent,pageSize:pageSize}
+    })
+}
