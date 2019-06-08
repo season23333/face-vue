@@ -123,42 +123,42 @@
                         </div>
                     </el-dialog>
                     <!--<el-dialog-->
-                            <!--title="提示"-->
-                            <!--:visible.sync="msgDialogVisible"-->
-                            <!--width="30%"-->
-                            <!--:before-close="handleClose"-->
-                            <!--center>-->
-                        <!--<el-form :model="msgForm" ref="msgForm" label-width="100px"-->
-                                 <!--class="demo-dynamic">-->
-                            <!--<el-form-item-->
-                                    <!--v-for="(P, index) in msgForm.people"-->
-                                    <!--:label="'通知人' + (index+1)"-->
-                                    <!--:key="P.key"-->
-                                    <!--:prop="'people.' + index + '.name'"-->
-                                    <!--:rules="[{-->
-                                        <!--required: true, message: '通知人不能为空', trigger: 'blur'-->
-                                    <!--},{-->
-                                        <!--validator:validatePass, trigger:'manual'-->
-                                    <!--}]"-->
-                            <!--&gt;-->
-                                <!--&lt;!&ndash;<el-input v-model="P.name" style="width: 200px"></el-input>&ndash;&gt;-->
-                                <!--<el-autocomplete-->
-                                        <!--class="inline-input"-->
-                                        <!--v-model="P.name"-->
-                                        <!--:fetch-suggestions="querySearch"-->
-                                        <!--placeholder="请输入内容"-->
-                                        <!--:trigger-on-focus="false"-->
-                                        <!--@select="handleSelect"-->
-                                <!--&gt;</el-autocomplete>-->
-                                <!--<el-button @click.prevent="removeDomain(P)" style="margin-left: 20px">删除</el-button>-->
-                            <!--</el-form-item>-->
+                    <!--title="提示"-->
+                    <!--:visible.sync="msgDialogVisible"-->
+                    <!--width="30%"-->
+                    <!--:before-close="handleClose"-->
+                    <!--center>-->
+                    <!--<el-form :model="msgForm" ref="msgForm" label-width="100px"-->
+                    <!--class="demo-dynamic">-->
+                    <!--<el-form-item-->
+                    <!--v-for="(P, index) in msgForm.people"-->
+                    <!--:label="'通知人' + (index+1)"-->
+                    <!--:key="P.key"-->
+                    <!--:prop="'people.' + index + '.name'"-->
+                    <!--:rules="[{-->
+                    <!--required: true, message: '通知人不能为空', trigger: 'blur'-->
+                    <!--},{-->
+                    <!--validator:validatePass, trigger:'manual'-->
+                    <!--}]"-->
+                    <!--&gt;-->
+                    <!--&lt;!&ndash;<el-input v-model="P.name" style="width: 200px"></el-input>&ndash;&gt;-->
+                    <!--<el-autocomplete-->
+                    <!--class="inline-input"-->
+                    <!--v-model="P.name"-->
+                    <!--:fetch-suggestions="querySearch"-->
+                    <!--placeholder="请输入内容"-->
+                    <!--:trigger-on-focus="false"-->
+                    <!--@select="handleSelect"-->
+                    <!--&gt;</el-autocomplete>-->
+                    <!--<el-button @click.prevent="removeDomain(P)" style="margin-left: 20px">删除</el-button>-->
+                    <!--</el-form-item>-->
 
-                            <!--<el-form-item>-->
-                                <!--<el-button type="primary" @click="submitForm('msgForm')">提交</el-button>-->
-                                <!--<el-button @click="addDomain">新增通知人</el-button>-->
-                                <!--&lt;!&ndash;<el-button @click="resetForm('msgForm')">重置</el-button>&ndash;&gt;-->
-                            <!--</el-form-item>-->
-                        <!--</el-form>-->
+                    <!--<el-form-item>-->
+                    <!--<el-button type="primary" @click="submitForm('msgForm')">提交</el-button>-->
+                    <!--<el-button @click="addDomain">新增通知人</el-button>-->
+                    <!--&lt;!&ndash;<el-button @click="resetForm('msgForm')">重置</el-button>&ndash;&gt;-->
+                    <!--</el-form-item>-->
+                    <!--</el-form>-->
                     <!--</el-dialog>-->
 
 
@@ -198,7 +198,7 @@
     import {getDetails} from "../api/user";
     import {getRoomName, getBuildingName} from "../api/room";
     import {validatePeople, getUserID} from "../api/user"
-    import {getPage, cancelConference,addConfPeople,showConfPeople} from "../api/conference";
+    import {getPage, cancelConference, addConfPeople, showConfPeople} from "../api/conference";
     import {Message} from 'element-ui'
     // import axios from 'axios';
 
@@ -248,8 +248,8 @@
                 test: [
                     {value: ''},
                 ],
-                res:[
-                    {value:''}
+                res: [
+                    {value: ''}
                 ],
                 search: '',
                 arr: [
@@ -270,10 +270,10 @@
                 timeout: null,
                 sshow: false,
                 nameList: [],
-                splitChar:'-',
-                updateList:[],
-                b:'',
-                confID:''
+                splitChar: '-',
+                updateList: [],
+                b: '',
+                confID: ''
                 // color:'#F6F7FA'
                 // peopleDialogVisible: false,
                 // inputVisible: false,
@@ -465,7 +465,7 @@
             //验证与会人是否合法
             validatePass(rule, value, callback) {
                 console.log('验证是否合法' + this.test.indexOf(value));
-                console.log('验证是否合法' +this.test[0].value);
+                console.log('验证是否合法' + this.test[0].value);
                 var index = this.test.indexOf(value);
                 if (index !== -1) {
                     callback();
@@ -558,8 +558,8 @@
                     await validatePeople(inputVal).then(res => {
                         this.arr = res.data;
                         for (var i = 0; i < res.data.length; i++) {
-                            var str = this.arr[i].realName +this.splitChar+ this.arr[i].userID;
-                            console.log('拼接字符串：'+str);
+                            var str = this.arr[i].realName + this.splitChar + this.arr[i].userID;
+                            console.log('拼接字符串：' + str);
                             this.arr[i].str = str;
                             if (this.nameList.indexOf(str) === -1) {
                                 this.arr[i].bol = false;
@@ -586,7 +586,7 @@
                 this.search = this.arr[k].realName;
                 if (this.arr[k].bol === false) {
                     this.arr[k].bol = true;
-                    var str = this.arr[k].realName +this.splitChar+ this.arr[k].userID;
+                    var str = this.arr[k].realName + this.splitChar + this.arr[k].userID;
                     this.nameList.push(str);
                     // this.nameList.push(this.arr[k].realName);
                 } else {
@@ -605,7 +605,7 @@
                     }
                 }
                 this.nameList.splice(this.nameList.indexOf(tag), 1);
-                console.log('关闭tag后'+this.nameList);
+                console.log('关闭tag后' + this.nameList);
             },
             closeDialog(done) {
                 this.$confirm('确认关闭？')
@@ -619,22 +619,22 @@
                     .catch(_ => {
                     });
             },
-            addPeople(confID){
+            addPeople(confID) {
                 this.confID = confID;
                 this.msgDialogVisible = true;
-                showConfPeople(this.confID).then(res =>{
-                    for(var i = 0; i < res.data.length; i++){
-                        var str = res.data[i].realName +this.splitChar+ res.data[i].userID;
+                showConfPeople(this.confID).then(res => {
+                    for (var i = 0; i < res.data.length; i++) {
+                        var str = res.data[i].realName + this.splitChar + res.data[i].userID;
                         this.nameList.push(str);
                     }
                 })
             },
             //提交与会人列表
-            update(){
+            update() {
                 this.msgDialogVisible = false;
-                console.log('提交前'+this.nameList);
+                console.log('提交前' + this.nameList);
 
-                for(var i=0;i<this.nameList.length;i++){
+                for (var i = 0; i < this.nameList.length; i++) {
                     this.updateList[i] = this.nameList[i].split('-')[1]
                 }
                 this.b = this.updateList.join(",");

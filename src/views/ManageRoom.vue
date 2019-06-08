@@ -552,16 +552,17 @@
                 this.$refs['modifyForm'].validate((valid) => {
                     if (valid) {
                         console.log(this.modifyForm);
-                        modifyRoom1(this.modifyForm.building2, this.modifyForm.capacity, this.modifyForm.catalogue, this.modifyForm.location, this.modifyForm.name,this.modifyForm.flag,this.modifyForm.roomID).then(res => {
+                        var building = this.tableData.find(item => item.building.name === this.modifyForm.building2).building.buildingID;
+                        modifyRoom1(building, this.modifyForm.capacity, this.modifyForm.catalogue, this.modifyForm.location, this.modifyForm.name,this.modifyForm.flag,this.modifyForm.roomID).then(res => {
                             if (res.status === 0) {
                                 this.$message({
-                                    message: '会议室添加成功',
+                                    message: '会议室信息修改成功',
                                     type: 'success'
                                 });
                                 this.onSearch()
                             }
                         });
-                        this.addDialog = false;
+                        this.modifyDialog = false;
                         this.$nextTick(() => {
                             this.$refs['modifyForm'].resetFields();
                             this.type = [{}];

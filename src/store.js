@@ -14,7 +14,7 @@ export default new Vuex.Store({
     },
     mutations: {
         SET_TOKEN: (state, token) => {
-            console.log('Vuex Set Token');
+            // console.log('Vuex Set Token');
             state.token = token
         },
         SET_NAME: (state, name) => {
@@ -34,7 +34,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 login(username, userInfo.password).then(response => {
                     const data = response.data;
-                    console.log(response);
+                    // console.log(response);
                     setToken(data);
                     commit('SET_TOKEN', data);
                     resolve()
@@ -49,13 +49,13 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 getInfo(state.token).then(response => {
                     const data = response.data;
-                    console.log('Vuex GetInfo=>');
-                    console.log(response);
+                    // console.log('Vuex GetInfo=>');
+                    // console.log(response);
 
                     if (data.role>=0) { // 验证返回的roles是否有效
                         commit('SET_ROLES', data.role.name);
 
-                        console.log(data.role)
+                        // console.log(data.role)
                     } else {
                         reject('getInfo: roles must be a non-null array !')
                     }
