@@ -49,15 +49,80 @@ export function getBuildingName(buildingID) {
 
 export function getType() {
     return request({
-        url:'/room/catalogue',
-        method:'get',
+        url: '/room/catalogue',
+        method: 'get',
     })
 }
 
-export function getAllRoom(pageCurrent,pageSize) {
+
+//会议室管理接口
+export function getAllRoom(pageCurrent, pageSize) {
     return request({
-        url:'/room/list/room',
-        method:'get',
-        params:{pageCurrent:pageCurrent,pageSize:pageSize}
+        url: '/room/list/room',
+        method: 'get',
+        params: {pageCurrent: pageCurrent, pageSize: pageSize}
+    })
+}
+
+export function matchSearch(params) {
+    return request({
+        url: '/room/match',
+        method: 'get',
+        params: {params: params}
+    })
+}
+
+export function getRoomTotal() {
+    return request({
+        url: '/room/total',
+        method: 'get',
+    })
+}
+
+export function modifyRoom(building, capacity, catalogue, location, name) {
+    return request({
+        url: '/room/modify',
+        method: 'post',
+        data: {
+            building,
+            capacity,
+            catalogue,
+            location,
+            name
+        }
+    })
+}
+
+export function modifyRoom1(building, capacity, catalogue, location, name, flag, roomID) {
+    return request({
+        url: '/room/modify',
+        method: 'post',
+        data: {
+            building,
+            capacity,
+            catalogue,
+            location,
+            name,
+            flag,
+            roomID
+        }
+    })
+}
+
+export function deleteRoom(roomID) {
+    return request({
+        url: '/room/delete',
+        method: 'post',
+        data: {
+            roomID
+        }
+    })
+}
+
+export function searchPage(params, pageCurrent, pageSize) {
+    return request({
+        url: 'room/match/page',
+        method: 'get',
+        params: {params: params, pageCurrent: pageCurrent, pageSize: pageSize}
     })
 }

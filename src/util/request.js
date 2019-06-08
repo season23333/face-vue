@@ -6,9 +6,9 @@ import Qs from 'qs'
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: 'http://upcnia.club:8080', // api 的 base_url
+    baseURL: 'http://172.19.138.203:8080', // api 的 base_url
 
-    // baseURL: 'http://172.24.191.225:8080', // api 的 base_url
+    // baseURL: 'http://172.26.169.100:8080', // api 的 base_url
 
     timeout: 5000 ,// 请求超时时间
     transformRequest:[function (data) {
@@ -21,7 +21,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
     config => {
-        console.log('发请求'+getToken());
+        // console.log('发请求'+getToken());
         if (store.state.token) {
             config.headers.Authorization = getToken() ;// 让每个请求携带token
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -34,7 +34,7 @@ service.interceptors.request.use(
     },
     error => {
         // Do something with request error
-        console.log('Request:' + error) ;// for debug
+        // console.log('Request:' + error) ;// for debug
         Promise.reject(error)
     }
 );
@@ -46,8 +46,8 @@ service.interceptors.response.use(
          * code为非20000是抛错 可结合自己业务进行修改
          */
         const res = response.data;
-        console.log('Resp=>');
-        console.log(response.data);
+        // console.log('Resp=>');
+        // console.log(response.data);
         if (res.status !== 0) {
             Message({
                 message: res.message,
@@ -73,13 +73,13 @@ service.interceptors.response.use(
             }
             return Promise.reject('error')
         } else {
-            console.log('Resp Return');
-            console.log(response.data);
+            // console.log('Resp Return');
+            // console.log(response.data);
             return response.data
         }
     },
     error => {
-        console.log('ResponseError:' + error); // for debug
+        // console.log('ResponseError:' + error); // for debug
         Message({
             message: error.message,
             type: 'error',

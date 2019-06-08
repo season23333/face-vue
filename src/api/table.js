@@ -1,5 +1,5 @@
 import request from '../util/request'
-import {stringify} from 'qs'
+// import {stringify} from 'qs'
 
 // export function getInfo(token) {
 //     return request({
@@ -17,13 +17,13 @@ export function getMeetingList(date, buildingID, roomID) {
     })
 }
 
-export function text(a) {
-    return axios.get('http://localhost:8082/room/free', {params: {a: a}})
-}
-
-export function getDetails(pageNum, pageSize) {
-    return axios.get('http://localhost:8082/', {params: {pageNum: pageNum, pageSize: pageSize}})
-}
+// export function text(a) {
+//     return axios.get('http://localhost:8082/room/free', {params: {a: a}})
+// }
+//
+// export function getDetails(pageNum, pageSize) {
+//     return axios.get('http://localhost:8082/', {params: {pageNum: pageNum, pageSize: pageSize}})
+// }
 
 // export function text(a) {
 //     return axios.post('http://localhost:8082/room/free',{a:a})
