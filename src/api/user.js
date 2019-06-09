@@ -36,7 +36,14 @@ export function register(password, realName, department, email, phoneNumber, use
     return request({
         url: '/user/signup',
         method: 'post',
-        params: {password:password,realName:realName,department:department,email:email,phoneNumber:phoneNumber,userGroup:userGroup}
+        params: {
+            password: password,
+            realName: realName,
+            department: department,
+            email: email,
+            phoneNumber: phoneNumber,
+            userGroup: userGroup
+        }
     })
 }
 
@@ -47,15 +54,15 @@ export function register(password, realName, department, email, phoneNumber, use
 
 export function getUserInfo() {
     return request({
-        url:'/user/currentUserInfo',
-        method:'get'
+        url: '/user/currentUserInfo',
+        method: 'get'
     })
 }
 
-export function passwordReset(oldPassword,newPassword) {
+export function passwordReset(oldPassword, newPassword) {
     return request({
-        url:'/user/password',
-        method:'post',
+        url: '/user/password',
+        method: 'post',
         data: {
             oldPassword,
             newPassword
@@ -63,13 +70,20 @@ export function passwordReset(oldPassword,newPassword) {
     })
 }
 
-export function updateUserInfo(email,phoneNumber) {
+export function updateUserInfo(email, phoneNumber) {
     return request({
-        url:'/user/currentUserInfo',
-        method:'post',
-        data:{
+        url: '/user/currentUserInfo',
+        method: 'post',
+        data: {
             email,
             phoneNumber
         }
+    })
+}
+
+export function getGroup() {
+    return request({
+        url: '/user/userGroup',
+        method: 'get',
     })
 }

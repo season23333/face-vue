@@ -21,20 +21,20 @@
                         <input :type="pwdType" placeholder="密码" class="m-input" v-model="password" @focus="showNone">
                     </div>
                     <div class="m-list-group-item">
-                        <input type="text" placeholder="部门" class="m-input" v-model="department" @focus="showDep">
-                        <div v-loading="divLoading" v-if="show1 === true"
-                             style=" position: absolute;background-color: white;z-index:999">
-                            <el-scrollbar style="height: 100%">
-                                <!--overflow-y:scroll;overflow-x:hidden;-->
-                                <ul class="myul" style="height: 110px">
-                                    <li v-for='(v,k) in departmentArr' :key="k" @click="selectDepartment(k)"
-                                        class="myli"
-                                        style="font-size: 0.9em">
-                                        <span>{{v}}</span>
-                                    </li>
-                                </ul>
-                            </el-scrollbar>
-                        </div>
+                        <input type="text" placeholder="部门" class="m-input" v-model="department" @focus="showNone">
+                        <!--<div v-loading="divLoading" v-if="show1 === true"-->
+                        <!--style=" position: absolute;background-color: white;z-index:999">-->
+                        <!--<el-scrollbar style="height: 100%">-->
+                        <!--&lt;!&ndash;overflow-y:scroll;overflow-x:hidden;&ndash;&gt;-->
+                        <!--<ul class="myul" style="height: 110px">-->
+                        <!--<li v-for='(v,k) in departmentArr' :key="k" @click="selectDepartment(k)"-->
+                        <!--class="myli"-->
+                        <!--style="font-size: 0.9em">-->
+                        <!--<span>{{v}}</span>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--</el-scrollbar>-->
+                        <!--</div>-->
                     </div>
                     <div class="m-list-group-item">
                         <input type="text" placeholder="用户组" class="m-input" v-model="userGroup" @focus="showGro">
@@ -66,17 +66,14 @@
     </div>
 </template>
 <script>
-    import {register} from '../api/user';
+    import {register, getGroup} from '../api/user';
 
     export default {
         name: 'Register',
         data() {
             return {
                 divLoading: false,
-                arr: [
-                    "aaa", "bbb", "ccc", "ddd", ""
-                ],
-                departmentArr: ["aa", "bb", "cc", "dd", ""],
+                arr: [],
                 show: false,
                 show1: false,
                 password: '',
@@ -84,31 +81,40 @@
                 department: '',
                 phoneNumber: '',
                 userGroup: '',
+                groupID:-1,
                 email: '',
                 code: 200,
                 pwdType: 'password',
             }
         },
+        created() {
+            getGroup().then(res => {
+                this.arr = res.data;
+                console.log(this.arr);
+                console.log(res)
+            })
+        },
         methods: {
-            showDep() {
-                this.show = false;
-                this.show1 = true;
-            },
+            // showDep() {
+            //     this.show = false;
+            //     // this.show1 = true;
+            // },
             showGro() {
                 this.show = true;
-                this.show1 = false;
+                // this.show1 = false;
             },
             showNone() {
                 this.show = false;
-                this.show1 = false;
+                // this.show1 = false;
             },
-            selectDepartment(k) {
-                this.department = this.departmentArr[k];
-                this.show1 = false;
-            },
+            // selectDepartment(k) {
+            //     this.department = this.departmentArr[k];
+            //     this.show1 = false;
+            // },
             selectGroup(k) {
                 this.userGroup = this.arr[k];
-                console.log(this.arr[k]);
+                this.groupID = k;
+                // console.log(this.arr[k]);
                 this.show = false;
             },
             handleLogin() {
@@ -123,7 +129,7 @@
                     }
                 }
                 this.password = this.$md5(this.password);
-                register(this.password, this.realName, this.department, this.email, this.phoneNumber, this.userGroup).then(res => {
+                register(this.password, this.realName, this.department, this.email, this.phoneNumber, this.groupID).then(res => {
                     if (res.status === 0) {
                         this.$message.success('注册成功,请登录');
                         this.$router.push({name: 'login'});
