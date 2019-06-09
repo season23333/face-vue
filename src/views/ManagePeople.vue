@@ -8,6 +8,36 @@
                     placeholder="请输入姓名"
                     @select="handleSelect"
             ></el-autocomplete>
+            <el-dialog
+                    title="修改用户信息"
+                    :visible.sync="searchDialog"
+                    width="400px"
+                    :before-close="handleClose1">
+                <el-form ref="seacehForm" :model="searchForm" label-width="80px" class="demo-ruleForm"
+                         :rules="rules1">
+                    <el-form-item label="姓名" prop="realName">
+                        <el-input v-model="modifyForm.realName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="部门" prop="department">
+                        <el-input v-model="modifyForm.department"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机号" prop="phoneNumber">
+                        <el-input v-model="modifyForm.phoneNumber"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮箱" prop="email">
+                        <el-input v-model="modifyForm.email"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input v-model="modifyForm.password"></el-input>
+                    </el-form-item>
+                    <el-form-item style="text-align: right">
+                        <el-button @click="handleClose1" style="margin-top: 10px">取 消</el-button>
+                        <el-button type="primary"
+                                   @click="onSubmit()">确 定
+                        </el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
         </div>
         <el-table
                 element-loading-text="Loading"
@@ -131,6 +161,7 @@
                 }
             };
             return {
+                searchDialog:false,
                 timeout: null,
                 state: '',
                 results: [{
@@ -139,6 +170,25 @@
                 temp: [{}],
 
                 loading: true,
+                rules1: {
+                    realName: [
+                        {required: true, message: '请输入姓名', trigger: 'blur'},
+                    ],
+                    department: [
+                        {required: true, message: '请输入部门', trigger: 'change'}
+                    ],
+                    phoneNumber: [
+                        {required: true, validator: validatePass, trigger: 'blur'}
+                    ],
+                    email: [
+                        {required: true, message: '请输入邮箱地址', trigger: 'blur'},
+                        {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+                    ],
+                    password: [{required: false, message: "请输入新密码"}, {
+                        pattern: /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{6,15}$/,
+                        message: '密码为数字,大写字母,小写字母,特殊符号,至少包含三种,长度6-15位'
+                    }],
+                },
                 rules: {
                     realName1: [
                         {required: true, message: '请输入姓名', trigger: 'blur'},
@@ -157,6 +207,14 @@
                         pattern: /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{6,15}$/,
                         message: '密码为数字,大写字母,小写字母,特殊符号,至少包含三种,长度6-15位'
                     }],
+                },
+                searchForm: {
+                    userID: '',
+                    realName: '',
+                    phoneNumber: '',
+                    email: '',
+                    department: '',
+                    password: ''
                 },
                 //////////////////////////////////////
                 //////////////////////////////////////
@@ -190,6 +248,12 @@
             this.showPage();
         },
         methods: {
+            handleClose1(){
+
+            },
+            onSubmit(){
+
+            },
             querySearchAsync(queryString, cb) {
                 // console.log(queryString);
                 this.results = [{value: ''}];
@@ -207,6 +271,7 @@
                 }, 300);
             },
             handleSelect(name) {
+                this.searchDialog = true;
                 //这里接口没太写好
                 console.log(this.temp.find(item => item.name.realName === name.value).name.userID)
             },

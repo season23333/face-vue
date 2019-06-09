@@ -41,7 +41,7 @@
         methods: {
             getHeight() {
                 this.height = window.innerHeight - 60 + 'px';
-                console.log(this.height);
+                // console.log(this.height);
             }
         },
         created() {

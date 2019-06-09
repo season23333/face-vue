@@ -938,8 +938,8 @@
                 let clientHeight = height.clientHeight;
                 let scrollTop = height.scrollTop;
                 let scrollHeight = height.scrollHeight;
-                console.log(clientHeight + scrollTop);
-                console.log(scrollHeight);
+                // console.log(clientHeight + scrollTop);
+                // console.log(scrollHeight);
                 if (clientHeight + scrollTop +1>= scrollHeight) {
                     // this.loadingFlag = true;
                     // getMeetingList(this.form.date, this.currentBuildingID, this.currentRoomID).then(response => {
@@ -950,7 +950,7 @@
                     //     console.log(this.tableData);
                     //     this.loadingFlag = false;
                     // });
-                    console.log('到底了');
+                    // console.log('到底了');
                 }
             }, true);
 
@@ -969,19 +969,19 @@
             getPlace() {
                 getAllBuilding().then(response => {
                     this.building = response.data;
-                    console.log(this.building);
+                    // console.log(this.building);
                 })
             },
             //获取楼中所有会议室名
             getRoom() {
                 this.currentRoomID = -1;
-                console.log('获取会议室名字' + this.building.buildingID);
+                // console.log('获取会议室名字' + this.building.buildingID);
                 this.form.building = this.building.name;
                 this.currentBuildingID = this.building.buildingID;
                 if (this.currentBuildingID) {
                     byBuilding(this.building.buildingID).then(response => {
                         this.room = response.data;
-                        console.log(this.room);
+                        // console.log(this.room);
                     });
                 }
                 if (!this.currentBuildingID) {
@@ -999,7 +999,7 @@
             //获取选中的会议室ID
             getRoomID() {
                 this.currentRoomID = this.room.roomID;
-                console.log(this.currentRoomID);
+                // console.log(this.currentRoomID);
                 if (!this.currentRoomID) {
                     this.room = [];
                     this.currentRoomID = -1;
@@ -1010,7 +1010,7 @@
             search() {
                 this.loading = true;
                 this.currentDate = formatDate(this.form.date, 'yyyy-MM-dd');
-                console.log(this.currentDate, this.currentBuildingID, this.currentRoomID);
+                // console.log(this.currentDate, this.currentBuildingID, this.currentRoomID);
 
                 getMeetingList(this.currentDate, this.currentBuildingID, this.currentRoomID).then(response => {
                     this.loading = false;
@@ -1031,7 +1031,7 @@
                 //     console.log(formatDate(this.form.startTime[0], 'yyyy-MM-dd hh:mm:ss'));
                 //     console.log(formatDate(this.form.startTime[1], 'yyyy-MM-dd hh:mm:ss'));
                 // },
-                console.log('测试输入' + this.room.roomID);
+                // console.log('测试输入' + this.room.roomID);
                 if (typeof(this.room.roomID) == "undefined" || typeof(this.building.buildingID) == "undefined") {
                     return this.$message.warning('请输入选择会议地点');
                 }
@@ -1054,9 +1054,9 @@
                         this.conference.endTime = formatDate(this.form.startTime[1], 'yyyy-MM-dd hh:mm:ss');
                         this.conference.user = this.form.ID;
                         this.conference.number = this.form.num;
-                        console.log(this.conference);
+                        // console.log(this.conference);
                         submitConference(this.conference).then(res => {
-                            console.log(res.status);
+                            // console.log(res.status);
                             if (res.status === 0) {
                                 this.$message({
                                     message: '预定会议成功',
@@ -1069,7 +1069,7 @@
                             this.$refs.form.resetFields();
                         });
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -1118,22 +1118,22 @@
             //添加与会人
             handleInputConfirm() {
                 let inputValue = this.inputValue;
-                console.log(inputValue);
+                // console.log(inputValue);
                 if (inputValue) {
                     this.people.push(inputValue);
                 }
-                console.log(this.people);
+                // console.log(this.people);
                 this.inputVisible = false;
                 this.inputValue = '';
             },
             //添加通知人
             handleInputConfirm1() {
                 let inputValue = this.inputValue;
-                console.log(inputValue);
+                // console.log(inputValue);
                 if (inputValue) {
                     this.msgPeople.push(inputValue);
                 }
-                console.log(this.msgPeople);
+                // console.log(this.msgPeople);
                 this.inputVisible = false;
                 this.inputValue = '';
             },
@@ -1159,7 +1159,7 @@
                 } else {
                     this.flag = true;
                 }
-                console.log(this.flag)
+                // console.log(this.flag)
             },
         },
         // mounted() {

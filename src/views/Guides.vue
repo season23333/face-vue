@@ -1,5 +1,14 @@
 <template>
     <div>
+        <el-dialog title="预定推荐" :visible.sync="dialogTableVisible">
+            <el-table :data="gridData">
+                <el-table-column property="name" label="会议室"></el-table-column>
+                <el-table-column property="building" label="楼宇"></el-table-column>
+                <el-table-column property="catalogue" label="类型"></el-table-column>
+                <el-table-column property="capacity" label="容量"></el-table-column>
+            </el-table>
+        </el-dialog>
+
         <el-steps :active="active" finish-status="success" align-center>
             <el-step title="会议时间"></el-step>
             <el-step title="会议室"></el-step>
@@ -675,10 +684,10 @@
                 width="523px"
                 :before-close="handleClose">
             <el-form ref="form" :model="form" label-width="80px" class="demo-ruleForm" :rules="rules">
-                <el-form-item label="申请人ID" prop="ID">
+                <el-form-item label="申请人" prop="realName">
                     <el-input
-                            placeholder="申请人ID"
-                            v-model="form.ID"
+                            placeholder="申请人"
+                            v-model="form.realName"
                             :disabled="true">
                     </el-input>
                 </el-form-item>
@@ -696,26 +705,26 @@
                             end-placeholder="结束日期">
                     </el-date-picker>
                 </el-form-item>
-                <el-row :gutter="12">
-                    <el-col :span="14">
-                        <el-form-item label="会议地点" prop="building" style="margin-left: 0">
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="会议楼宇" prop="building" style="margin-left: 0">
                             <el-input
-                                    v-model="form.ID"
+                                    v-model="form.building"
                                     :disabled="true">
                             </el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="10">
-                        <el-form-item prop="room" id="time">
+                    <el-col :span="12">
+                        <el-form-item label="会议室" prop="room" id="time">
                             <el-input
-                                    v-model="form.ID"
+                                    v-model="form.room"
                                     :disabled="true">
                             </el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-form-item label="参会人数" prop="num">
-                    <el-input-number v-model="form.num" :min="1" :max="1001" :step="5"
+                    <el-input-number v-model="form.num" :min="1" :max="1001" :step="1"
                                      label="描述文字"></el-input-number>
                 </el-form-item>
                 <el-form-item style="text-align: right">
@@ -733,18 +742,25 @@
     // import {getMeetingList} from '../api/table';
     import {formatDate} from '../util/formatDate'
     import {getBuildingByAddress, getAddressByBuildingID} from '../api/building';
-    import {getUserID} from '../api/user';
     import {submitConference} from '../api/conference';
     //第二轮迭代向导预定接口
     import {showTable} from '../api/conference'
-    import {getType} from '../api/room'
+    import {getType, getRoomName} from '../api/room'
     // import axios from 'axios';
+    import {getUserInfo, getUserID} from '../api/user'
 
     export default {
         name: "Guides",
         data() {
             return {
-                loadingFlag:false,
+                gridData: [{
+                    name: '',
+                    building: '',
+                    catalogue: '',
+                    capacity: ''
+                }],
+                dialogTableVisible: true,
+                loadingFlag: false,
                 abc: window.innerHeight - 60 - 270,
                 date: new Date(),
                 loading: false,
@@ -824,8 +840,7 @@
                     twentyTwoHalf: '',
                     twentyThreeFull: '',
                     twentyThreeHalf: '',
-                }
-                ],
+                }],
                 active: 0,
                 //未链接后端时测试用的变量
                 address: [{}],
@@ -836,28 +851,33 @@
                 type: [{}],
                 dialogVisible: false,
                 form: {
-                    ID: '',
+                    realName: '',
                     date: new Date(),
                     name: '',
                     startTime: '',
                     endTime: '',
                     building: '',
                     room: '',
-                    num: 1
+                    num: 1,
+                    buildingID: -1,
+                    roomID: -1
                 },
                 rules: {
                     name: [
                         {required: true, message: '请输入活动名称', trigger: 'blur'},
                     ],
-                    startTime: [
-                        {required: true, message: '请选择开始时间', trigger: 'change'}
-                    ],
-                },
+                    startTime:
+                        [
+                            {required: true, message: '请选择时间', trigger: 'change'}
+                        ],
+                }
+                ,
                 pickerOptions0: {
                     disabledDate(time) {
                         return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
                     }
-                },
+                }
+                ,
                 room: [{
                     name: '请选择会议室',
                     roomID: -1,
@@ -872,20 +892,31 @@
                     status: '1',
                 },
                 char1: ' ',
-                char2: ':00',
-                minTime: '',
+                char2:
+                    ':00',
+                minTime:
+                    '',
                 //最后发请求的对象
-                submitForm: {
-                    startTime: '',
-                    endTime: '',
-                    address: '-1',
-                    buildingID: -1,
-                    location: '-1',
-                    size: '-1',
-                    type: '-1'
-                },
+                submitForm:
+                    {
+                        startTime: '',
+                        endTime:
+                            '',
+                        address:
+                            '-1',
+                        buildingID:
+                            -1,
+                        location:
+                            '-1',
+                        size:
+                            '-1',
+                        type:
+                            '-1'
+                    }
+                ,
                 flag: false,
-            };
+            }
+                ;
         },
         created() {
             this.getTableData();
@@ -1027,7 +1058,7 @@
                         this.tableData = res.data;
                     })
                 }
-                if (this.active++ ===1) {
+                if (this.active++ === 1) {
                     // this.active = 0;
                     getType().then(res => {
                         for (var i = 0; i < res.data.length; i++) {
@@ -1143,9 +1174,15 @@
             openDialog(row) {
                 this.dialogVisible = true;
                 //打开申请会议表单时请求用户名字和ID
-                // getUserID().then(res => {
-                //     this.form.ID = res.data;
-                // });
+                getUserInfo().then(res => {
+                    this.form.realName = res.data.realName;
+                });
+                getRoomName(row.roomID).then(res => {
+                    this.form.room = res.data.name;
+                });
+                this.form.building = row.buidling.name;
+                this.form.buildingID = row.buidling.buildingID;
+                this.form.roomID = row.roomID;
                 console.log('行列：' + row.buidling.name, row.roomID, row.capacity)//计数器最大值设置为capacity，最小值设置为1
             },
             getRoom() {
@@ -1186,14 +1223,16 @@
                         }
                         //请求参数赋值
                         this.conference.subject = this.form.name;
-                        this.conference.room = this.room.roomID;
+                        this.conference.room = this.form.roomID;
                         this.conference.startTime = formatDate(this.form.startTime[0], 'yyyy-MM-dd hh:mm:ss');
                         this.conference.endTime = formatDate(this.form.startTime[1], 'yyyy-MM-dd hh:mm:ss');
-                        this.conference.user = this.form.ID;
+                        getUserID().then(res => {
+                            this.conference.user = res.data;
+                        });
                         this.conference.number = this.form.num;
-                        console.log(this.conference);
+                        // console.log(this.conference);
                         submitConference(this.conference).then(res => {
-                            console.log(res.status);
+                            // console.log(res.status);
                             if (res.status === 0) {
                                 this.$message({
                                     message: '预定会议成功',
@@ -1206,7 +1245,7 @@
                             this.$refs.form.resetFields();
                         });
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -1253,7 +1292,7 @@
                 } else {
                     this.flag = true;
                 }
-                console.log(this.flag)
+                // console.log(this.flag)
             },
         },
         mounted() {
@@ -1273,7 +1312,7 @@
                     //     console.log('追加后');
                     //     console.log(this.tableData);
                     // })
-                    console.log('到底了');
+                    // console.log('到底了');
                 }
             }, true);
 

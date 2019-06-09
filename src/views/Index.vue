@@ -170,7 +170,7 @@
             getList() {
                 getFreeRoom().then(response => {
                     this.free_num = response.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
             }
         }

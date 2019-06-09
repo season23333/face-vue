@@ -69,9 +69,9 @@
                 // console.log('MD5:' + this.$md5(this.loginForm.password));
                 this.$store.dispatch('Login', this.loginForm).then(() => {
                     this.isLoging = false;
-                    console.log('Jump');
+                    // console.log('Jump');
                     this.$router.push({path: this.redirect || '/index'});
-                    console.log('End Jump')
+                    // console.log('End Jump')
                 }).catch(() => {
                     this.isLoging = false;
                 })
