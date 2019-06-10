@@ -47,3 +47,10 @@ export function basicInfo(userID,realName,department) {
         }
     })
 }
+
+export function getGroup() {
+    return request({
+        url: '/userManage/userGroup',
+        method: 'get',
+    })
+}

@@ -8,7 +8,7 @@ import Qs from 'qs'
 const service = axios.create({
     baseURL: 'http://172.19.138.203:8080', // api 的 base_url
 
-    // baseURL: 'http://172.26.169.100:8080', // api 的 base_url
+    // baseURL: 'http://172.24.191.225:8080', // api 的 base_url
 
     timeout: 5000 ,// 请求超时时间
     transformRequest:[function (data) {

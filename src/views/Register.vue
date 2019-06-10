@@ -66,7 +66,8 @@
     </div>
 </template>
 <script>
-    import {register, getGroup} from '../api/user';
+    import {register} from '../api/user';
+    import {getGroup} from '../api/userManage'
 
     export default {
         name: 'Register',
@@ -128,7 +129,9 @@
                         }
                     }
                 }
+                console.log(this.password);
                 this.password = this.$md5(this.password);
+                console.log(this.password);
                 register(this.password, this.realName, this.department, this.email, this.phoneNumber, this.groupID).then(res => {
                     if (res.status === 0) {
                         this.$message.success('注册成功,请登录');

@@ -81,9 +81,9 @@ export function updateUserInfo(email, phoneNumber) {
     })
 }
 
-export function getGroup() {
+export function getUserGroup() {
     return request({
         url: '/user/userGroup',
-        method: 'get',
+        method: 'get'
     })
 }

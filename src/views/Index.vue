@@ -147,6 +147,7 @@
 
 <script>
     import {getFreeRoom} from '../api/room'
+    import {getUserGroup} from '../api/user'
     // import {formatDate} from "../util/formatDate";
 
     export default {
@@ -159,7 +160,10 @@
             }
         },
         created() {
-            // console.log(formatDate(this.date, 'yyyy-MM-dd hh:mm:ss'));
+            // getUserGroup().then(res =>{
+            //     console.log(res.data)
+            // })
+            // console.log( this.$store.state.roles);
             this.getList();
             this.timer = setInterval(() => {
                 this.getList()
