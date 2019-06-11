@@ -160,10 +160,11 @@
             }
         },
         created() {
-            // getUserGroup().then(res =>{
-            //     console.log(res.data)
-            // })
-            // console.log( this.$store.state.roles);
+            getUserGroup().then(res =>{
+                console.log(res.data)
+            })
+            console.log('角色');
+            console.log( this.$store.state.roles);
             this.getList();
             this.timer = setInterval(() => {
                 this.getList()

@@ -21,7 +21,7 @@
                 <el-menu-item index="/order">快速预定</el-menu-item>
                 <el-menu-item index="/guide">向导预定</el-menu-item>
             </el-submenu>
-            <el-menu-item index="/managemeeting" v-show="$store.state.roles === 2">
+            <el-menu-item index="/managemeeting" v-show="$store.state.roles === 2||$store.state.roles === 0">
                 <i class="el-icon-setting"></i>
                 <span slot="title" >会议管理</span>
             </el-menu-item>

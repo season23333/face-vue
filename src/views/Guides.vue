@@ -705,8 +705,8 @@
                             end-placeholder="结束日期">
                     </el-date-picker>
                 </el-form-item>
-                <el-row>
-                    <el-col :span="12">
+                <el-row :gutter="20">
+                    <el-col :span="14">
                         <el-form-item label="会议楼宇" prop="building" style="margin-left: 0">
                             <el-input
                                     v-model="form.building"
@@ -714,8 +714,8 @@
                             </el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="会议室" prop="room" id="time">
+                    <el-col :span="10">
+                        <el-form-item  prop="room" id="time">
                             <el-input
                                     v-model="form.room"
                                     :disabled="true">

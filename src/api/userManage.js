@@ -6,6 +6,7 @@ export function getTotalPage() {
         method: 'get',
     })
 }
+
 export function getUserList(pageNumber) {
     return request({
         url: '/userManage/allUsers',
@@ -14,7 +15,7 @@ export function getUserList(pageNumber) {
     })
 }
 
-export function modifyMobile(userID,phoneNumber) {
+export function modifyMobile(userID, phoneNumber) {
     return request({
         url: '/userManage/modifyMobile',
         method: 'post',
@@ -25,7 +26,7 @@ export function modifyMobile(userID,phoneNumber) {
     })
 }
 
-export function modifyEmail(userID,email) {
+export function modifyEmail(userID, email) {
     return request({
         url: '/userManage/modifyEmail',
         method: 'post',
@@ -36,7 +37,7 @@ export function modifyEmail(userID,email) {
     })
 }
 
-export function basicInfo(userID,realName,department) {
+export function basicInfo(userID, realName, department) {
     return request({
         url: '/userManage/basicInfo',
         method: 'post',
@@ -52,5 +53,16 @@ export function getGroup() {
     return request({
         url: '/userManage/userGroup',
         method: 'get',
+    })
+}
+
+export function modifyPassword(userID, newPassword) {
+    return request({
+        url: '/userManage/password',
+        method: 'post',
+        data: {
+            userID,
+            newPassword
+        }
     })
 }
