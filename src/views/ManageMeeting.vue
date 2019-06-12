@@ -103,7 +103,7 @@
     import {getDetails} from "../api/user";
     import {getRoomName, getBuildingName} from "../api/room";
     import {validatePeople, getUserID} from "../api/user"
-    import {getPage, rejectConference} from "../api/conference";
+    import {getPage, rejectConference,getAllMeeting,getTotalPage} from "../api/conference";
     // import axios from 'axios';
 
     export default {
@@ -174,16 +174,17 @@
             },
             //获取总条数，用于分页
             showPage() {
-                getPage().then(res => {
+                getTotalPage().then(res => {
                     this.total = res.data;
+                    // console.log(res.data)
                 })
             },
             //获取我的会议列表
             showDetails() {
                 this.loading = true;
                 //获取resData
-                getDetails(this.currentPage, this.pageSize).then(res => {
-                    console.log(res);
+                getAllMeeting(this.currentPage, this.pageSize).then(res => {
+                    // console.log(res);
                     this.tableData = res.data;
                     // this.tableData.id = res.data.conferenceID;
                     // this.tableData.name = res.data.subject;
@@ -212,7 +213,7 @@
                         }
                         var timestamp = Date.parse(this.tableData[j].startTime);
                         timestamp = timestamp / 1000;
-                        console.log(timestamp);
+                        // console.log(timestamp);
                         if (timestamp > timestamp1) {
                             this.tableData[j].flag = 0;
                         } else {
@@ -225,7 +226,7 @@
                 });
 
 
-                console.log(this.tableData);
+                // console.log(this.tableData);
 
 
                 // this.resData = res.data;
@@ -299,7 +300,7 @@
             showRoomName(roomID) {
                 getRoomName(roomID).then(res => {
                     this.tableData.room = res.data.name;
-                    console.log('room' + res);
+                    // console.log('room' + res);
                     // this.showBuildingName(res.data.buildingID);
                     return res;
                 })
@@ -316,7 +317,7 @@
             },
             //验证与会人是否合法
             validatePass(rule, value, callback) {
-                console.log('验证是否合法' + value);
+                // console.log('验证是否合法' + value);
 
                 if (value === 'aaa') {
                     callback();
@@ -347,7 +348,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log(this.msgForm.people);
+                        // console.log(this.msgForm.people);
                         this.$message({
                             message: '提交成功，稍后与会人将收到短信通知',
                             type: 'success'
@@ -362,7 +363,7 @@
             },
             //分页的翻页
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                // console.log(`当前页: ${val}`);
                 this.pageNum = val;
                 this.showDetails();
             },
@@ -381,7 +382,7 @@
             //驳回会议
             handleDelete(index, row) {
                 rejectConference(row).then(res => {
-                    console.log('取消预定' + res);
+                    // console.log('取消预定' + res);
                     if (res.status === 0) {
                         this.$message({
                             message: '驳回会议成功',
@@ -461,7 +462,7 @@
             },
             handleSelect(item) {
                 console.log(item);
-                console.log('输出', this.msgForm);
+                // console.log('输出', this.msgForm);
             }
         }
     }

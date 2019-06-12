@@ -44,7 +44,8 @@
                 ref="Table"
                 :data="tableData"
                 fit
-                style="width: 100%">
+                style="width: 100%"
+                v-if="isRouterAlive">
             <el-table-column
                     prop="userID"
                     align="center"
@@ -261,7 +262,8 @@
                 res1: 0,
                 res2: 0,
                 res3: 0,
-                res4: 0
+                res4: 0,
+                isRouterAlive: true
             }
         },
         created() {
@@ -288,30 +290,41 @@
                         if (this.searchForm.phoneNumber !== this.searchForm1.phoneNumber) {
                             modifyMobile(this.searchForm.userID, this.searchForm.phoneNumber).then(res => {
                                 this.res1 = res.status;
-                                // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
                             });
                         }
                         if (this.searchForm.email !== this.searchForm1.email) {
                             modifyEmail(this.searchForm.userID, this.searchForm.email).then(res => {
                                 this.res2 = res.status;
                                 // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
                             });
                         }
-                        console.log(this.searchForm1.department)
+                        // console.log(this.searchForm1.department)
                         if ((this.searchForm.realName !== this.searchForm1.realName) ||
                             (this.searchForm.department !== this.searchForm1.department)) {
                             // console.log(this.searchForm.userID, this.searchForm.realName, this.searchForm.department)
                             basicInfo(this.searchForm.userID, this.searchForm.realName, this.searchForm.department).then(res => {
                                 this.res1 = res.status;
                                 // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
                             });
                         }
                         if (this.searchForm.password !== '') {
                             var password = this.$md5(this.searchForm.password);
                             modifyPassword(this.searchForm.userID, password).then(res => {
                                 this.res4 = res.status;
-                                console.log(res.status)
-                            })
+                                // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
+                            });
                         }
                         if (this.res1 === 0 && this.res2 === 0 && this.res3 === 0 && this.res4 === 0) {
                             this.$message({
@@ -319,8 +332,6 @@
                                 type: 'success'
                             });
                             this.searchDialog = false;
-                            this.showDetails();//获取所有会议列表
-                            this.showPage();
                         }
                     } else {
                         // console.log('error submit!!');
@@ -341,7 +352,7 @@
                         this.$set(this.results, i, {value: res.data[i].realName});
                         this.$set(this.temp, i, {name: res.data[i]})
                     }
-                    console.log(this.temp)
+                    // console.log(this.temp)
                 });
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
@@ -359,7 +370,7 @@
                 this.searchForm1.email = this.searchForm.email;
 
                 // console.log(this.temp.find(item => item.name.realName === name.value).name)
-                console.log(this.searchForm);
+                // console.log(this.searchForm);
             },
             modifySubmit() {
                 this.$refs['form'].validate((valid) => {
@@ -369,6 +380,9 @@
                             modifyMobile(this.modifyForm.userID1, this.modifyForm.phoneNumber1).then(res => {
                                 this.res1 = res.status;
                                 // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
                             });
                         }
                         if (this.modifyForm.email1 !== this.tableData.find(item => item.userID === this.modifyForm.userID1).email) {
@@ -382,14 +396,20 @@
                             basicInfo(this.modifyForm.userID1, this.modifyForm.realName1, this.modifyForm.department1).then(res => {
                                 this.res1 = res.status;
                                 // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
                             });
                         }
                         if (this.modifyForm.password !== '') {
                             var password = this.$md5(this.modifyForm.password);
                             modifyPassword(this.modifyForm.userID1, password).then(res => {
                                 this.res4 = res.status;
-                                console.log(res.status)
-                            })
+                                // console.log(res.status)
+                            }).then(()=>{
+                                this.showDetails();//获取所有会议列表
+                                this.showPage();
+                            });
                         }
                         if (this.res1 === 0 && this.res2 === 0 && this.res3 === 0) {
                             this.$message({
@@ -397,9 +417,7 @@
                                 type: 'success'
                             });
                             this.modifyDialog = false;
-                            this.showDetails();//获取所有会议列表
-                            console.log(this.tableData)
-                            this.showPage();
+                            // console.log(1)
                         }
                     } else {
                         // console.log('error submit!!');
@@ -410,6 +428,8 @@
                 this.res2 = 0;
                 this.res3 = 0;
                 this.res4 = 0;
+                // console.log(2);
+
             },
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // 分页
@@ -431,6 +451,8 @@
                 getUserList(this.currentPage).then(res => {
                     // console.log(res);
                     this.tableData = res.data;
+                    // console.log(3);
+                    // console.log(res.data)
                 })
             },
 

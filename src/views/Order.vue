@@ -44,10 +44,10 @@
                         width="523px"
                         :before-close="handleClose">
                     <el-form ref="form" :model="form" label-width="80px" class="demo-ruleForm" :rules="rules">
-                        <el-form-item label="申请人ID" prop="ID">
+                        <el-form-item label="申请人" prop="realName">
                             <el-input
-                                    placeholder="申请人ID"
-                                    v-model="form.ID"
+                                    placeholder="申请人"
+                                    v-model="form.realName"
                                     :disabled="true">
                             </el-input>
                         </el-form-item>
@@ -731,7 +731,7 @@
     import '@/util/mock'
     // import axios from 'axios';
     import {getMeetingList} from '../api/table';
-    import {getUserID} from '../api/user';
+    import {getUserID,getUserInfo} from '../api/user';
     import {byBuilding, getAllBuilding} from '../api/room';
     import {formatDate} from '../util/formatDate'
     import {submitConference} from '../api/conference'
@@ -766,7 +766,8 @@
                     endTime: '',
                     building: '',
                     room: '',
-                    num: 1
+                    num: 1,
+                    realName: '',
                 },
                 rules: {
                     name: [
@@ -1022,7 +1023,10 @@
                 this.dialogVisible = true;
                 getUserID().then(res => {
                     this.form.ID = res.data;
-                })
+                });
+                getUserInfo().then(res => {
+                    this.form.realName = res.data.realName;
+                });
             },
 
             //关闭对话框并清空表单数据
@@ -1063,6 +1067,8 @@
                                     type: 'success'
                                 });
                             }
+                        }).then(()=>{
+                            this.getTableData(this.form.date);
                         });
                         this.dialogVisible = false;
                         this.$nextTick(() => {

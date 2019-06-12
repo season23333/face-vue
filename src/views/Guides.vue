@@ -1183,11 +1183,11 @@
                 this.form.building = row.buidling.name;
                 this.form.buildingID = row.buidling.buildingID;
                 this.form.roomID = row.roomID;
-                console.log('行列：' + row.buidling.name, row.roomID, row.capacity)//计数器最大值设置为capacity，最小值设置为1
+                // console.log('行列：' + row.buidling.name, row.roomID, row.capacity)//计数器最大值设置为capacity，最小值设置为1
             },
             getRoom() {
                 this.currentRoomID = -1;
-                console.log('获取会议室名字' + this.building.buildingID);
+                // console.log('获取会议室名字' + this.building.buildingID);
                 this.form.building = this.building.name;
                 this.currentBuildingID = this.building.buildingID;
                 if (this.currentBuildingID) {
@@ -1202,7 +1202,7 @@
             },
             getRoomID() {
                 this.currentRoomID = this.room.roomID;
-                console.log(this.currentRoomID);
+                // console.log(this.currentRoomID);
                 if (!this.currentRoomID) {
                     this.room = [];
                     this.currentRoomID = -1;
@@ -1239,6 +1239,11 @@
                                     type: 'success'
                                 });
                             }
+                        }).then(()=>{
+                            showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                                this.loading = false;
+                                this.tableData = res.data;
+                            })
                         });
                         this.dialogVisible = false;
                         this.$nextTick(() => {

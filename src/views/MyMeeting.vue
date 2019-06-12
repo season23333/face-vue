@@ -50,13 +50,13 @@
                     align="center"
                     prop="status"
                     label="状态"
-                    :filters="[{ text: '通过', value: '通过' }, { text: '未通过', value: '未通过' }]"
+                    :filters="[{ text: '已取消', value: '已取消' }, { text: '正常', value: '正常' }]"
                     :filter-method="filterTag"
                     filter-placement="bottom-end">
                 <template slot-scope="scope" style="text-align: center">
                     <el-tag
                             style="text-align: center"
-                            :type="scope.row.status === '通过' ? 'success' : 'danger'"
+                            :type="scope.row.status === '正常' ? 'success' : 'danger'"
                             disable-transitions>{{scope.row.status}}
                     </el-tag>
                 </template>
@@ -303,7 +303,7 @@
                 }
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
-                    console.log('???' + curVal);
+                    // console.log('???' + curVal);
                     this.getListPOI(curVal);
                 }, 300);
             }
@@ -331,7 +331,7 @@
                 this.loading = true;
                 //获取resData
                 getDetails(this.currentPage, this.pageSize).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     this.tableData = res.data;
                     // this.tableData.id = res.data.conferenceID;
                     // this.tableData.name = res.data.subject;
@@ -353,14 +353,14 @@
                     timestamp1 = timestamp1 / 1000;
 
                     for (var j = 0; j < this.tableData.length; j++) {
-                        if (this.tableData[j].status === 1) {
-                            this.tableData[j].status = "通过";
+                        if (this.tableData[j].status === -1) {
+                            this.tableData[j].status = "已取消";
                         } else {
-                            this.tableData[j].status = "不通过";
+                            this.tableData[j].status = "正常";
                         }
                         var timestamp = Date.parse(this.tableData[j].startTime);
                         timestamp = timestamp / 1000;
-                        console.log(timestamp);
+                        // console.log(timestamp);
                         if (timestamp > timestamp1) {
                             this.tableData[j].flag = 0;
                         } else {
@@ -373,7 +373,7 @@
                 });
 
 
-                console.log(this.tableData);
+                // console.log(this.tableData);
 
 
                 // this.resData = res.data;
@@ -447,7 +447,7 @@
             showRoomName(roomID) {
                 getRoomName(roomID).then(res => {
                     this.tableData.room = res.data.name;
-                    console.log('room' + res);
+                    // console.log('room' + res);
                     // this.showBuildingName(res.data.buildingID);
                     return res;
                 })
@@ -464,8 +464,8 @@
             },
             //验证与会人是否合法
             validatePass(rule, value, callback) {
-                console.log('验证是否合法' + this.test.indexOf(value));
-                console.log('验证是否合法' + this.test[0].value);
+                // console.log('验证是否合法' + this.test.indexOf(value));
+                // console.log('验证是否合法' + this.test[0].value);
                 var index = this.test.indexOf(value);
                 if (index !== -1) {
                     callback();
@@ -511,7 +511,7 @@
             // },
             //分页的翻页
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                // console.log(`当前页: ${val}`);
                 this.pageNum = val;
                 this.showDetails();
             },
@@ -529,8 +529,9 @@
 
             //取消会议
             handleDelete(index, row) {
+                // console.log(row);
                 cancelConference(row).then(res => {
-                    console.log('取消预定' + res.message);
+                    // console.log('取消预定' + res.message);
                     if (res.status === 0) {
                         this.$message({
                             message: res.message,
@@ -559,7 +560,7 @@
                         this.arr = res.data;
                         for (var i = 0; i < res.data.length; i++) {
                             var str = this.arr[i].realName + this.splitChar + this.arr[i].userID;
-                            console.log('拼接字符串：' + str);
+                            // console.log('拼接字符串：' + str);
                             this.arr[i].str = str;
                             if (this.nameList.indexOf(str) === -1) {
                                 this.arr[i].bol = false;
@@ -571,12 +572,12 @@
                     this.divLoading = false;
                     // console.log(this.timeout)
                 } catch (err) {
-                    console.log(err);
+                    // console.log(err);
                 }
             },
             mouseEnter(index) {
                 this.isActive = index;
-                console.log('鼠标移入（false是灰色 未选择这一项）:' + this.arr[index].bol);
+                // console.log('鼠标移入（false是灰色 未选择这一项）:' + this.arr[index].bol);
             },
             //   鼠标移除
             mouseLeave() {
@@ -593,7 +594,7 @@
                     this.arr[k].bol = false;
                     this.nameList.splice(this.nameList.indexOf(this.arr[k].realName), 1);
                 }
-                console.log('点击列表某一项改变（）' + this.arr[k].bol);
+                // console.log('点击列表某一项改变（）' + this.arr[k].bol);
                 this.isActive = null;
                 this.isActive = k;
 
@@ -605,7 +606,7 @@
                     }
                 }
                 this.nameList.splice(this.nameList.indexOf(tag), 1);
-                console.log('关闭tag后' + this.nameList);
+                // console.log('关闭tag后' + this.nameList);
             },
             closeDialog(done) {
                 this.$confirm('确认关闭？')
@@ -632,14 +633,14 @@
             //提交与会人列表
             update() {
                 this.msgDialogVisible = false;
-                console.log('提交前' + this.nameList);
+                // console.log('提交前' + this.nameList);
 
                 for (var i = 0; i < this.nameList.length; i++) {
                     this.updateList[i] = this.nameList[i].split('-')[1]
                 }
                 this.b = this.updateList.join(",");
                 addConfPeople(this.b, this.confID).then(res => {
-                    console.log(res);
+                    // console.log(res);
                 });
                 // this.nameList.length = 0;
                 // this.updateList.length = 0;

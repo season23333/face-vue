@@ -27,8 +27,8 @@ export function getPage() {
 export function cancelConference(conferenceID) {
     return request({
         url: '/conference/cancel',
-        method: 'get',
-        params: {conferenceID: conferenceID}
+        method: 'post',
+        data: {conferenceID}
     })
 }
 
@@ -72,5 +72,21 @@ export function showTable(startTime, endTime, address, buildingID, location, siz
             capacity: size,
             catalogue: type
         }
+    })
+}
+
+export function getAllMeeting(pageCurrent,pageSize) {
+    return request({
+        url:'/conference/list/page',
+        method:'get',
+        params:{pageCurrent:pageCurrent,pageSize:pageSize}
+
+    })
+}
+
+export function getTotalPage() {
+    return request({
+        url:'/conference/page/total',
+        method:'get',
     })
 }

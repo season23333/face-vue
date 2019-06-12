@@ -333,7 +333,7 @@
                     .then(() => {
                         this.$refs['form'].resetFields();
                         this.type = [{}];
-                        console.log(this.form);
+                        // console.log(this.form);
                         this.addDialog = false;
                         done();
                     })
@@ -386,7 +386,7 @@
                     if (valid) {
                         this.submitForm.name = this.form.name;
                         this.submitForm.capacity = this.form.capacity;
-                        console.log(this.submitForm.buildingID, this.submitForm.capacity, this.submitForm.type, this.submitForm.location, this.submitForm.name);
+                        // console.log(this.submitForm.buildingID, this.submitForm.capacity, this.submitForm.type, this.submitForm.location, this.submitForm.name);
                         modifyRoom(this.submitForm.buildingID, this.submitForm.capacity, this.submitForm.type, this.submitForm.location, this.submitForm.name).then(res => {
                             if (res.status === 0) {
                                 this.$message({
@@ -395,6 +395,9 @@
                                 });
                                 this.onSearch()
                             }
+                        }).then(()=>{
+                            this.showDetails();//获取我的会议列表
+                            this.showPage();
                         });
                         this.addDialog = false;
                         this.$nextTick(() => {
@@ -402,7 +405,7 @@
                             this.type = [{}];
                         });
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -425,7 +428,7 @@
                     searchPage(this.input1, this.currentPage, this.pageSize).then(res => {
                         this.tableData = res.data.roomSet;
                         this.total = res.data.total;
-                        console.log(res);
+                        // console.log(res);
                     });
                 }
             },
@@ -446,7 +449,7 @@
                     searchPage(this.input1, this.currentPage, this.pageSize).then(res => {
                         this.tableData = res.data.roomSet;
                         this.total = res.data.total;
-                        console.log(res);
+                        // console.log(res);
                     });
                 }
 
@@ -551,7 +554,7 @@
             modifySubmit() {
                 this.$refs['modifyForm'].validate((valid) => {
                     if (valid) {
-                        console.log(this.modifyForm);
+                        // console.log(this.modifyForm);
                         var building = this.tableData.find(item => item.building.name === this.modifyForm.building2).building.buildingID;
                         modifyRoom1(building, this.modifyForm.capacity, this.modifyForm.catalogue, this.modifyForm.location, this.modifyForm.name,this.modifyForm.flag,this.modifyForm.roomID).then(res => {
                             if (res.status === 0) {
@@ -561,6 +564,9 @@
                                 });
                                 this.onSearch()
                             }
+                        }).then(()=>{
+                            this.showDetails();//获取我的会议列表
+                            this.showPage();
                         });
                         this.modifyDialog = false;
                         this.$nextTick(() => {
@@ -568,7 +574,7 @@
                             this.type = [{}];
                         });
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
