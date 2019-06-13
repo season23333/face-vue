@@ -200,7 +200,7 @@
 </template>
 
 <script>
-    import {getAllRoom, getType, getRoomTotal, modifyRoom, deleteRoom, searchPage,modifyRoom1} from "../api/room";
+    import {getAllRoom, getType, getRoomTotal, modifyRoom, deleteRoom, searchPage, modifyRoom1} from "../api/room";
     import {getBuildingByAddress} from "../api/building"
 
     export default {
@@ -395,9 +395,6 @@
                                 });
                                 this.onSearch()
                             }
-                        }).then(()=>{
-                            this.showDetails();//获取我的会议列表
-                            this.showPage();
                         });
                         this.addDialog = false;
                         this.$nextTick(() => {
@@ -556,7 +553,7 @@
                     if (valid) {
                         // console.log(this.modifyForm);
                         var building = this.tableData.find(item => item.building.name === this.modifyForm.building2).building.buildingID;
-                        modifyRoom1(building, this.modifyForm.capacity, this.modifyForm.catalogue, this.modifyForm.location, this.modifyForm.name,this.modifyForm.flag,this.modifyForm.roomID).then(res => {
+                        modifyRoom1(building, this.modifyForm.capacity, this.modifyForm.catalogue, this.modifyForm.location, this.modifyForm.name, this.modifyForm.flag, this.modifyForm.roomID).then(res => {
                             if (res.status === 0) {
                                 this.$message({
                                     message: '会议室信息修改成功',
@@ -564,7 +561,7 @@
                                 });
                                 this.onSearch()
                             }
-                        }).then(()=>{
+                        }).then(() => {
                             this.showDetails();//获取我的会议列表
                             this.showPage();
                         });

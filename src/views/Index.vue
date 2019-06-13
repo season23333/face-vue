@@ -75,10 +75,11 @@
             <!--</div>-->
         </div>
         <el-row>
-            <el-col span="11">
+            <!--:xs="12" :sm="12" :lg="6"-->
+            <el-col :xs="24" :sm="24" :lg="11">
                 <div id="myPie" ref="myPie" style="margin-top: 30px"></div>
             </el-col>
-            <el-col span="13">
+            <el-col :xs="24" :sm="24" :lg="13">
                 <div id="myChart" ref="myChart" style="float: left;margin-top: 30px"></div>
             </el-col>
 
@@ -131,7 +132,7 @@
         },
         mounted(){
             getFormData().then(res => {
-                console.log(res.data.cancelList);
+                // console.log(res.data.cancelList);
                 // this.cancelList = [].concat(res.data.cancelList);
                 this.cancelList = res.data.cancelList;
                 this.nameList = res.data.nameList;
@@ -143,7 +144,7 @@
                 this.draw();
             });
             getPieData().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.apply = res.data.apply;
                 this.pass = res.data.pass;
                 this.reject = res.data.reject;
@@ -302,7 +303,6 @@
             drawPie() {
                 // 实例化echarts对象
                 var myChart = echarts.init(this.$refs.myPie);
-
                 // 绘制条形图
                 myChart.setOption({
                     tooltip: {
@@ -313,6 +313,12 @@
                         orient: 'vertical',
                         x: 'left',
                         data: ['通过', '驳回', '参与', '取消']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
                     },
                     series: [
                         {
@@ -405,7 +411,10 @@
                             ]
                         }
                     ]
-                })
+                });
+                window.addEventListener("resize", function() {
+                    myChart.resize();
+                });
             }
         }
     }

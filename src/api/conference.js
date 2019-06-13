@@ -35,8 +35,8 @@ export function cancelConference(conferenceID) {
 export function rejectConference(conferenceID) {
     return request({
         url: '/conference/reject',
-        method: 'get',
-        params: {conferenceID: conferenceID}
+        method: 'post',
+        data: {conferenceID}
     })
 }
 
