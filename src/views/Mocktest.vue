@@ -1,23 +1,358 @@
 <template>
     <div>
-        <span>aaa</span>
+        <div id="myChart" ref="myChart" style="float: left"></div>
     </div>
 </template>
 <script>
-    import {getUserInfo} from '../api/user'
+    import echarts from '@/util/echarts'
+    import {getPieData} from '../api/form';
 
     export default {
         data() {
-            return {}
+            return {
+                apply: {
+                    value: '',
+                    name: ''
+                },
+                pass: {
+                    value: '',
+                    name: ''
+                },
+                reject: {
+                    value: '',
+                    name: ''
+                },
+                cancel: {
+                    value: '',
+                    name: ''
+                },
+                part: {
+                    value: '',
+                    name: ''
+                },
+            }
         },
-        created() {
-            getUserInfo().then(res => {
-                // console.log(res)
+        // created(){
+        //     getFormData().then(res=>{
+        //         this.cancelList = res.data.cancelList;
+        //         this.nameList = res.data.nameList;
+        //         this.partList = res.data.partList;
+        //         this.rejectList = res.data.rejectList;
+        //         this.passList = res.data.passList;
+        //     })
+        // },
+        mounted() {
+            getPieData().then(res => {
+                console.log(res.data);
+                this.apply = res.data.apply;
+                this.pass = res.data.pass;
+                this.reject = res.data.reject;
+                this.cancel = res.data.cancel;
+                this.part = res.data.part;
+            }).then(() => {
+                this.draw();
             })
         },
-        methods: {}
+        methods: {
+            draw() {
+                // 实例化echarts对象
+                var myChart = echarts.init(this.$refs.myChart);
+
+                // 绘制条形图
+                myChart.setOption({
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: ['通过', '驳回', '参与', '取消']
+                    },
+                    series: [
+                        {
+                            name: '状态',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: [0, '30%'],
+
+                            label: {
+                                normal: {
+                                    position: 'inner',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.name;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+                                {value: this.apply.value, name: this.apply.name},
+                                {value: this.part.value, name: this.part.name, selected: true},
+                                // {value:1548, name:'搜索引擎'}
+                            ]
+                        },
+
+                        {
+                            name: '状态',
+                            type: 'pie',
+                            radius: ['40%', '55%'],
+                            label: {
+                                normal: {
+                                    formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                    backgroundColor: '#eee',
+                                    borderColor: '#aaa',
+                                    borderWidth: 1,
+                                    borderRadius: 4,
+                                    // shadowBlur:3,
+                                    // shadowOffsetX: 2,
+                                    // shadowOffsetY: 2,
+                                    // shadowColor: '#999',
+                                    // padding: [0, 7],
+                                    rich: {
+                                        a: {
+                                            color: '#999',
+                                            lineHeight: 22,
+                                            align: 'center'
+                                        },
+                                        // abg: {
+                                        //     backgroundColor: '#333',
+                                        //     width: '100%',
+                                        //     align: 'right',
+                                        //     height: 22,
+                                        //     borderRadius: [4, 4, 0, 0]
+                                        // },
+                                        hr: {
+                                            borderColor: '#aaa',
+                                            width: '100%',
+                                            borderWidth: 0.5,
+                                            height: 0
+                                        },
+                                        b: {
+                                            fontSize: 16,
+                                            lineHeight: 33
+                                        },
+                                        per: {
+                                            color: '#eee',
+                                            backgroundColor: '#334455',
+                                            padding: [2, 4],
+                                            borderRadius: 2
+                                        }
+                                    }
+                                }
+                            },
+                            data: [
+                                {value: this.part.value, name: this.part.name},
+                                {value: this.cancel.value, name: this.cancel.name},
+                                {value: this.reject.value, name: this.reject.name},
+                                {value: this.pass.value, name: this.pass.name},
+                                // {value: 1048, name: '百度'},
+                                // {value: 251, name: '谷歌'},
+                                // {value: 147, name: '必应'},
+                                // {value: 102, name: '其他'}
+                            ]
+                        }
+                    ]
+                })
+            }
+        }
     }
 </script>
+<style scoped>
+    #myChart {
+        width: 60%;
+        height: 400px;
+        /*margin: 20px auto;*/
+        /*border: 1px solid #CCC*/
+    }
+</style>
+
+
+<!--<template>-->
+<!--<div>-->
+<!--<div id="myChart" ref="myChart" style="float: left"></div>-->
+<!--<div style="float: left;width: 40%">-->
+<!--<el-card class="box-card">-->
+<!--<div slot="header" class="clearfix">-->
+<!--<span>卡片名称</span>-->
+<!--<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
+<!--</div>-->
+<!--<div v-for="o in 4" :key="o" class="text item" style="text-align: left">-->
+<!--{{'列表内容 ' + o }}-->
+<!--</div>-->
+<!--</el-card>-->
+<!--</div>-->
+
+<!--</div>-->
+
+<!--</template>-->
+<!--<script >-->
+<!--import echarts from '@/util/echarts'-->
+<!--// import {getFormData} from '../api/form';-->
+
+<!--export default {-->
+<!--data() {-->
+<!--return {-->
+<!--test: [320, 302, 301, 334, 390, 330, 320],-->
+<!--cancelList:[150, 212, 201, 154, 190, 330, 410],-->
+<!--nameList: ['周一','周二','周三','周四','周五','周六','周日'],-->
+<!--partList:[120, 132, 101, 134, 90, 230, 210],-->
+<!--rejectList: [220, 182, 191, 234, 290, 330, 310],-->
+<!--passList:[320, 302, 301, 334, 390, 330, 320]-->
+<!--}-->
+<!--},-->
+<!--// created(){-->
+<!--//     getFormData().then(res=>{-->
+<!--//         this.cancelList = res.data.cancelList;-->
+<!--//         this.nameList = res.data.nameList;-->
+<!--//         this.partList = res.data.partList;-->
+<!--//         this.rejectList = res.data.rejectList;-->
+<!--//         this.passList = res.data.passList;-->
+<!--//     })-->
+<!--// },-->
+<!--mounted() {-->
+<!--this.draw();-->
+<!--},-->
+<!--methods: {-->
+<!--draw() {-->
+<!--// 实例化echarts对象-->
+<!--var myChart = echarts.init(this.$refs.myChart);-->
+
+<!--// 绘制条形图-->
+<!--myChart.setOption({-->
+<!--tooltip: {-->
+<!--trigger: 'axis',-->
+<!--axisPointer: {            // 坐标轴指示器，坐标轴触发有效-->
+<!--type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'-->
+<!--}-->
+<!--},-->
+<!--legend: {-->
+<!--data: ['申请通过', '参与', '驳回', '取消']-->
+<!--},-->
+<!--grid: {-->
+<!--left: '3%',-->
+<!--right: '4%',-->
+<!--bottom: '3%',-->
+<!--containLabel: true-->
+<!--},-->
+<!--xAxis: {-->
+<!--type: 'value'-->
+<!--},-->
+<!--yAxis: {-->
+<!--type: 'category',-->
+<!--boundaryGap: [0.2, 0.2],-->
+<!--scale: true,-->
+<!--data: this.nameList-->
+<!--},-->
+<!--dataZoom: [-->
+<!--{-->
+<!--type: 'slider',-->
+<!--show: true,-->
+<!--yAxisIndex: [0],-->
+<!--left: '93%',-->
+<!--// start: 0, //数据窗口范围的起始百分比-->
+<!--// end: 100-->
+<!--startValue: 0,-->
+<!--endValue: 7,//只显示7个数据-->
+<!--},-->
+<!--{-->
+<!--type: 'inside',-->
+<!--yAxisIndex: [0],-->
+<!--start: 0,-->
+<!--end: 36-->
+<!--}-->
+<!--],-->
+<!--series: [-->
+<!--{-->
+<!--name: '申请通过',-->
+<!--type: 'bar',-->
+<!--stack: '总量',-->
+<!--label: {-->
+<!--normal: {-->
+<!--show: true,-->
+<!--position: 'insideRight'-->
+<!--}-->
+<!--},-->
+<!--data: this.passList-->
+<!--},-->
+<!--{-->
+<!--name: '参与',-->
+<!--type: 'bar',-->
+<!--stack: '总量',-->
+<!--label: {-->
+<!--normal: {-->
+<!--show: true,-->
+<!--position: 'insideRight'-->
+<!--}-->
+<!--},-->
+<!--data:this.partList-->
+<!--},-->
+<!--{-->
+<!--name: '驳回',-->
+<!--type: 'bar',-->
+<!--stack: '总量',-->
+<!--label: {-->
+<!--normal: {-->
+<!--show: true,-->
+<!--position: 'insideRight'-->
+<!--}-->
+<!--},-->
+<!--data: this.rejectList-->
+<!--},-->
+<!--{-->
+<!--name: '取消',-->
+<!--type: 'bar',-->
+<!--stack: '总量',-->
+<!--label: {-->
+<!--normal: {-->
+<!--show: true,-->
+<!--position: 'insideRight'-->
+<!--}-->
+<!--},-->
+<!--data: this.cancelList-->
+<!--},-->
+<!--]-->
+<!--})-->
+<!--}-->
+<!--}-->
+<!--}-->
+<!--</script>-->
+<!--<style scoped>-->
+<!--#myChart {-->
+<!--width: 60%;-->
+<!--height: 400px;-->
+<!--/*margin: 20px auto;*/-->
+<!--/*border: 1px solid #CCC*/-->
+<!--}-->
+<!--.text {-->
+<!--font-size: 14px;-->
+<!--}-->
+
+<!--.item {-->
+<!--margin-bottom: 18px;-->
+<!--}-->
+
+<!--.clearfix:before,-->
+<!--.clearfix:after {-->
+<!--display: table;-->
+<!--content: "";-->
+<!--}-->
+<!--.clearfix:after {-->
+<!--clear: both-->
+<!--}-->
+
+<!--.box-card {-->
+<!--width: 480px;-->
+<!--}-->
+<!--</style>-->
+
 
 <!--<template>-->
 <!--<div>-->

@@ -3,6 +3,7 @@
         <!--:default-active="$route.path"-->
         <el-menu
                 :default-active="activeMenuIndex()"
+                :default-openeds="openeds"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
@@ -25,10 +26,10 @@
                 <i class="el-icon-setting"></i>
                 <span slot="title" >会议管理</span>
             </el-menu-item>
-            <el-menu-item index="/Form">
-                <i class="el-icon-menu"></i>
-                <span slot="title">数据统计</span>
-            </el-menu-item>
+            <!--<el-menu-item index="/Form">-->
+                <!--<i class="el-icon-menu"></i>-->
+                <!--<span slot="title">数据统计</span>-->
+            <!--</el-menu-item>-->
             <el-submenu index="3" v-show="$store.state.roles === 0">
                 <template slot="title">
                     <i class="el-icon-view"></i>
@@ -55,6 +56,11 @@
 <script>
     export default {
         name: "Aside.vue",
+        data(){
+            return{
+                openeds:['1']
+            }
+        },
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);

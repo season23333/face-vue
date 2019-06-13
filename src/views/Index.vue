@@ -1,153 +1,97 @@
 <template>
-    <div style="height: 100%                                                                                                                                                                                                                                                                                                                                               ">
-        <el-row :gutter="20" style="height: 80px">
-            <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
-                <section class="panel">
-                    <el-container>
-                        <div class="symbol" style="background: #6CCAC9">
-                            <img src="../assets/icon/user.png" class="icon-user" style="width: 57px;height: 57px">
-                        </div>
-                        <div class="value" style="padding-top: 10px">
-                            <!--<h3 style="font-size: 45px ">{{free_num}}</h3>-->
-                            <h3 style="font-size: 30px;margin: 10px">{{free_num}}</h3>
-                            <p class="myinline" style="margin-top: 2px">空闲会议室</p>
-                        </div>
-                    </el-container>
-                </section>
+    <div>
+        <div style="height: 100%                                                                                                                                                                                                                                                                                                                                               ">
+            <el-row :gutter="20" style="height: 80px">
+                <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
+                    <section class="panel">
+                        <el-container>
+                            <div class="symbol" style="background: #6CCAC9">
+                                <img src="../assets/icon/user.png" class="icon-user" style="width: 57px;height: 57px">
+                            </div>
+                            <div class="value" style="padding-top: 10px">
+                                <!--<h3 style="font-size: 45px ">{{free_num}}</h3>-->
+                                <h3 style="font-size: 30px;margin: 10px">{{free_num}}</h3>
+                                <p class="myinline" style="margin-top: 2px">空闲会议室</p>
+                            </div>
+                        </el-container>
+                    </section>
+                </el-col>
+                <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
+                    <section class="panel">
+                        <el-container>
+                            <div class="symbol" style="background: #FF6C60">
+                                <img src="../assets/icon/meeting.png" class="icon-meeting"
+                                     style="height: 67px ; width:67px">
+                            </div>
+                            <div class="value" style="padding-top: 10px">
+                                <!--页面跳转传参测试-->
+                                <!--<h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>-->
+                                <h3 style="font-size: 30px;margin: 10px">5</h3>
+                                <p class="myinline" style="margin-top: 2px">正在召开会议</p>
+                            </div>
+                        </el-container>
+                    </section>
+                </el-col>
+                <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
+                    <section class="panel">
+                        <el-container>
+                            <div class="symbol" style="background: #F8D347">
+                                <img src="../assets/icon/telephone.png" class="icon-telephone"
+                                     style="height: 62px ; width:62px">
+                            </div>
+                            <div class="value" style="padding-top: 10px">
+                                <!--<h3 style="font-size: 45px ">2</h3>-->
+                                <h3 style="font-size: 30px;margin: 10px">5</h3>
+                                <p class="myinline" style="margin-top: 2px">电话会议</p>
+                            </div>
+                        </el-container>
+                    </section>
+                </el-col>
+                <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
+                    <section class="panel">
+                        <el-container>
+                            <div class="symbol" style="background: #57C8F2">
+                                <img src="../assets/icon/label.png" class="icon-te"
+                                     style="height: 57px ; width:57px">
+                            </div>
+                            <div class="value" style="padding-top: 10px">
+                                <h3 style="font-size: 30px;margin: 10px">5</h3>
+                                <p class="myinline" style="margin-top: 2px">我的会议</p>
+                            </div>
+                        </el-container>
+                    </section>
+                </el-col>
+
+            </el-row>
+
+            <!--<div style="width: 80%;margin-left: 10%;margin-top: 2.8%">-->
+            <!--<blockquote style="font-size: 1.83em ; text-align: left ">-->
+            <!--<span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">-->
+            <!--字典里最重要的三个词，就是意志、工作、等待。<br>-->
+            <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将要在这三块基石上建立我成功的金字塔。——巴斯德-->
+
+            <!--</span>-->
+            <!--</blockquote>-->
+            <!--</div>-->
+        </div>
+        <el-row>
+            <el-col span="11">
+                <div id="myPie" ref="myPie" style="margin-top: 30px"></div>
             </el-col>
-            <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
-                <section class="panel">
-                    <el-container>
-                        <div class="symbol" style="background: #FF6C60">
-                            <img src="../assets/icon/meeting.png" class="icon-meeting"
-                                 style="height: 67px ; width:67px">
-                        </div>
-                        <div class="value" style="padding-top: 10px">
-                            <!--页面跳转传参测试-->
-                            <!--<h3 style="font-size: 45px ">{{this.$route.query.orderId}}</h3>-->
-                            <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p class="myinline" style="margin-top: 2px">正在召开会议</p>
-                        </div>
-                    </el-container>
-                </section>
-            </el-col>
-            <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
-                <section class="panel">
-                    <el-container>
-                        <div class="symbol" style="background: #F8D347">
-                            <img src="../assets/icon/telephone.png" class="icon-telephone"
-                                 style="height: 62px ; width:62px">
-                        </div>
-                        <div class="value" style="padding-top: 10px">
-                            <!--<h3 style="font-size: 45px ">2</h3>-->
-                            <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p class="myinline" style="margin-top: 2px">电话会议</p>
-                        </div>
-                    </el-container>
-                </section>
-            </el-col>
-            <el-col :xs="12" :sm="12" :lg="6" style="margin-bottom: 20px">
-                <section class="panel">
-                    <el-container>
-                        <div class="symbol" style="background: #57C8F2">
-                            <img src="../assets/icon/label.png" class="icon-te"
-                                 style="height: 57px ; width:57px">
-                        </div>
-                        <div class="value" style="padding-top: 10px">
-                            <h3 style="font-size: 30px;margin: 10px">5</h3>
-                            <p class="myinline" style="margin-top: 2px">我的会议</p>
-                        </div>
-                    </el-container>
-                </section>
+            <el-col span="13">
+                <div id="myChart" ref="myChart" style="float: left;margin-top: 30px"></div>
             </el-col>
 
         </el-row>
-        <el-row :gutter="40" style="margin-top: 10px;height: 45%">
-            <el-col :span="10">
-                <div class="grid-content">
-                    <el-card class="box-card" style="width: 100% ; height: 295px " shadow="always">
-                        <div slot="header" class="clearfix" style="text-align: left">
-                            <i class="el-icon-tickets"></i>&nbsp;
-                            <span style="font-size: 1.5em ; font-weight: bold ">最新公告</span>
-                        </div>
-                        <!--<div v-for="o in 4" :key="o" class="text item">-->
-                        <!--{{'列表内容 ' + o }}-->
-                        <!--</div>-->
-                        <div style="text-align: left ; padding-top: 2%">
-                            <span style="font-size: 17px ; color: grey ">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
-                            <span style="font-size: 17px ; color: grey">我们要隆重召开第一次会议了! <small
-                                    style="margin-left: 33%">2019.3.1</small></span><br><br>
-                        </div>
-
-                    </el-card>
-                </div>
-            </el-col>
-            <el-col :span="14">
-                <div class="grid-content">
-                    <el-card class="box-card" style="width: 100% ; height: 295px" shadow="always">
-                        <div slot="header" class="clearfix" style="text-align: left">
-                            <i class="el-icon-edit-outline"></i>&nbsp;
-                            <span style="font-size: 1.5em ; font-weight: bold ">常见问题</span>
-                        </div>
-                        <div style="text-align: left">
-                            <el-tag size="small">Q</el-tag>
-                            <span style="font-size: 16px">
-                                会议室预约管理系统能干什么?
-                            </span>
-                            <br>
-                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
-                            <span style="font-size: 16px ; color: darkgrey">
-                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
-                            </span>
-                            <br><br>
-                            <el-tag size="small">Q</el-tag>
-                            <span style="font-size: 16px">
-                                会议室预约管理系统能干什么?
-                            </span>
-                            <br>
-                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
-                            <span style="font-size: 16px ; color: darkgrey">
-                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
-                            </span>
-                            <br><br>
-                            <el-tag size="small">Q</el-tag>
-                            <span style="font-size: 16px">
-                                会议室预约管理系统能干什么?
-                            </span>
-                            <br>
-                            <el-tag size="small" type="info" style="margin-top: 1% ">A</el-tag>
-                            <span style="font-size: 16px ; color: darkgrey">
-                                可以按时间或日期快速预约会议，也可以通过向导推荐准确预约会议。支持临时会议...
-                            </span>
-                            <br><br>
-                        </div>
-                    </el-card>
-                </div>
-
-            </el-col>
-        </el-row>
-        <!--<div style="width: 80%;margin-left: 10%;margin-top: 2.8%">-->
-        <!--<blockquote style="font-size: 1.83em ; text-align: left ">-->
-        <!--<span style="font-family: 微软雅黑 ; font-style: italic ; margin-left: 6%">-->
-        <!--字典里最重要的三个词，就是意志、工作、等待。<br>-->
-        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将要在这三块基石上建立我成功的金字塔。——巴斯德-->
-
-        <!--</span>-->
-        <!--</blockquote>-->
-        <!--</div>-->
     </div>
+
 </template>
 
 <script>
     import {getFreeRoom} from '../api/room'
-    import {getUserGroup} from '../api/user'
+    import echarts from '@/util/echarts'
+    import {getFormData,getPieData} from '../api/form';
+    // import {getUserGroup} from '../api/user'
     // import {formatDate} from "../util/formatDate";
 
     export default {
@@ -156,15 +100,65 @@
             return {
                 free_num: 0,
                 timer: null,
-                date: new Date()
+                date: new Date(),
+                test: [320, 302, 301, 334, 390, 330, 320],
+                cancelList: [],
+                nameList: [],
+                partList: [],
+                rejectList: [],
+                passList: [],
+                apply: {
+                    value: '',
+                    name: ''
+                },
+                pass: {
+                    value: '',
+                    name: ''
+                },
+                reject: {
+                    value: '',
+                    name: ''
+                },
+                cancel: {
+                    value: '',
+                    name: ''
+                },
+                part: {
+                    value: '',
+                    name: ''
+                },
             }
         },
-        created() {
-            getUserGroup().then(res =>{
-                console.log(res.data)
+        mounted(){
+            getFormData().then(res => {
+                console.log(res.data.cancelList);
+                // this.cancelList = [].concat(res.data.cancelList);
+                this.cancelList = res.data.cancelList;
+                this.nameList = res.data.nameList;
+                this.partList = res.data.partList;
+                this.rejectList = res.data.rejectList;
+                this.passList = res.data.passList;
+            }).then(() => {
+                // console.log(this.cancelList)
+                this.draw();
+            });
+            getPieData().then(res => {
+                console.log(res.data);
+                this.apply = res.data.apply;
+                this.pass = res.data.pass;
+                this.reject = res.data.reject;
+                this.cancel = res.data.cancel;
+                this.part = res.data.part;
+            }).then(() => {
+                this.drawPie();
             })
-            console.log('角色');
-            console.log( this.$store.state.roles);
+        },
+        created() {
+            // getUserGroup().then(res =>{
+            //     console.log(res.data)
+            // });
+            // console.log('角色');
+            // console.log( this.$store.state.roles);
             this.getList();
             this.timer = setInterval(() => {
                 this.getList()
@@ -176,6 +170,241 @@
                 getFreeRoom().then(response => {
                     this.free_num = response.data;
                     // console.log(response.data);
+                })
+            },
+            draw() {
+                // 实例化echarts对象
+                var myChart = echarts.init(this.$refs.myChart, 'walden');
+                // 绘制条形图
+                myChart.setOption({
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['申请通过', '参与', '驳回', '取消']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value'
+                    },
+                    yAxis: {
+                        type: 'category',
+                        boundaryGap: [0.2, 0.2],
+                        scale: true,
+                        data: this.nameList
+                    },
+                    dataZoom: [
+                        {
+                            type: 'slider',
+                            show: true,
+                            yAxisIndex: [0],
+                            left: '93%',
+                            // start: 0, //数据窗口范围的起始百分比
+                            // end: 100
+                            startValue: 0,
+                            endValue: 7,//只显示7个数据
+                        },
+                        {
+                            type: 'inside',
+                            yAxisIndex: [0],
+                            start: 0,
+                            end: 36
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '申请通过',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.value;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            data: this.passList
+                        },
+                        {
+                            name: '参与',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.value;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            data: this.partList
+                        },
+                        {
+                            name: '驳回',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.value;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            data: this.rejectList
+                        },
+                        {
+                            name: '取消',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.value;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            data: this.cancelList
+                        },
+                    ]
+                })
+            },
+            drawPie() {
+                // 实例化echarts对象
+                var myChart = echarts.init(this.$refs.myPie);
+
+                // 绘制条形图
+                myChart.setOption({
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: ['通过', '驳回', '参与', '取消']
+                    },
+                    series: [
+                        {
+                            name: '状态',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: [0, '30%'],
+
+                            label: {
+                                normal: {
+                                    position: 'inner',
+                                    formatter: function (params) {
+                                        if (params.value > 0) {
+                                            return params.name;
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+                                {value: this.apply.value, name: this.apply.name},
+                                {value: this.part.value, name: this.part.name, selected: true},
+                                // {value:1548, name:'搜索引擎'}
+                            ]
+                        },
+
+                        {
+                            name: '状态',
+                            type: 'pie',
+                            radius: ['40%', '55%'],
+                            label: {
+                                normal: {
+                                    formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                    backgroundColor: '#eee',
+                                    borderColor: '#aaa',
+                                    borderWidth: 1,
+                                    borderRadius: 4,
+                                    // shadowBlur:3,
+                                    // shadowOffsetX: 2,
+                                    // shadowOffsetY: 2,
+                                    // shadowColor: '#999',
+                                    // padding: [0, 7],
+                                    rich: {
+                                        a: {
+                                            color: '#999',
+                                            lineHeight: 22,
+                                            align: 'center'
+                                        },
+                                        // abg: {
+                                        //     backgroundColor: '#333',
+                                        //     width: '100%',
+                                        //     align: 'right',
+                                        //     height: 22,
+                                        //     borderRadius: [4, 4, 0, 0]
+                                        // },
+                                        hr: {
+                                            borderColor: '#aaa',
+                                            width: '100%',
+                                            borderWidth: 0.5,
+                                            height: 0
+                                        },
+                                        b: {
+                                            fontSize: 16,
+                                            lineHeight: 33
+                                        },
+                                        per: {
+                                            color: '#eee',
+                                            backgroundColor: '#334455',
+                                            padding: [2, 4],
+                                            borderRadius: 2
+                                        }
+                                    }
+                                }
+                            },
+                            data: [
+                                {value: this.part.value, name: this.part.name},
+                                {value: this.cancel.value, name: this.cancel.name},
+                                {value: this.reject.value, name: this.reject.name},
+                                {value: this.pass.value, name: this.pass.name},
+                                // {value: 1048, name: '百度'},
+                                // {value: 251, name: '谷歌'},
+                                // {value: 147, name: '必应'},
+                                // {value: 102, name: '其他'}
+                            ]
+                        }
+                    ]
                 })
             }
         }
@@ -324,4 +553,16 @@
     /*bottom: 0em;*/
     /*line-height: 0.1em;*/
     /*}*/
+    #myChart {
+        width: 100%;
+        height: 500px;
+        /*margin: 20px auto;*/
+        /*border: 1px solid #CCC*/
+    }
+    #myPie {
+        width: 100%;
+        height: 500px;
+        /*margin: 20px auto;*/
+        /*border: 1px solid #CCC*/
+    }
 </style>
