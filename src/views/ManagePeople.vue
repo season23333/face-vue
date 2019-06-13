@@ -13,7 +13,7 @@
                     :visible.sync="searchDialog"
                     width="400px"
                     :before-close="handleClose1">
-                <el-form ref="searchForm" :model="searchForm" label-width="80px" class="demo-ruleForm"
+                <el-form ref="mySearch" :model="searchForm" label-width="80px" class="demo-ruleForm"
                          :rules="rules1">
                     <el-form-item label="姓名" prop="realName">
                         <el-input v-model="searchForm.realName"></el-input>
@@ -181,7 +181,6 @@
                     value: ''
                 }],
                 temp: [{}],
-
                 loading: true,
                 rules1: {
                     realName: [
@@ -276,7 +275,7 @@
             handleClose1(done) {
                 this.$confirm('确认关闭？')
                     .then(() => {
-                        this.$refs.searchForm.resetFields();
+                        this.$refs.mySearch.resetFields();
                         this.searchDialog = false;
                         done();
                     })
@@ -284,7 +283,9 @@
                     });
             },
             onSubmit() {
-                this.$refs['searchForm'].validate((valid) => {
+                console.log(this.searchForm);
+                console.log(this.searchForm1);
+                this.$refs['mySearch'].validate((valid) => {
                     if (valid) {
                         // console.log(this.tableData.find(item => item.userID === this.modifyForm.userID1));
                         if (this.searchForm.phoneNumber !== this.searchForm1.phoneNumber) {
@@ -304,12 +305,14 @@
                                 this.showPage();
                             });
                         }
-                        // console.log(this.searchForm1.department)
+                        // // console.log(this.searchForm1.department)
                         if ((this.searchForm.realName !== this.searchForm1.realName) ||
                             (this.searchForm.department !== this.searchForm1.department)) {
                             // console.log(this.searchForm.userID, this.searchForm.realName, this.searchForm.department)
+                            console.log(2)
                             basicInfo(this.searchForm.userID, this.searchForm.realName, this.searchForm.department).then(res => {
-                                this.res1 = res.status;
+                                this.res3 = res.status;
+                                console.log(1)
                                 // console.log(res.status)
                             }).then(()=>{
                                 this.showDetails();//获取所有会议列表
@@ -320,6 +323,7 @@
                             var password = this.$md5(this.searchForm.password);
                             modifyPassword(this.searchForm.userID, password).then(res => {
                                 this.res4 = res.status;
+
                                 // console.log(res.status)
                             }).then(()=>{
                                 this.showDetails();//获取所有会议列表

@@ -13,6 +13,7 @@ require("echarts/lib/component/dataZoom");
 require("echarts/lib/component/markPoint");
 require("echarts/lib/component/markLine");
 require("echarts/lib/component/legend");
+require("echarts/lib/component/grid");
 require("echarts/lib/theme/walden");
 
 export default echarts
