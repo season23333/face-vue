@@ -534,7 +534,7 @@
                     // console.log('取消预定' + res.message);
                     if (res.status === 0) {
                         this.$message({
-                            message: res.message,
+                            message: '会议取消成功',
                             type: 'success'
                         });
                     }
