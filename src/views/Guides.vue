@@ -6,9 +6,75 @@
                 <el-table-column property="building" label="楼宇"></el-table-column>
                 <el-table-column property="catalogue" label="类型"></el-table-column>
                 <el-table-column property="capacity" label="容量"></el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                                size="mini"
+                                type="success"
+                                @click="handleReserve(scope.row)">预定
+                        </el-button>
+                    </template>
+                </el-table-column>
             </el-table>
         </el-dialog>
-
+        <el-dialog
+                title="推荐会议室预定"
+                :visible.sync="reserveDialogVisible"
+                width="523px"
+                :before-close="closeReserve">
+            <el-form ref="ReserveForm" :model="ReserveForm" label-width="80px" class="demo-ruleForm"
+                     :rules="reserveRule">
+                <el-form-item label="申请人" prop="realName">
+                    <el-input
+                            placeholder="申请人"
+                            v-model="ReserveForm.realName"
+                            :disabled="true">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="会议名称" prop="name">
+                    <el-input v-model="ReserveForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="活动日期" prop="startTime">
+                    <el-date-picker
+                            align="center"
+                            v-model="ReserveForm.startTime"
+                            type="datetimerange"
+                            :picker-options="pickerOptions0"
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
+                    </el-date-picker>
+                </el-form-item>
+                <!--<el-row :gutter="20">-->
+                    <!--<el-col :span="14">-->
+                        <el-form-item label="会议楼宇" prop="building" style="margin-left: 0">
+                            <el-input
+                                    v-model="ReserveForm.building"
+                                    :disabled="true">
+                            </el-input>
+                        </el-form-item>
+                    <!--</el-col>-->
+                    <!--<el-col :span="10">-->
+                        <el-form-item prop="room" label="会议室">
+                            <el-input
+                                    v-model="ReserveForm.room"
+                                    :disabled="true">
+                            </el-input>
+                        </el-form-item>
+                    <!--</el-col>-->
+                <!--</el-row>-->
+                <el-form-item label="参会人数" prop="num">
+                    <el-input-number v-model="ReserveForm.num" :min="1" :max="1001" :step="1"
+                                     label="描述文字"></el-input-number>
+                </el-form-item>
+                <el-form-item style="text-align: right">
+                    <el-button @click="closeReserve">取 消</el-button>
+                    <el-button type="primary"
+                               @click="submitReserve('ReserveForm')">确 定
+                    </el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
         <el-steps :active="active" finish-status="success" align-center>
             <el-step title="会议时间"></el-step>
             <el-step title="会议室"></el-step>
@@ -715,7 +781,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                        <el-form-item  prop="room" id="time">
+                        <el-form-item prop="room" id="time">
                             <el-input
                                     v-model="form.room"
                                     :disabled="true">
@@ -753,11 +819,12 @@
         name: "Guides",
         data() {
             return {
+                reserveDialogVisible: false,
                 gridData: [{
-                    name: '',
-                    building: '',
-                    catalogue: '',
-                    capacity: ''
+                    name: '御用会议室',
+                    building: '刘孟骁大楼',
+                    catalogue: '豪华会议室',
+                    capacity: '50'
                 }],
                 dialogTableVisible: true,
                 loadingFlag: false,
@@ -862,6 +929,27 @@
                     buildingID: -1,
                     roomID: -1
                 },
+                ReserveForm: {
+                    realName: '',
+                    date: new Date(),
+                    name: '',
+                    startTime: '',
+                    endTime: '',
+                    building: '',
+                    room: '',
+                    num: 1,
+                    buildingID: -1,
+                    roomID: -1
+                },
+                reserveRule: {
+                    name: [
+                        {required: true, message: '请输入活动名称', trigger: 'blur'},
+                    ],
+                    startTime:
+                        [
+                            {required: true, message: '请选择时间', trigger: 'change'}
+                        ],
+                },
                 rules: {
                     name: [
                         {required: true, message: '请输入活动名称', trigger: 'blur'},
@@ -926,6 +1014,61 @@
             this.getBuilding();
         },
         methods: {
+            submitReserve(formName){
+                this.reserveDialogVisible = false;
+                // this.$refs[formName].validate((valid) => {
+                //     if (valid) {
+                //         var date = new Date();
+                //         var timestamp1 = Date.parse(formatDate(date, 'yyyy-MM-dd hh:mm:ss'));
+                //         timestamp1 = timestamp1 / 1000;
+                //         var timestamp = formatDate(this.form.startTime[0], 'yyyy-MM-dd hh:mm:ss');
+                //         timestamp = Date.parse(timestamp);
+                //         timestamp = timestamp / 1000;
+                //         if (timestamp < timestamp1) {
+                //             return this.$message.warning('请输入正确的时间');
+                //         }
+                //         //请求参数赋值
+                //         this.conference.subject = this.ReserveForm.name;
+                //         this.conference.room = this.ReserveForm.roomID;
+                //         this.conference.startTime = formatDate(this.ReserveForm.startTime[0], 'yyyy-MM-dd hh:mm:ss');
+                //         this.conference.endTime = formatDate(this.ReserveForm.startTime[1], 'yyyy-MM-dd hh:mm:ss');
+                //         getUserID().then(res => {
+                //             this.conference.user = res.data;
+                //         });
+                //         this.conference.number = this.ReserveForm.num;
+                //         // console.log(this.conference);
+                //         submitConference(this.conference).then(res => {
+                //             // console.log(res.status);
+                //             if (res.status === 0) {
+                //                 this.$message({
+                //                     message: '预定会议成功',
+                //                     type: 'success'
+                //                 });
+                //             }
+                //         }).then(() => {
+                //             showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                //                 this.loading = false;
+                //                 this.tableData = res.data;
+                //             })
+                //         });
+                //         this.dialogVisible = false;
+                //         this.$nextTick(() => {
+                //             this.$refs.form.resetFields();
+                //         });
+                //     } else {
+                //         // console.log('error submit!!');
+                //         return false;
+                //     }
+                // });
+            },
+            handleReserve(row) {
+                getUserInfo().then(res => {
+                    this.ReserveForm.realName = res.data.realName;
+                });
+                this.ReserveForm.building = row.building;
+                this.ReserveForm.room = row.name;
+                this.reserveDialogVisible = true;
+            },
             //输入的楼层数只能为大于1的正整数
             showTable() {
                 showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
@@ -1239,7 +1382,7 @@
                                     type: 'success'
                                 });
                             }
-                        }).then(()=>{
+                        }).then(() => {
                             showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
                                 this.loading = false;
                                 this.tableData = res.data;
@@ -1266,7 +1409,16 @@
                     .catch(() => {
                     });
             },
-
+            closeReserve(done) {
+                this.$confirm('确认关闭？')
+                    .then(() => {
+                        this.$refs.ReserveForm.resetFields();
+                        this.reserveDialogVisible = false;
+                        done();
+                    })
+                    .catch(() => {
+                    });
+            },
             // cellClassName({ row, column, rowIndex,columnIndex})
             cellClassName({columnIndex}) {
                 if (columnIndex > 1) {

@@ -309,7 +309,7 @@
                         if ((this.searchForm.realName !== this.searchForm1.realName) ||
                             (this.searchForm.department !== this.searchForm1.department)) {
                             // console.log(this.searchForm.userID, this.searchForm.realName, this.searchForm.department)
-                            console.log(2)
+                            // console.log(2)
                             basicInfo(this.searchForm.userID, this.searchForm.realName, this.searchForm.department).then(res => {
                                 this.res3 = res.status;
                                 console.log(1)
@@ -372,7 +372,8 @@
                 this.searchForm1.realName = this.searchForm.realName;
                 this.searchForm1.phoneNumber = this.searchForm.phoneNumber;
                 this.searchForm1.email = this.searchForm.email;
-
+                this.searchForm.password = '';
+                this.searchForm1.password = '';
                 // console.log(this.temp.find(item => item.name.realName === name.value).name)
                 // console.log(this.searchForm);
             },
