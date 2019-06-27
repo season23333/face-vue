@@ -3,7 +3,7 @@
         <el-dialog title="预定推荐" :visible.sync="dialogTableVisible">
             <el-table :data="gridData">
                 <el-table-column property="name" label="会议室"></el-table-column>
-                <el-table-column property="building" label="楼宇"></el-table-column>
+                <el-table-column property="building.name" label="楼宇"></el-table-column>
                 <el-table-column property="catalogue" label="类型"></el-table-column>
                 <el-table-column property="capacity" label="容量"></el-table-column>
                 <el-table-column label="操作">
@@ -47,9 +47,9 @@
                 </el-form-item>
                 <!--<el-row :gutter="20">-->
                     <!--<el-col :span="14">-->
-                        <el-form-item label="会议楼宇" prop="building" style="margin-left: 0">
+                        <el-form-item label="会议楼宇" prop="building.name" style="margin-left: 0">
                             <el-input
-                                    v-model="ReserveForm.building"
+                                    v-model="ReserveForm.building.name"
                                     :disabled="true">
                             </el-input>
                         </el-form-item>
@@ -814,6 +814,7 @@
     import {getType, getRoomName} from '../api/room'
     // import axios from 'axios';
     import {getUserInfo, getUserID} from '../api/user'
+    import {getIntelligence} from "../api/room";
 
     export default {
         name: "Guides",
@@ -822,9 +823,13 @@
                 reserveDialogVisible: false,
                 gridData: [{
                     name: '御用会议室',
-                    building: '刘孟骁大楼',
+                    building: {
+                        name:'',
+                        buildingID:''
+                    },
                     catalogue: '豪华会议室',
-                    capacity: '50'
+                    capacity: '50',
+                    roomID:''
                 }],
                 dialogTableVisible: true,
                 loadingFlag: false,
@@ -958,14 +963,12 @@
                         [
                             {required: true, message: '请选择时间', trigger: 'change'}
                         ],
-                }
-                ,
+                },
                 pickerOptions0: {
                     disabledDate(time) {
                         return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
                     }
-                }
-                ,
+                },
                 room: [{
                     name: '请选择会议室',
                     roomID: -1,
@@ -980,13 +983,10 @@
                     status: '1',
                 },
                 char1: ' ',
-                char2:
-                    ':00',
-                minTime:
-                    '',
+                char2: ':00',
+                minTime: '',
                 //最后发请求的对象
-                submitForm:
-                    {
+                submitForm: {
                         startTime: '',
                         endTime:
                             '',
@@ -1000,11 +1000,9 @@
                             '-1',
                         type:
                             '-1'
-                    }
-                ,
+                    },
                 flag: false,
-            }
-                ;
+            };
         },
         created() {
             this.getTableData();
@@ -1012,54 +1010,62 @@
             this.getAddress();
             //获取所有会议楼宇
             this.getBuilding();
+            this.showIntelligence();
         },
         methods: {
+            showIntelligence() {
+                getIntelligence().then(res=>{
+                    this.gridData = res.data;
+                    console.log(this.gridData);
+                })
+            },
             submitReserve(formName){
                 this.reserveDialogVisible = false;
-                // this.$refs[formName].validate((valid) => {
-                //     if (valid) {
-                //         var date = new Date();
-                //         var timestamp1 = Date.parse(formatDate(date, 'yyyy-MM-dd hh:mm:ss'));
-                //         timestamp1 = timestamp1 / 1000;
-                //         var timestamp = formatDate(this.form.startTime[0], 'yyyy-MM-dd hh:mm:ss');
-                //         timestamp = Date.parse(timestamp);
-                //         timestamp = timestamp / 1000;
-                //         if (timestamp < timestamp1) {
-                //             return this.$message.warning('请输入正确的时间');
-                //         }
-                //         //请求参数赋值
-                //         this.conference.subject = this.ReserveForm.name;
-                //         this.conference.room = this.ReserveForm.roomID;
-                //         this.conference.startTime = formatDate(this.ReserveForm.startTime[0], 'yyyy-MM-dd hh:mm:ss');
-                //         this.conference.endTime = formatDate(this.ReserveForm.startTime[1], 'yyyy-MM-dd hh:mm:ss');
-                //         getUserID().then(res => {
-                //             this.conference.user = res.data;
-                //         });
-                //         this.conference.number = this.ReserveForm.num;
-                //         // console.log(this.conference);
-                //         submitConference(this.conference).then(res => {
-                //             // console.log(res.status);
-                //             if (res.status === 0) {
-                //                 this.$message({
-                //                     message: '预定会议成功',
-                //                     type: 'success'
-                //                 });
-                //             }
-                //         }).then(() => {
-                //             showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
-                //                 this.loading = false;
-                //                 this.tableData = res.data;
-                //             })
-                //         });
-                //         this.dialogVisible = false;
-                //         this.$nextTick(() => {
-                //             this.$refs.form.resetFields();
-                //         });
-                //     } else {
-                //         // console.log('error submit!!');
-                //         return false;
-                //     }
-                // });
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        var date = new Date();
+                        var timestamp1 = Date.parse(formatDate(date, 'yyyy-MM-dd hh:mm:ss'));
+                        timestamp1 = timestamp1 / 1000;
+                        var timestamp = formatDate(this.ReserveForm.startTime[0], 'yyyy-MM-dd hh:mm:ss');
+                        timestamp = Date.parse(timestamp);
+                        timestamp = timestamp / 1000;
+                        if (timestamp < timestamp1) {
+                            return this.$message.warning('请输入正确的时间');
+                        }
+                        //请求参数赋值
+                        this.conference.subject = this.ReserveForm.name;
+                        this.conference.room = this.ReserveForm.roomID;
+                        this.conference.startTime = formatDate(this.ReserveForm.startTime[0], 'yyyy-MM-dd hh:mm:ss');
+                        this.conference.endTime = formatDate(this.ReserveForm.startTime[1], 'yyyy-MM-dd hh:mm:ss');
+                        getUserID().then(res => {
+                            this.conference.user = res.data;
+                        });
+                        this.conference.number = this.ReserveForm.num;
+                        console.log(this.conference);
+                        submitConference(this.conference).then(res => {
+                            // console.log(res.status);
+                            if (res.status === 0) {
+                                this.$message({
+                                    message: '预定会议成功',
+                                    type: 'success'
+                                });
+                                this.dialogTableVisible = false;
+                            }
+                        }).then(() => {
+                            showTable(this.submitForm.startTime, this.submitForm.endTime, this.submitForm.address, this.submitForm.buildingID, this.submitForm.location, this.submitForm.size, this.submitForm.type).then(res => {
+                                this.loading = false;
+                                this.tableData = res.data;
+                            })
+                        });
+                        this.dialogVisible = false;
+                        this.$nextTick(() => {
+                            this.$refs.ReserveForm.resetFields();
+                        });
+                    } else {
+                        // console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
             handleReserve(row) {
                 getUserInfo().then(res => {
@@ -1067,6 +1073,7 @@
                 });
                 this.ReserveForm.building = row.building;
                 this.ReserveForm.room = row.name;
+                this.ReserveForm.roomID = row.roomID;
                 this.reserveDialogVisible = true;
             },
             //输入的楼层数只能为大于1的正整数

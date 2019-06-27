@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "babel-loader": "^7.1.5",
+    "compression-webpack-plugin": "^3.0.0",
     "dayspan": "^0.12.2",
     "dayspan-vuetify": "^0.4.0",
     "element-ui": "^2.5.4",

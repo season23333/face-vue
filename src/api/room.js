@@ -126,3 +126,10 @@ export function searchPage(params, pageCurrent, pageSize) {
         params: {params: params, pageCurrent: pageCurrent, pageSize: pageSize}
     })
 }
+
+export function getIntelligence() {
+    return request({
+        url: 'room/intelligence',
+        method: 'get',
+    })
+}
